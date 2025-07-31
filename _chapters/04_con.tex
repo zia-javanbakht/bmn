@@ -1,0 +1,233 @@
+\chapter{مرور مدل های مواد}
+
+\section{نظریه‌های ساختاری خطی کلاسیک}
+
+\subsection{اصول بنیادی}
+
+\subsubsection{عینیت}
+روابط ساختاری باید نسبت به تبدیل مختصات ناوردا باشند.
+
+\subsubsection{تقارن مادی}
+خواص مادی باید گروه تقارن مادی را منعکس کنند.
+
+\subsubsection{سازگاری ترمودینامیکی}
+روابط ساختاری باید نابرابری کلاؤزیوس-دوهم را رعایت کنند.
+
+\subsection{الاستیسیته‌ی خطی}
+
+\subsubsection{قانون تعمیم یافته‌ی هوک}
+برای مواد الاستیک خطی:
+\begin{equation}
+	\tenb{\sigma} = \mathbb{C} : \boldsymbol{\varepsilon}
+\end{equation}
+
+که $\mathbb{C}$ تانسور مدول‌های الاستیک مرتبه‌ی چهارم است.
+
+\subsubsection{مواد همسان}
+برای مواد الاستیک همسان:
+\begin{equation}
+	\tenb{\sigma} = \lambda (\text{tr} \boldsymbol{\varepsilon}) \unitb + 2\mu \boldsymbol{\varepsilon}
+\end{equation}
+
+که $\lambda$ و $\mu$ ثابت‌های لامه هستند.
+
+مدول‌های مهندسی:
+\begin{align}
+	E   & = \frac{\mu(3\lambda + 2\mu)}{\lambda + \mu} & \text{(مدول یانگ)}   \\
+	\nu & = \frac{\lambda}{2(\lambda + \mu)}           & \text{(نسبت پواسون)} \\
+	G   & = \mu                                        & \text{(مدول برشی)}   \\
+	K   & = \lambda + \frac{2\mu}{3}                   & \text{(مدول حجمی)}
+\end{align}
+
+\subsection{رفتار ویسکوز خطی}
+
+\subsubsection{سیالات نیوتونی}
+\begin{equation}
+	\tenb{\sigma} = -p \unitb + 2\mu \tenb{D} + \lambda_v (\nabla \scp \tena{v}) \unitb
+\end{equation}
+
+که $\tenb{D} = \frac{1}{2}(\nabla \tena{v} + (\nabla \tena{v})^\tran)$ تانسور نرخ تغییرشکل است.
+
+\subsection{ویسکوالاستیسیته‌ی خطی}
+
+\subsubsection{مدل‌های مکانیکی}
+مدل ماکسول:
+\begin{equation}
+	\frac{d\sigma}{dt} + \frac{E}{\eta} \sigma = E \frac{d\varepsilon}{dt}
+\end{equation}
+
+مدل کلوین:
+\begin{equation}
+	\sigma + \frac{\eta}{E} \frac{d\sigma}{dt} = \eta \frac{d\varepsilon}{dt}
+\end{equation}
+
+\section{نظریه‌های میدان جفت شده}
+
+\subsection{چارچوب ترمودینامیکی}
+
+میدان‌های جفت شده نیازمند چارچوب ترمودینامیکی منسجمی هستند که اصول بنیادی حاکم بر اثرات جفت‌شدگی را تعریف کند.
+
+\subsection{ترموالاستیسیته‌ی خطی}
+
+\subsubsection{معادلات جفت شده}
+معادله‌ی حرکت:
+\begin{equation}
+	\nabla \scp \tenb{\sigma} + \rho \tena{b} = \rho \ddot{\tena{u}}
+\end{equation}
+
+معادله‌ی انرژی:
+\begin{equation}
+	\rho c_\varepsilon \dot{T} = k \nabla^2 T + T_0 \alpha_{ij} \dot{\sigma}_{ij} + \rho r
+\end{equation}
+
+رابطه‌ی ساختاری:
+\begin{equation}
+	\sigma_{ij} = C_{ijkl} \varepsilon_{kl} - \alpha_{ij} (T - T_0)
+\end{equation}
+
+\subsection{پوروالاستیسیته}
+
+\subsubsection{نظریه‌ی بیوت}
+معادله‌ی تعادل:
+\begin{equation}
+	\nabla \scp \tenb{\sigma}' + \alpha \nabla p + \rho \tena{b} = \rho \ddot{\tena{u}}
+\end{equation}
+
+معادله‌ی انتشار:
+\begin{equation}
+	\nabla \scp \left( \frac{k}{\mu_f} \nabla p \right) = \frac{1}{M} \dot{p} + \alpha \nabla \scp \dot{\tena{u}}
+\end{equation}
+
+که در آن $\tenb{\sigma}' = \tenb{\sigma} + \alpha p \unitb$ تنش مؤثر است.
+
+\section{رفتار مادی غیرخطی}
+
+\subsection{چارچوب کلی}
+
+رفتار غیرخطی نیازمند تعمیم اصول عینیت، تقارن مادی، و محدودیت‌های ترمودینامیکی است.
+
+\subsection{فراالاستیسیته}
+
+\subsubsection{تابع انرژی کرنش}
+برای مواد فراالاستیک:
+\begin{equation}
+	\tenb{\sigma} = 2\rho_0 \frac{\partial W}{\partial \tenb{C}} \tenb{F}^\tran
+\end{equation}
+
+\subsubsection{مدل‌های متداول}
+مدل نئو-هوکین:
+\begin{equation}
+	W = \frac{\mu}{2}(I_1 - 3) - \mu \ln J + \frac{\lambda}{2}(\ln J)^2
+\end{equation}
+
+مدل مونی-ریولین:
+\begin{equation}
+	W = C_{10}(I_1 - 3) + C_{01}(I_2 - 3) + \frac{\kappa}{2}(J - 1)^2
+\end{equation}
+
+\subsection{پلاستیسیته‌ی کلاسیک}
+
+\subsubsection{معیار تسلیم}
+معیار فون میزس:
+\begin{equation}
+	f = \sqrt{\frac{3}{2} \tenb{s} : \tenb{s}} - \sigma_y = 0
+\end{equation}
+
+\subsubsection{قانون جریان}
+قانون جریان انطباقی:
+\begin{equation}
+	\dot{\boldsymbol{\varepsilon}}^p = \dot{\lambda} \frac{\partial f}{\partial \tenb{\sigma}}
+\end{equation}
+
+\section{ملاحظات ریزساختاری}
+
+\subsection{عنصر حجمی نماینده}
+
+نظریه‌ی همگن‌سازی و جداسازی مقیاس نیازمند تعریف عنصر حجمی نماینده (RVE) است که خواص مؤثر را نمایندگی کند.
+
+\subsection{نظریه‌ی میکروپولار}
+
+\subsubsection{درجات آزادی اضافی}
+علاوه بر جابه‌جایی $\tena{u}$، میکروچرخش مستقل $\boldsymbol{\phi}$ در نظر گرفته می‌شود.
+
+\subsubsection{معادلات تعادل}
+تعادل نیرو:
+\begin{equation}
+	\nabla \scp \tenb{\sigma} + \rho \tena{b} = \rho \ddot{\tena{u}}
+\end{equation}
+
+تعادل گشتاور:
+\begin{equation}
+	\nabla \scp \boldsymbol{\mu} + \boldsymbol{\varepsilon} : \tenb{\sigma} + \rho \tena{l} = \rho \tenb{J} \cdot \ddot{\boldsymbol{\phi}}
+\end{equation}
+
+\subsection{نظریه‌های گرادیان کرنش}
+
+برای در نظر گیری اثرات مقیاس طول مادی:
+\begin{equation}
+	\sigma_{ij} = C_{ijkl} \varepsilon_{kl} - l^2 C_{ijkl} \nabla^2 \varepsilon_{kl}
+\end{equation}
+
+که $l$ مقیاس طول مشخصه‌ی مادی است.
+
+\section{مدل‌سازی چندمقیاسه}
+
+\subsection{رویکردهای سلسله‌مراتبی}
+
+اطلاعات از مقیاس کوچک‌تر به بزرگ‌تر منتقل می‌شود:
+\begin{equation}
+	\langle \sigma \rangle = \frac{1}{V} \int_V \sigma(\tena{x}) \, dV
+\end{equation}
+
+\subsection{رویکردهای همزمان}
+
+مقیاس‌های مختلف به‌طور همزمان حل می‌شوند.
+
+\section{پیاده‌سازی محاسباتی}
+
+\subsection{روش اجزای محدود}
+
+\subsubsection{فرمول‌بندی ضعیف}
+برای مسئله‌ی الاستیسیته:
+\begin{equation}
+	\int_\Omega \tenb{\sigma} : \nabla^s \tena{v} \, d\Omega = \int_\Omega \rho \tena{b} \scp \tena{v} \, d\Omega + \int_{\Gamma_t} \tena{t} \scp \tena{v} \, d\Gamma
+\end{equation}
+
+\subsection{الگوریتم‌های غیرخطی}
+
+\subsubsection{روش نیوتن-رافسون}
+برای حل معادلات غیرخطی:
+\begin{equation}
+	\tenb{K}_t \Delta \tena{u} = \tena{R} - \tena{F}_{int}
+\end{equation}
+
+که $\tenb{K}_t$ ماتریس سختی مماسی است.
+
+\section{جمع‌بندی و چشم‌انداز}
+
+مکانیک پیوسته چارچوب جامع و قدرتمندی برای درک و پیش‌بینی رفتار مواد در شرایط مختلف فراهم می‌کند. از مفاهیم بنیادی فرضیه‌ی پیوستار تا نظریه‌های پیشرفته چندمقیاسه، این رشته همچنان در حال تکامل است تا نیازهای مهندسی مدرن را برآورده کند.
+
+\subsection{توسعه‌های آینده}
+
+\paragraph{مواد هوشمند و نانومواد}
+\begin{itemize}
+	\item توسعه‌ی نظریه‌های ساختاری برای مواد با اثرات اندازه
+	\item مدل‌سازی رفتار چندفعالی در مواد هوشمند
+	\item درنظرگیری اثرات سطحی در مقیاس‌های کوچک
+\end{itemize}
+
+\paragraph{محاسبات عملکرد بالا}
+\begin{itemize}
+	\item الگوریتم‌های موازی برای مسائل چندمقیاسه
+	\item استفاده از هوش مصنوعی در پیش‌بینی رفتار مادی
+	\item روش‌های کاهش مدل برای شبیه‌سازی‌های بلادرنگ
+\end{itemize}
+
+\paragraph{کاربردهای نوظهور}
+\begin{itemize}
+	\item بیومکانیک و مهندسی بافت
+	\item مواد پایدار و سبز
+	\item کاربردهای فضایی و محیط‌های شدید
+\end{itemize}
+
+مکانیک پیوسته با ترکیب دقت ریاضی، بینش فیزیکی، و قابلیت‌های محاسباتی، همچنان به‌عنوان پایه‌ی اساسی مهندسی مدرن عمل می‌کند و راه را برای نوآوری‌های آینده در علم و فناوری مواد هموار می‌سازد.
