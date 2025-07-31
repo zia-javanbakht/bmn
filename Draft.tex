@@ -60,12 +60,20 @@
 % ──────────────────────────────────────────────────────────────────────────────────────────────────
 % Chapters
 % ──────────────────────────────────────────────────────────────────────────────────────────────────
-\input{_chapters/01_intro.tex}
-\input{_chapters/02_tensor.tex}
-\input{_chapters/03_cm.tex}
 
+\begin{persian}
+	\input{_chapters/01_intro.tex}
+	\input{_chapters/02_tensor.tex}
+	\input{_chapters/03_cm.tex}
+\end{persian}
 
 % Print references
-\printbibliography[title=References,heading=bibintoc]
+\newpage
+\begin{latin}
+	\addcontentsline{toc}{chapter}{منابع}
+	\printbibliography[title={\protect\rl{منابع\hfill}}]
+\end{latin}
+
+
 \end{document}
 

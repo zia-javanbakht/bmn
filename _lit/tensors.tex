@@ -1,0 +1,104 @@
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% !TeX TS-program = xelatex
+% !TeX spellcheck = en_GB
+% !BIB TS-program = biber
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+\documentclass[11pt]{Z}
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% PREAMBLE
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+\subject{Personal Notes}
+\title{Tensors}
+\subtitle{Foundations of Continuum Mechanics}
+\author{Zia Javanbakht}
+
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+% PREAMBLE Template
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+%\titlehead{\centering\includegraphics[width=0.4\linewidth]{logo.pdf}}
+%\subject{Candidacy Examination}
+%\title{Design of Novel Connections in CLT Shearwalls}
+%\subtitle{Summarising Measures of Deformation}
+%\author{XX YY}
+\date{Started 2017}
+%\publishers{Dr Sardar Malek\\Dr Zia Javanbakht}
+%\dedication{Department of Civil Engineering\\Faculty of Engineering and Computer Science\\University of Victoria}
+
+
+% list of references
+\addbibresource{./_refs/clean_CM_focus.bib}
+
+\pagestyle{empty}
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% Title page
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+\begin{document}
+\maketitle
+%\begin{abstract}
+%foo
+%\end{abstract}
+{\centering\sffamily\scriptsize\bullet\ Last updated \today\ \bullet\par}
+\pagebreak
+\hypersetup{linkcolor  = black}
+\tableofcontents
+\hypersetup{linkcolor  = Green4}
+\newpage
+\pagestyle{headings}
+\setcounter{page}{1}
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% Main content
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+\section{Acoustic Tensor}
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+\paragraph{Definition}
+There are two definitions for the acoustic (localisation, polarisation, or characteristic stiffness) tensor~\autocite{Etse.1999,Ottosen.2005}:
+\begin{subequations}
+\begin{alignat}{4}
+\tenb{A} &\equidef \dir{n}\scp \tend{C}\scp\dir{n}
+&\qquad\equinot\qquad&
+A_{jk}&\equidef C_{ijkl}\hat{n}_i \hat{n}_l
+,\\
+\tenb{A} &\equidef \dir{n}\scp \tend{C}^\rtran\scp\dir{n}
+&\qquad\equinot\qquad&
+A_{jk}&\equidef C_{ijkl}\hat{n}_i \hat{n}_k
+,
+\end{alignat}
+\end{subequations}
+where $\dir{n}$ is the direction vector.
+
+\paragraph{Criteria for material instability}
+Material instability is detected under the singularity of the acoustic tensor, i.e., vanishing either the determinant or eigenvalues of the acoustic tensor. Criteria for detecting localisation are~\autocite{Staber.2021}:
+\begin{enumerate}
+\item loss of ellipticity (equivalent to non-singularity and is Rice's criterion for localisation): any zero eigenvalues for the acoustic tensor,
+\item loss of strong ellipticity: loss of positive-definiteness of the symmetrical tensor for all directions.
+\end{enumerate}
+
+\begin{example}[Acoustic tensor in elasticity]
+Acoustic tensor in isotropic elasticity is~\autocite{Bigoni.2012}:
+\begin{equation}
+\tenb{A}(\dir{n}) =  (\lambda+\mu)  \dir{n}\dyad \dir{n} + \mu\unitb,
+\end{equation}
+where instability criteria will be:
+\begin{enumerate}
+\item ellipticity (non-singularity): $\mu\neq 0 \wedge \lambda+2\mu\neq0$, or
+\item strong ellipticity (positive-definiteness): $\mu> 0 \wedge \lambda+2\mu>0$.
+\end{enumerate}
+
+\end{example}
+
+
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% Appendix
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+%\newpage
+%\appendix
+%\section{foo}
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% References
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+\newpage
+\printbibliography[title=References,heading=bibintoc]
+\end{document}
