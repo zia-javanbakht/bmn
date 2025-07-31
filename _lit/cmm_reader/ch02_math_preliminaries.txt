@@ -1,0 +1,477 @@
+\chapter{Mathematical Preliminaries}
+
+\quote{It's expedient to have two notions or languages in mathematics:\\[-4pt]
+\begin{enumerate}
+\item an explicit notation for use in calculations, and
+\item an abbreviated notation that may be used to record ideas, derivations, and so on.
+\end{enumerate}
+}[Walter Jaunzemis]
+
+
+\section{Index Notation and Einstein Summation Convention}
+
+Index notation provides an efficient mathematical language for continuum mechanics, enabling concise representation of complex tensor operations~\autocite{Sadd.2019}.
+
+\begin{keypoint}
+Mastery of index notation and Einstein summation convention is essential for efficient manipulation of tensor equations in continuum mechanics.
+\end{keypoint}
+
+\subsection{Fundamental Symbols}
+
+\textbf{Kronecker Delta}:
+\begin{equation}
+\delta_{ij} = \begin{cases}
+1 & \text{if } i = j \\
+0 & \text{if } i \neq j
+\end{cases}
+\end{equation}
+
+\textbf{Alternating Symbol (Permutation Tensor)}:
+\begin{equation}
+\varepsilon_{ijk} = \begin{cases}
++1 & \text{if } (i,j,k) \text{ is an even permutation of } (1,2,3) \\
+-1 & \text{if } (i,j,k) \text{ is an odd permutation of } (1,2,3) \\
+0 & \text{if any two indices are equal}
+\end{cases}
+\end{equation}
+
+\subsection{Einstein Summation Convention}
+
+When an index appears twice in a term, summation over that index is implied:
+\begin{equation}
+a_i b_i = \sum_{i=1}^3 a_i b_i = a_1 b_1 + a_2 b_2 + a_3 b_3
+\end{equation}
+
+\subsection{Index Classification}
+
+\textbf{Free Indices}: Appear once in each term and must appear on both sides of equations.
+
+\textbf{Dummy Indices}: Appear twice in a term (summation implied) and can be changed to any other letter.
+
+\section{Vector Operations in Index Notation}
+
+\subsection{Basic Vector Operations}
+
+\textbf{Dot Product}:
+\begin{equation}
+\tena{a} \scp \tena{b} = a_i b_i
+\end{equation}
+
+\textbf{Cross Product}:
+\begin{equation}
+(\tena{a} \times \tena{b})_i = \varepsilon_{ijk} a_j b_k
+\end{equation}
+
+\textbf{Vector Magnitude}:
+\begin{equation}
+\lVert\tena{a}\rVert = \sqrt{a_i a_i}
+\end{equation}
+
+\subsection{Vector Identities}
+
+Important identities using the alternating symbol:
+\begin{align}
+\varepsilon_{ijk} \varepsilon_{imn} &= \delta_{jm} \delta_{kn} - \delta_{jn} \delta_{km} \\
+\varepsilon_{ijk} \varepsilon_{ijn} &= 2 \delta_{kn} \\
+\varepsilon_{ijk} \varepsilon_{ijk} &= 6
+\end{align}
+
+\section{Tensor Concepts and Operations}
+
+\subsection{Tensor Definition and Orders}
+
+\textbf{Scalar (Zero-order tensor)}: Single component, unchanged under coordinate transformation.
+
+\textbf{Vector (First-order tensor)}: Three components, transforms linearly with coordinate rotation.
+
+\textbf{Second-order tensor}: Nine components, transforms bilinearly with coordinate rotation.
+
+\begin{keypoint}
+Tensors are defined by their transformation properties under coordinate rotations, not merely by having multiple indices.
+\end{keypoint}
+
+\subsection{Tensor Operations}
+
+\textbf{Tensor Addition}:
+\begin{equation}
+(\tenb{A} + \tenb{B})_{ij} = A_{ij} + B_{ij}
+\end{equation}
+
+\textbf{Tensor Contraction}:
+\begin{equation}
+\tenb{A} \dscp \tenb{B} = A_{ij} B_{ij}
+\end{equation}
+
+\textbf{Tensor Product}:
+\begin{equation}
+(\tena{a} \otimes \tena{b})_{ij} = a_i b_j
+\end{equation}
+
+
+\section{Understanding Other Direct Notations}
+Usually, the use of dot products varies from one book to another. The best way to understand a direct notation is to check the equivalent indicial notation.
+
+
+\begin{table}[H]
+\centering
+\caption{Summary of various order tensors.}\label{table:tensor}
+\begin{tabularx}{\linewidth}{L{0.075} L{0.075} L{0.08}L{0.08}L{0.15}L{0.25}L{0.265}}
+\toprule
+Quantity& Tensorial order& Direct notation &Index notation &Full expansion &Matrix equivalent& Example
+\\\toprule
+Scalar& Zero &\multicolumn{4}{c}{$\alpha\in\Rset$}& Temperature, energy.\\
+Vector& First&$\tena{a}$ &$a_i$   &$a_i\base_i$            & $\col{a}=\left[\begin{matrix}
+a_1\ a_2\ a_3
+\end{matrix}\right]^\tran.$& Velocity, acceleration\\
+Dyads &Second &$\tenb{A}$  &$A_{ij}$&$A_{ij}\base_i\dyad\base_j$  &
+$\mat{A} =
+\begin{bmatrix}
+A_{11} & A_{12} & A_{13}\\
+A_{21} & A_{22} & A_{23}\\
+A_{31} & A_{32} & A_{33}\\
+\end{bmatrix}.$
+& Stress, strain, deformation gradient.
+\\
+Triad&Third & $\tenc{A}$ & $A_{ijk}$&$A_{ijk}\base_i\dyad\base_j\dyad\base_k$& A 3D array of numbers.& Levi-Civita symbol\\
+Tetrad& Fourth& $\tend{A}$ & $A_{ijkl}$&$A_{ijkl}\base_i\dyad\base_j\dyad\base_k\dyad\base_l$& A matrix in especial cases. & Elasticity tensor\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+
+
+\paragraph{Summation convention}
+Repeated indices are \textit{dummy indices} (maximum two allowed in a term) whereas a single index is called a \textit{free index} (equal to the order of the tensor):
+\begin{subequations}
+\begin{alignat}{3}
+A_{ij} \base_i\dyad\base_j&=\sum_{i=1}^3 A_{ij}  \base_i\dyad\base_j= A_{11}\base_1\dyad\base_1 + A_{12}\base_1\dyad\base_2 + A_{13}\base_1\dyad\base_3 + \ldots\\
+v_{i}&=v_{1}\base_1+v_{2}\base_2+v_{3}\base_3,\\
+A_{ii}&=\sum_{i=1}^3 A_{ii} = A_{11}+ A_{22} + A_{33},\\
+A_{ij}b_j \base_i&=(A_{i1}b_1+ A_{i2}b_2+A_{i3}b_3)\base_i.
+\end{alignat}
+\end{subequations}
+
+\paragraph{Contraction}
+Contraction is setting two free indices equal which makes them dummy indices, i.e., contraction of $A_{ij}$ is $A_{ii}$.
+
+
+
+\paragraph{Tensor operations}
+
+\begin{subequations}
+\begin{alignat}{4}
+\text{Dot product}       &\quad& A=\tena{u}\scp\tena{v}  &\qquad\equinot\qquad&&  \omega=u_iv_i\\
+\text{Dot product}       &\quad& \tena{w}=\tenb{A}\scp\tena{v}  &\qquad\equinot\qquad&&  w_i=A_{ij}v_j\\
+\text{Double dot product}&\quad& A=\tenb{C}\dscp\tenb{B} &\qquad\equinot\qquad&& A=C_{ij}B_{ij}\\
+\text{Double dot product}&\quad& \tenb{A}=\tend{B}\dscp\tenb{C} &\qquad\equinot\qquad&& A_{ij}=B_{ijkl}C_{kl}\\
+\text{Cross product}     &\quad&\tena{\omega}=\tena{u}\times\tena{v} &\qquad\equinot\qquad&& \omega=u_i\base_i\times v_j\base_j=u_iv_j\epsilon_{ijk}\\
+\text{Tensor product}    &\quad& \tenb{A}=\tena{u}\dyad\tena{v} &\qquad\equinot\qquad&& A_{ij}=u_i\base_i\dyad v_j\base_j=u_iv_j
+\end{alignat}
+\end{subequations}
+
+\paragraph{Symmetry and skew/anti-symmetry}
+\begin{subequations}
+\begin{alignat}{2}
+\text{Symmetric wrt $m,n$ indices}      \qquad& A_{i\ldots mn \ldots j} = A_{i\ldots nm \ldots j}\\
+\text{Anti-symmetric wrt $m,n$ indices} \qquad& A_{i\ldots mn \ldots j} = -  A_{i\ldots nm \ldots j}
+\end{alignat}
+\end{subequations}
+If two tensors $\ten{A}$ and $\ten{B}$ are symmetric wrt two indices $m,n$, their dot product wrt two the same indices vanishes.
+
+\paragraph{Symmetrisation and anti-symmetrisation}
+Additive decomposition of $\tenb{A}\in\order{2}$ (a second-order tensor) is the sum of a symmetric and an antisymmetric parts~\autocite{Akivis.1977}:
+\begin{equation}
+\tenb{A} = \tenb{A}^\symset + \tenb{A}^\skwset
+\qquad\equinot\qquad
+A_{ij} = A_{(ij)} + A_{[ij]},\label{eq:sym1}
+\end{equation}
+where
+\begin{subequations}
+\begin{alignat}{2}
+\sym{\tenb{A}}\equiv\tenb{A}^\symset = \frac{1}{2}(\tenb{A} + \tenb{A}^\tran)
+\qquad\equinot\qquad
+A_{(ij)} =  \frac{1}{2}(A_{ij} + A_{ji}),\label{eq:sym2a}\\
+\skw{\tenb{A}}\equiv\tenb{A}^\skwset = \frac{1}{2}(\tenb{A} + \tenb{A}^\tran)
+\qquad\equinot\qquad
+A_{[ij]} =  \frac{1}{2}(A_{ij} - A_{ji}).\label{eq:sym2b}
+\end{alignat}
+\end{subequations}
+Note that 9 independent parameters of a second-order tensor are decomposed into 6 in the symmetric part and 3 in the skew-symmetric part; thus, the latter can be shown as a vector.
+
+\paragraph{Kronecker delta and its generalisation}
+Unit tensor, $\delta$-tensor, or substitution tensor is defined using Kronecker delta symbol:
+\begin{equation}\label{eq:unitb}
+\unitb\equidef\delta_{ij}\,\base_i\dyad \base_j,
+\end{equation}
+which is defined as
+\begin{align*}
+\delta_{ij}\equidef\left\{
+\begin{array}{rl}
++1 & \text{if } i=j,\\
+ 0 & \text{otherwise}
+\end{array}\right..
+\end{align*}
+In matrix notation, it is denoted by
+\begin{equation}
+\mat{I} \equidef
+\begin{bmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1\\
+\end{bmatrix}.
+\end{equation}
+
+\paragraph{Permutation symbol}
+Permutation symbol or 3D Levi-Civita symbol $\epsilon_{ijk}$ is defined as:
+\begin{align*}
+\epsilon_{ijk}\equidef\left\{
+\begin{array}{rl}
++1 & \text{if } (i,j,k) \text{ is an even permutation of } (1,2,3) \\
+-1 & \text{if } (i,j,k) \text{ is an odd permutation of } (1,2,3) \\
+ 0 & \text{otherwise}
+\end{array}\right..
+\end{align*}
+
+
+
+
+\begin{nobox}[Critical Note]
+The notation introduced here is slightly different to what is used in~\autocite{Sadd.2019}.
+\end{nobox}
+
+
+
+
+
+
+
+
+
+
+
+\section{Coordinate Transformations}
+
+\subsection{Rotation of Coordinate Systems}
+
+Consider rotation from coordinate system $(x_1, x_2, x_3)$ to $(\tilde{x}_1, \tilde{x}_2, \tilde{x}_3)$ with direction cosines $a_{ij}$:
+\begin{equation}
+\tilde{x}_i = a_{ij} x_j
+\end{equation}
+
+where $a_{ij} = \cos(\tilde{x}_i, x_j)$ and $a_{ij} a_{ik} = \delta_{jk}$ (orthogonality condition).
+
+\subsection{Tensor Transformation Laws}
+
+\textbf{Vector Transformation}:
+\begin{equation}
+\tilde{v}_i = a_{ij} v_j
+\end{equation}
+
+\textbf{Second-order Tensor Transformation}:
+\begin{equation}
+\tilde{T}_{ij} = a_{ik} a_{jl} T_{kl}
+\end{equation}
+
+\section{Principal Values and Invariants}
+
+\subsection{Eigenvalue Problem}
+
+For a symmetric second-order tensor $\tenb{A}$, principal values $\lambda$ and principal directions $\dir{n}$ satisfy:
+\begin{equation}
+\tenb{A} \scp \dir{n} = \lambda \dir{n}
+\end{equation}
+
+or in component form:
+\begin{equation}
+(A_{ij} - \lambda \delta_{ij}) n_j = 0
+\end{equation}
+
+\subsection{Characteristic Equation}
+
+The principal values are roots of the characteristic polynomial:
+\begin{equation}
+\det(\tenb{A} - \lambda \tenb{I}) = 0
+\end{equation}
+
+Expanding gives:
+\begin{equation}
+\lambda^3 - I_A \lambda^2 + II_A \lambda - III_A = 0
+\end{equation}
+
+\subsection{Principal Invariants}
+
+The principal invariants of tensor $\tenb{A}$ are:
+\begin{align}
+I_A &= A_{ii} = \lambda_1 + \lambda_2 + \lambda_3 \quad \text{(trace)} \\
+II_A &= \frac{1}{2}(A_{ii} A_{jj} - A_{ij} A_{ji}) = \lambda_1\lambda_2 + \lambda_2\lambda_3 + \lambda_3\lambda_1 \\
+III_A &= \det(\tenb{A}) = \lambda_1 \lambda_2 \lambda_3
+\end{align}
+
+These invariants are independent of coordinate system choice.
+
+\begin{keypoint}
+Principal invariants provide objective measures of tensor properties, remaining unchanged under coordinate transformations and forming the basis for constitutive modeling.
+\end{keypoint}
+
+\section{Spectral Decomposition}
+
+\subsection{Principal Directions}
+
+For a symmetric tensor, the spectral representation is:
+\begin{equation}
+\tenb{A} = \lambda_1 \dir{n}_1 \otimes \dir{n}_1 + \lambda_2 \dir{n}_2 \otimes \dir{n}_2 + \lambda_3 \dir{n}_3 \otimes \dir{n}_3
+\end{equation}
+
+where $\dir{n}_i$ are orthonormal principal directions.
+
+\subsection{Diagonalization}
+
+In principal coordinate system, the tensor becomes diagonal:
+\begin{equation}
+[A_{ij}]_{principal} = \begin{bmatrix}
+\lambda_1 & 0 & 0 \\
+0 & \lambda_2 & 0 \\
+0 & 0 & \lambda_3
+\end{bmatrix}
+\end{equation}
+
+\section{Tensor Decomposition}
+
+\subsection{Spherical and Deviatoric Parts}
+
+Any second-order tensor can be decomposed as:
+\begin{equation}
+\tenb{A} = \frac{1}{3} I_A \tenb{I} + \tenb{A}'
+\end{equation}
+
+where:
+\begin{itemize}
+\item $\frac{1}{3} I_A \tenb{I}$ is the spherical (hydrostatic) part
+\item $\tenb{A}' = \tenb{A} - \frac{1}{3} I_A \tenb{I}$ is the deviatoric part with $\text{tr}(\tenb{A}') = 0$
+\end{itemize}
+
+\begin{keypoint}
+Tensor decomposition into spherical and deviatoric parts separates volumetric and distortional effects, which is fundamental for understanding material behavior.
+\end{keypoint}
+
+\subsection{Symmetric and Skew-symmetric Parts}
+
+Any tensor can be decomposed as:
+\begin{equation}
+\tenb{A} = \tenb{A}^{sym} + \tenb{A}^{skew}
+\end{equation}
+
+where:
+\begin{align}
+\tenb{A}^{sym} &= \frac{1}{2}(\tenb{A} + \tenb{A}^T) \\
+\tenb{A}^{skew} &= \frac{1}{2}(\tenb{A} - \tenb{A}^T)
+\end{align}
+
+\section{Calculus of Tensor Fields}
+
+\subsection{Gradient Operations}
+
+\textbf{Gradient of scalar field}:
+\begin{equation}
+\nabla \phi = \frac{\partial \phi}{\partial x_i} \tena{e}_i
+\end{equation}
+
+\textbf{Gradient of vector field}:
+\begin{equation}
+\nabla \tena{v} = \frac{\partial v_j}{\partial x_i} \tena{e}_i \otimes \tena{e}_j
+\end{equation}
+
+\subsection{Divergence Operations}
+
+\textbf{Divergence of vector}:
+\begin{equation}
+\nabla \scp \tena{v} = \frac{\partial v_i}{\partial x_i}
+\end{equation}
+
+\textbf{Divergence of tensor}:
+\begin{equation}
+(\nabla \scp \tenb{T})_j = \frac{\partial T_{ij}}{\partial x_i}
+\end{equation}
+
+\subsection{Curl Operation}
+
+\textbf{Curl of vector}:
+\begin{equation}
+(\nabla \times \tena{v})_i = \varepsilon_{ijk} \frac{\partial v_k}{\partial x_j}
+\end{equation}
+
+\section{Integral Theorems}
+
+\subsection{Divergence Theorem}
+
+For a vector field $\tena{v}$ in region $V$ with boundary $S$:
+\begin{equation}
+\int_V \nabla \scp \tena{v} \, dV = \oint_S \tena{v} \scp \dir{n} \, dA
+\end{equation}
+
+\subsection{Generalized Divergence Theorem}
+
+For tensor field $\tenb{T}$:
+\begin{equation}
+\int_V \frac{\partial T_{ij}}{\partial x_k} \, dV = \oint_S T_{ij} n_k \, dA
+\end{equation}
+
+These mathematical tools provide the foundation for developing the field equations of continuum mechanics and enable concise representation of complex three-dimensional phenomena.
+
+\section{Summary}
+
+\begin{subox}[Summary]
+This chapter provided the essential mathematical tools for continuum mechanics analysis:
+
+\textbf{Index Notation and Summation Convention:}
+\begin{itemize}
+\item Einstein summation convention with repeated indices automatically summed
+\item Kronecker delta $\delta_{ij}$ and permutation tensor $\varepsilon_{ijk}$ as fundamental symbols
+\item Free and dummy index classification for proper equation manipulation
+\item Efficient representation of vector operations: dot products ($a_i b_i$), cross products ($\varepsilon_{ijk} a_j b_k$)
+\end{itemize}
+
+\textbf{Tensor Concepts and Operations:}
+\begin{itemize}
+\item Tensors defined by transformation properties under coordinate rotations
+\item Scalar (0th order), vector (1st order), and higher-order tensor classification
+\item Fundamental operations: addition, contraction ($\tenb{A} \dscp \tenb{B} = A_{ij} B_{ij}$), and tensor products ($\tena{a} \otimes \tena{b}$)
+\item Transformation laws ensuring objectivity of physical relationships
+\end{itemize}
+
+\textbf{Principal Values and Spectral Analysis:}
+\begin{itemize}
+\item Eigenvalue problem: $\tenb{A} \scp \dir{n} = \lambda \dir{n}$ for principal values and directions
+\item Principal invariants $I_A$, $II_A$, $III_A$ independent of coordinate system
+\item Spectral decomposition: $\tenb{A} = \sum_i \lambda_i \dir{n}_i \otimes \dir{n}_i$
+\item Diagonalization in principal coordinate systems
+\end{itemize}
+
+\textbf{Tensor Decomposition Methods:}
+\begin{itemize}
+\item Spherical-deviatoric decomposition: $\tenb{A} = \frac{1}{3} I_A \tenb{I} + \tenb{A}'$ separating volumetric and distortional effects
+\item Symmetric-skew symmetric decomposition: $\tenb{A} = \tenb{A}^{sym} + \tenb{A}^{skew}$
+\item Physical significance in separating different deformation mechanisms
+\end{itemize}
+
+\textbf{Tensor Calculus:}
+\begin{itemize}
+\item Gradient operations for scalar and vector fields: $\nabla \phi$, $\nabla \tena{v}$
+\item Divergence operations: $\nabla \scp \tena{v}$, $\nabla \scp \tenb{T}$
+\item Curl operation: $(\nabla \times \tena{v})_i = \varepsilon_{ijk} \partial v_k/\partial x_j$
+\item Integral theorems connecting volume and surface integrals
+\end{itemize}
+
+\textbf{Mathematical Significance:}
+\begin{itemize}
+\item Index notation enables compact representation of complex three-dimensional relationships
+\item Tensor analysis ensures objectivity and coordinate system independence
+\item Principal value analysis reveals fundamental directional properties of tensors
+\item Decomposition methods separate different physical mechanisms
+\item Differential operations and integral theorems provide tools for field equation development
+\end{itemize}
+
+These mathematical foundations are essential for all subsequent developments in continuum mechanics, providing the language and analytical tools for describing stress, strain, and constitutive relationships.
+\end{subox}
+
+

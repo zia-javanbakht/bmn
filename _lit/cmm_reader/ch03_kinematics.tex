@@ -1,0 +1,427 @@
+\chapter{Kinematics of Motion and Deformation}
+
+\section{Configuration and Motion Description}
+
+The kinematic description forms the foundation of continuum mechanics by providing mathematical tools to describe motion and deformation without reference to the forces causing them~\autocite{Sadd.2019}.
+
+\begin{keypoint}
+Kinematics provides a purely geometric description of motion and deformation, independent of forces and material properties, forming the essential foundation for stress analysis and constitutive modeling.
+\end{keypoint}
+
+\subsection{Material Body and Configurations}
+
+A material body $\mathcal{B}$ consists of material particles that can be mapped between different configurations:
+
+\textbf{Reference Configuration} $\kappa_0$: A chosen configuration (usually stress-free) where material particles are identified by position vectors $\tena{X}$.
+
+\textbf{Current Configuration} $\kappa_t$: The configuration at time $t$ where particles occupy positions $\tena{x}$.
+
+\subsection{Motion Mapping}
+
+The motion of the continuum is described by the mapping:
+\begin{equation}
+\tena{x} = \boldsymbol{\chi}(\tena{X}, t)
+\end{equation}
+
+This function must satisfy:
+\begin{itemize}
+\item Continuity: Neighboring particles remain neighbors
+\item Invertibility: One-to-one correspondence between configurations
+\item Differentiability: Smooth deformation
+\end{itemize}
+
+The Jacobian determinant $J = \det(\partial \tena{x}/\partial \tena{X}) > 0$ ensures physical realizability.
+
+\begin{keypoint}
+The deformation mapping $\tena{x} = \boldsymbol{\chi}(\tena{X}, t)$ must be continuous, invertible, and differentiable, with $J > 0$ to ensure material doesn't penetrate itself.
+\end{keypoint}
+
+\section{Lagrangian and Eulerian Descriptions}
+
+\subsection{Lagrangian (Material) Description}
+
+Follows individual material particles through their motion:
+\begin{itemize}
+\item Independent variables: $(\tena{X}, t)$
+\item Focus: What happens to a specific particle
+\item Suitable for: Solid mechanics applications
+\end{itemize}
+
+Physical quantities are expressed as functions of material coordinates:
+\begin{equation}
+\phi = \phi(\tena{X}, t)
+\end{equation}
+
+\subsection{Eulerian (Spatial) Description}
+
+Observes what occurs at fixed spatial points:
+\begin{itemize}
+\item Independent variables: $(\tena{x}, t)$
+\item Focus: What happens at a specific location
+\item Suitable for: Fluid mechanics applications
+\end{itemize}
+
+Physical quantities are expressed as functions of spatial coordinates:
+\begin{equation}
+\phi = \phi(\tena{x}, t)
+\end{equation}
+
+\section{Velocity and Acceleration}
+
+\subsection{Velocity Field}
+
+\textbf{Material Description}:
+\begin{equation}
+\tena{v}(\tena{X}, t) = \frac{\partial \boldsymbol{\chi}(\tena{X}, t)}{\partial t}
+\end{equation}
+
+\textbf{Spatial Description}:
+\begin{equation}
+\tena{v}(\tena{x}, t) = \tena{v}(\boldsymbol{\chi}(\tena{X}, t), t)
+\end{equation}
+
+\subsection{Acceleration Field}
+
+\textbf{Material Description}:
+\begin{equation}
+\tena{a}(\tena{X}, t) = \frac{\partial \tena{v}(\tena{X}, t)}{\partial t}
+\end{equation}
+
+\textbf{Spatial Description}:
+\begin{equation}
+\tena{a}(\tena{x}, t) = \frac{\partial \tena{v}}{\partial t} + (\tena{v} \scp \nabla)\tena{v}
+\end{equation}
+
+The second term represents convective acceleration due to spatial variation of velocity.
+
+\section{Material Time Derivative}
+
+The material time derivative provides the rate of change of any quantity following a material particle:
+
+\begin{equation}
+\frac{D\phi}{Dt} = \frac{\partial \phi}{\partial t} + \tena{v} \scp \nabla \phi
+\end{equation}
+
+\begin{keypoint}
+The material time derivative tracks changes following material particles, distinguishing between local time changes and convective changes due to particle motion.
+\end{keypoint}
+
+For vector and tensor fields:
+\begin{align}
+\frac{D\tena{a}}{Dt} &= \frac{\partial \tena{a}}{\partial t} + (\tena{v} \scp \nabla)\tena{a} \\
+\frac{D\tenb{A}}{Dt} &= \frac{\partial \tenb{A}}{\partial t} + (\tena{v} \scp \nabla)\tenb{A}
+\end{align}
+
+\section{Deformation Gradient Tensor}
+
+\subsection{Definition and Properties}
+
+The deformation gradient tensor characterizes local deformation:
+\begin{equation}
+\tenb{F} = \frac{\partial \tena{x}}{\partial \tena{X}} = \frac{\partial \chi_i}{\partial X_j} \base_i \otimes \Base_j
+\end{equation}
+
+Properties:
+\begin{itemize}
+\item Two-point tensor: components in different coordinate systems
+\item Generally non-symmetric
+\item $J = \det(\tenb{F}) > 0$ for physical deformation
+\end{itemize}
+
+\begin{keypoint}
+The deformation gradient $\tenb{F}$ is the fundamental kinematic quantity that completely characterizes local deformation, containing all information about stretching, rotation, and volume change.
+\end{keypoint}
+
+\subsection{Geometric Interpretation}
+
+$\tenb{F}$ maps line elements from reference to current configuration:
+\begin{equation}
+d\tena{x} = \tenb{F} \scp d\tena{X}
+\end{equation}
+
+\subsection{Volume and Area Changes}
+
+\textbf{Volume Change}:
+\begin{equation}
+dv = J \, dV
+\end{equation}
+
+\textbf{Area Change} (Nanson's formula):
+\begin{equation}
+\dir{n} \, da = J \tenb{F}^{-T} \scp \Normal \, dA
+\end{equation}
+
+where $\dir{n}$ and $\Normal$ are unit normals in current and reference configurations.
+
+\section{Strain Measures}
+
+\subsection{Right and Left Cauchy-Green Tensors}
+
+\textbf{Right Cauchy-Green Tensor}:
+\begin{equation}
+\tenb{C} = \tenb{F}^T \tenb{F}
+\end{equation}
+
+\textbf{Left Cauchy-Green Tensor}:
+\begin{equation}
+\tenb{b} = \tenb{F} \tenb{F}^T
+\end{equation}
+
+Both are symmetric, positive definite tensors.
+
+\subsection{Green-Lagrange Strain Tensor}
+
+The Green-Lagrange strain tensor provides a measure of finite deformation:
+\begin{equation}
+\tenb{E} = \frac{1}{2}(\tenb{C} - \tenb{I}) = \frac{1}{2}(\tenb{F}^T \tenb{F} - \tenb{I})
+\end{equation}
+
+In terms of displacement $\tena{u} = \tena{x} - \tena{X}$:
+\begin{equation}
+\tenb{E} = \frac{1}{2}(\nabla_{\tena{X}} \tena{u} + (\nabla_{\tena{X}} \tena{u})^T + (\nabla_{\tena{X}} \tena{u})^T \nabla_{\tena{X}} \tena{u})
+\end{equation}
+
+\subsection{Almansi-Eulerian Strain Tensor}
+
+The Almansi strain tensor is defined in the current configuration:
+\begin{equation}
+\tenb{e} = \frac{1}{2}(\tenb{I} - \tenb{b}^{-1}) = \frac{1}{2}(\tenb{I} - (\tenb{F}\tenb{F}^T)^{-1})
+\end{equation}
+
+\subsection{Physical Interpretation of Strain}
+
+\textbf{Length Change}:
+For a line element $d\tena{X}$ with unit direction $\Normal$:
+\begin{equation}
+\lambda^2 = \Normal \scp \tenb{C} \scp \Normal = 1 + 2\Normal \scp \tenb{E} \scp \Normal
+\end{equation}
+
+where $\lambda = \lVert d\tena{x}\rVert/\lVert d\tena{X}\rVert$ is the stretch ratio.
+
+\textbf{Angle Change}:
+The change in angle between two initially perpendicular directions involves off-diagonal strain components.
+
+\section{Polar Decomposition}
+
+\subsection{Decomposition Theorem}
+
+Any invertible tensor can be uniquely decomposed as:
+\begin{align}
+\tenb{F} &= \tenb{R} \tenb{U} \quad \text{(right polar decomposition)} \\
+\tenb{F} &= \tenb{V} \tenb{R} \quad \text{(left polar decomposition)}
+\end{align}
+
+where:
+\begin{itemize}
+\item $\tenb{R}$: orthogonal tensor ($\tenb{R}\tenb{R}^T = \tenb{I}$, $\det(\tenb{R}) = +1$)
+\item $\tenb{U}, \tenb{V}$: symmetric, positive definite stretch tensors
+\end{itemize}
+
+\begin{keypoint}
+Polar decomposition separates pure stretching from rigid rotation, providing clear physical insight into the nature of deformation.
+\end{keypoint}
+
+\subsection{Relationship to Cauchy-Green Tensors}
+
+\begin{align}
+\tenb{U}^2 &= \tenb{C} = \tenb{F}^T \tenb{F} \\
+\tenb{V}^2 &= \tenb{b} = \tenb{F} \tenb{F}^T
+\end{align}
+
+\subsection{Principal Stretches}
+
+The principal values of $\tenb{U}$ and $\tenb{V}$ are the principal stretches $\lambda_1, \lambda_2, \lambda_3$:
+\begin{align}
+\tenb{U} &= \lambda_1 \Normal_1 \otimes \Normal_1 + \lambda_2 \Normal_2 \otimes \Normal_2 + \lambda_3 \Normal_3 \otimes \Normal_3 \\
+\tenb{V} &= \lambda_1 \dir{n}_1 \otimes \dir{n}_1 + \lambda_2 \dir{n}_2 \otimes \dir{n}_2 + \lambda_3 \dir{n}_3 \otimes \dir{n}_3
+\end{align}
+
+where $\dir{n}_i = \tenb{R} \scp \Normal_i$.
+
+\section{Velocity Gradient and Rate Tensors}
+
+\subsection{Velocity Gradient Tensor}
+
+The spatial velocity gradient characterizes the rate of deformation:
+\begin{equation}
+\tenb{L} = \nabla \tena{v} = \frac{\partial v_i}{\partial x_j} \base_i \otimes \base_j
+\end{equation}
+
+\subsection{Decomposition of Velocity Gradient}
+
+\begin{equation}
+\tenb{L} = \tenb{D} + \tenb{W}
+\end{equation}
+
+where:
+\begin{align}
+\tenb{D} &= \frac{1}{2}(\tenb{L} + \tenb{L}^T) \quad \text{(rate of deformation tensor)} \\
+\tenb{W} &= \frac{1}{2}(\tenb{L} - \tenb{L}^T) \quad \text{(vorticity tensor)}
+\end{align}
+
+\subsection{Physical Interpretation}
+
+\textbf{Rate of Deformation Tensor} $\tenb{D}$:
+\begin{itemize}
+\item Symmetric tensor describing local shape changes
+\item Diagonal components: normal strain rates
+\item Off-diagonal components: shear strain rates
+\end{itemize}
+
+\textbf{Vorticity Tensor} $\tenb{W}$:
+\begin{itemize}
+\item Skew-symmetric tensor describing local rotation
+\item Associated with vorticity vector: $\boldsymbol{\omega} = \frac{1}{2}\nabla \times \tena{v}$
+\end{itemize}
+
+\section{Infinitesimal Strain Theory}
+
+\subsection{Small Displacement Assumption}
+
+When displacement gradients are small ($\|\nabla \tena{u}\| \ll 1$), the nonlinear terms in finite strain expressions can be neglected.
+
+\begin{keypoint}
+Infinitesimal strain theory provides significant mathematical simplification for small deformations but becomes invalid for finite rotations and large strains.
+\end{keypoint}
+
+\subsection{Infinitesimal Strain Tensor}
+
+The linearized strain tensor becomes:
+\begin{equation}
+\boldsymbol{\varepsilon} = \frac{1}{2}(\nabla \tena{u} + (\nabla \tena{u})^T)
+\end{equation}
+
+Components:
+\begin{align}
+\varepsilon_{ij} &= \frac{1}{2}\left(\frac{\partial u_i}{\partial x_j} + \frac{\partial u_j}{\partial x_i}\right) \quad (i \neq j) \\
+\varepsilon_{ii} &= \frac{\partial u_i}{\partial x_i} \quad \text{(no sum on } i \text{)}
+\end{align}
+
+\subsection{Engineering Strain Components}
+
+Conventional engineering strains:
+\begin{align}
+\varepsilon_{11} &= \frac{\partial u_1}{\partial x_1} \quad \text{(normal strain)} \\
+\gamma_{12} &= 2\varepsilon_{12} = \frac{\partial u_1}{\partial x_2} + \frac{\partial u_2}{\partial x_1} \quad \text{(shear strain)}
+\end{align}
+
+\section{Compatibility Conditions}
+
+\subsection{Saint-Venant Compatibility Equations}
+
+For a strain field to correspond to a continuous displacement field, it must satisfy compatibility conditions:
+\begin{equation}
+\frac{\partial^2 \varepsilon_{ij}}{\partial x_k \partial x_l} + \frac{\partial^2 \varepsilon_{kl}}{\partial x_i \partial x_j} = \frac{\partial^2 \varepsilon_{ik}}{\partial x_j \partial x_l} + \frac{\partial^2 \varepsilon_{jl}}{\partial x_i \partial x_k}
+\end{equation}
+
+In index notation:
+\begin{equation}
+\varepsilon_{ij,kl} + \varepsilon_{kl,ij} = \varepsilon_{ik,jl} + \varepsilon_{jl,ik}
+\end{equation}
+
+\subsection{Simplified Forms}
+
+For two-dimensional problems:
+\begin{equation}
+\frac{\partial^2 \varepsilon_{11}}{\partial x_2^2} + \frac{\partial^2 \varepsilon_{22}}{\partial x_1^2} = \frac{\partial^2 \gamma_{12}}{\partial x_1 \partial x_2}
+\end{equation}
+
+\section{Special Deformation States}
+
+\subsection{Rigid Body Motion}
+
+Pure translation: $\tena{x} = \tena{X} + \tena{c}(t)$
+Pure rotation: $\tena{x} = \tenb{Q}(t) \scp \tena{X}$
+
+For rigid motion: $\tenb{F} = \tenb{Q}$, $\tenb{C} = \tenb{I}$, $\tenb{E} = \tenb{0}$
+
+\subsection{Homogeneous Deformation}
+
+Deformation gradient is constant: $\tenb{F} = \text{constant}$
+
+Examples:
+\begin{itemize}
+\item Simple extension
+\item Simple shear
+\item Pure shear
+\end{itemize}
+
+\subsection{Plane Strain and Plane Stress}
+
+\textbf{Plane Strain}: $u_3 = 0$, $\varepsilon_{i3} = 0$
+
+\textbf{Plane Stress}: $\sigma_{i3} = 0$ (typically for thin plates)
+
+These kinematic measures provide the foundation for describing material motion and deformation, forming the basis for developing stress analysis and constitutive relations in continuum mechanics.
+
+\section{Summary}
+
+\begin{subox}[Summary]
+This chapter developed the kinematic framework for describing motion and deformation in continuum mechanics:
+
+\textbf{Configuration and Motion:}
+\begin{itemize}
+\item Material body mapped between reference configuration $\kappa_0$ and current configuration $\kappa_t$
+\item Motion described by mapping $\tena{x} = \boldsymbol{\chi}(\tena{X}, t)$ that must be continuous, invertible, and differentiable
+\item Jacobian determinant $J = \det(\partial \tena{x}/\partial \tena{X}) > 0$ ensures physical realizability
+\item Lagrangian description follows material particles; Eulerian description observes fixed spatial points
+\end{itemize}
+
+\textbf{Velocity and Acceleration:}
+\begin{itemize}
+\item Velocity field: $\tena{v} = \partial \boldsymbol{\chi}/\partial t$ (material) or $\tena{v}(\tena{x}, t)$ (spatial)
+\item Acceleration: $\tena{a} = \partial \tena{v}/\partial t + (\tena{v} \scp \nabla)\tena{v}$ includes convective acceleration
+\item Material time derivative: $D\phi/Dt = \partial\phi/\partial t + \tena{v} \scp \nabla \phi$ tracks particle changes
+\end{itemize}
+
+\textbf{Deformation Gradient and Strain:}
+\begin{itemize}
+\item Deformation gradient $\tenb{F} = \partial \tena{x}/\partial \tena{X}$ characterizes local deformation
+\item Maps line elements: $d\tena{x} = \tenb{F} \scp d\tena{X}$
+\item Volume change: $dv = J \, dV$; Area change: $\dir{n} \, da = J \tenb{F}^{-T} \scp \Normal \, dA$
+\item Right Cauchy-Green tensor: $\tenb{C} = \tenb{F}^T \tenb{F}$; Left: $\tenb{b} = \tenb{F} \tenb{F}^T$
+\item Green-Lagrange strain: $\tenb{E} = \frac{1}{2}(\tenb{C} - \tenb{I})$; Almansi strain: $\tenb{e} = \frac{1}{2}(\tenb{I} - \tenb{b}^{-1})$
+\end{itemize}
+
+\textbf{Polar Decomposition:}
+\begin{itemize}
+\item Unique decomposition: $\tenb{F} = \tenb{R} \tenb{U} = \tenb{V} \tenb{R}$ separating rotation from stretching
+\item $\tenb{R}$: orthogonal rotation tensor; $\tenb{U}, \tenb{V}$: symmetric stretch tensors
+\item Principal stretches $\lambda_1, \lambda_2, \lambda_3$ are eigenvalues of $\tenb{U}$ and $\tenb{V}$
+\item Provides clear physical interpretation of deformation mechanisms
+\end{itemize}
+
+\textbf{Velocity Gradient and Rate Tensors:}
+\begin{itemize}
+\item Velocity gradient: $\tenb{L} = \nabla \tena{v}$ characterizes rate of deformation
+\item Decomposition: $\tenb{L} = \tenb{D} + \tenb{W}$ into symmetric and skew-symmetric parts
+\item Rate of deformation tensor $\tenb{D}$: describes shape changes and strain rates
+\item Vorticity tensor $\tenb{W}$: describes local rotation and relates to vorticity vector
+\end{itemize}
+
+\textbf{Infinitesimal Strain Theory:}
+\begin{itemize}
+\item Valid for small displacement gradients: $\|\nabla \tena{u}\| \ll 1$
+\item Linearized strain tensor: $\boldsymbol{\varepsilon} = \frac{1}{2}(\nabla \tena{u} + (\nabla \tena{u})^T)$
+\item Engineering strain components: normal strains $\varepsilon_{ii}$ and shear strains $\gamma_{ij} = 2\varepsilon_{ij}$
+\item Compatibility conditions ensure strain field corresponds to continuous displacement
+\end{itemize}
+
+\textbf{Special Cases and Applications:}
+\begin{itemize}
+\item Rigid body motion: $\tenb{F} = \tenb{Q}$, $\tenb{E} = \tenb{0}$ (no deformation)
+\item Homogeneous deformation: constant $\tenb{F}$ throughout material
+\item Plane strain and plane stress approximations for specific geometries
+\item Simple extension, simple shear, and pure shear as fundamental deformation modes
+\end{itemize}
+
+\textbf{Physical Significance:}
+\begin{itemize}
+\item Kinematics provides purely geometric description independent of forces and material properties
+\item Essential foundation for stress analysis, constitutive modeling, and balance law formulation
+\item Finite deformation theory handles large strains and rotations in modern applications
+\item Rate tensors connect instantaneous kinematics to material time evolution
+\end{itemize}
+
+The kinematic framework developed here forms the cornerstone for all subsequent developments in continuum mechanics, providing the mathematical tools to describe how materials move and deform.
+\end{subox}

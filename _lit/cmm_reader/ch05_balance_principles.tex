@@ -1,0 +1,388 @@
+\chapter{Conservation and Balance Principles}
+
+\section{Introduction to Balance Laws}
+
+Conservation and balance principles provide the fundamental governing equations for continuum mechanics, expressing the requirement that certain physical quantities be conserved or balanced during material motion~\autocite{Sadd.2019}. These principles form the cornerstone of modern continuum theory, establishing the mathematical framework that connects kinematics, stress analysis, and material behavior.
+
+The fundamental quantities subject to conservation or balance laws include mass, linear momentum, angular momentum, and energy. Additional balance equations may apply for specialized applications, such as charge conservation in electromagnetics or species conservation in multi-component systems. Each principle leads to field equations that must be satisfied at every point in the continuum~\autocite{Sadd.2019}.
+
+The mathematical approach involves applying conservation principles to arbitrary material volumes (Lagrangian viewpoint) or fixed spatial regions (Eulerian viewpoint), then localizing the results through the Reynolds transport theorem to obtain differential equations. This systematic procedure ensures that macroscopic conservation laws are properly translated into local field equations suitable for mathematical analysis.
+
+\section{Reynolds Transport Theorem}
+
+The Reynolds transport theorem provides the mathematical foundation for converting global conservation statements into local differential equations. For any extensive property $\Phi$ of a material volume $\mathcal{V}(t)$, the theorem relates the material time derivative to spatial derivatives~\autocite{Sadd.2019}:
+
+\begin{equation}
+\frac{D}{Dt}\int_{\mathcal{V}(t)} \phi(\tena{x}, t) \, dv = \int_{\mathcal{V}(t)} \left(\frac{\partial \phi}{\partial t} + \nabla \scp (\phi \tena{v})\right) dv
+\end{equation}
+
+where $\phi(\tena{x}, t)$ represents the density of the extensive property per unit volume, and $\tena{v}(\tena{x}, t)$ is the velocity field.
+
+This fundamental theorem applies to both scalar and vector quantities, making it essential for deriving all conservation laws. The key insight is that the rate of change of any property for a moving material volume equals the local rate of accumulation plus the net flux across the volume boundary.
+
+Alternative forms of the Reynolds transport theorem include:
+\begin{equation}
+\frac{D}{Dt}\int_{\mathcal{V}(t)} \phi \, dv = \int_{\mathcal{V}(t)} \left(\frac{D\phi}{Dt} + \phi \nabla \scp \tena{v}\right) dv
+\end{equation}
+
+This material form proves particularly useful when the property density is expressed in terms of material coordinates or when dealing with specific (per unit mass) quantities.
+
+\section{Conservation of Mass}
+
+Mass conservation represents the most fundamental of all conservation laws, stating that mass can neither be created nor destroyed during continuum motion. For a material volume $\mathcal{V}(t)$ with boundary $\mathcal{S}(t)$, mass conservation requires~\autocite{Sadd.2019}:
+
+\begin{equation}
+\frac{D}{Dt}\int_{\mathcal{V}(t)} \rho(\tena{x}, t) \, dv = 0
+\end{equation}
+
+where $\rho(\tena{x}, t)$ represents the mass density in the current configuration.
+
+Applying the Reynolds transport theorem:
+\begin{equation}
+\int_{\mathcal{V}(t)} \left(\frac{\partial \rho}{\partial t} + \nabla \scp (\rho \tena{v})\right) dv = 0
+\end{equation}
+
+Since this integral must vanish for arbitrary material volumes, the integrand must be zero at every point, yielding the local form of mass conservation:
+\begin{equation}
+\frac{\partial \rho}{\partial t} + \nabla \scp (\rho \tena{v}) = 0
+\end{equation}
+
+This continuity equation can be expressed in several equivalent forms. Using the material derivative:
+\begin{equation}
+\frac{D\rho}{Dt} + \rho \nabla \scp \tena{v} = 0
+\end{equation}
+
+The physical interpretation is clear: the rate of density change at a material point equals the negative of the density times the volumetric strain rate. This relationship directly connects mass conservation to kinematic deformation.
+
+For incompressible materials where density remains constant ($D\rho/Dt = 0$), the continuity equation simplifies to:
+\begin{equation}
+\nabla \scp \tena{v} = 0
+\end{equation}
+
+This incompressibility condition constrains the velocity field to be solenoidal (divergence-free), significantly simplifying analysis for liquids and certain solid materials under specific loading conditions~\autocite{Sadd.2019}.
+
+\section{Conservation of Linear Momentum}
+
+Linear momentum conservation expresses Newton's second law for continuous media, stating that the rate of change of momentum for any material volume equals the total applied force. The global statement is~\autocite{Sadd.2019}:
+
+\begin{equation}
+\frac{D}{Dt}\int_{\mathcal{V}(t)} \rho \tena{v} \, dv = \int_{\mathcal{V}(t)} \rho \tena{b} \, dv + \int_{\mathcal{S}(t)} \tena{t} \, da
+\end{equation}
+
+where $\tena{b}(\tena{x}, t)$ represents body forces per unit mass and $\tena{t}(\tena{x}, t)$ denotes surface tractions.
+
+The body forces include gravitational, electromagnetic, and inertial forces that act throughout the material volume. Common examples are gravitational acceleration $\tena{g}$, resulting in $\tena{b} = \tena{g}$, and centrifugal forces in rotating reference frames.
+
+Surface tractions represent contact forces transmitted across material boundaries. Using Cauchy's stress principle, these tractions relate to the stress tensor:
+\begin{equation}
+\tena{t} = \tenb{\sigma} \scp \dir{n}
+\end{equation}
+
+where $\dir{n}$ is the outward unit normal to the surface.
+
+Applying the divergence theorem to convert the surface integral:
+\begin{equation}
+\int_{\mathcal{S}(t)} \tena{t} \, da = \int_{\mathcal{S}(t)} \tenb{\sigma} \scp \dir{n} \, da = \int_{\mathcal{V}(t)} \nabla \scp \tenb{\sigma} \, dv
+\end{equation}
+
+Using the Reynolds transport theorem for the momentum term and combining results:
+\begin{equation}
+\int_{\mathcal{V}(t)} \left(\frac{\partial (\rho \tena{v})}{\partial t} + \nabla \scp (\rho \tena{v} \otimes \tena{v}) - \rho \tena{b} - \nabla \scp \tenb{\sigma}\right) dv = \tena{0}
+\end{equation}
+
+The term $\rho \tena{v} \otimes \tena{v}$ represents the momentum flux tensor. Expanding the partial derivative and using mass conservation:
+\begin{equation}
+\frac{\partial (\rho \tena{v})}{\partial t} = \rho \frac{\partial \tena{v}}{\partial t} + \tena{v} \frac{\partial \rho}{\partial t}
+\end{equation}
+
+After algebraic manipulation and invoking the arbitrariness of the material volume, the local form of linear momentum conservation becomes Cauchy's equations of motion:
+\begin{equation}
+\nabla \scp \tenb{\sigma} + \rho \tena{b} = \rho \frac{D\tena{v}}{Dt} = \rho \tena{a}
+\end{equation}
+
+where $\tena{a} = D\tena{v}/Dt$ is the material acceleration~\autocite{Sadd.2019}.
+
+These equations represent three scalar equations (in three dimensions) relating the stress divergence, body forces, and inertial forces. They form the foundation for all stress analysis in continuum mechanics.
+
+\section{Conservation of Angular Momentum}
+
+Angular momentum conservation provides an additional constraint on the stress tensor, leading to its symmetry property. The global statement for angular momentum about an arbitrary point $\tena{x}_0$ is~\autocite{Sadd.2019}:
+
+\begin{equation}
+\frac{D}{Dt}\int_{\mathcal{V}(t)} (\tena{x} - \tena{x}_0) \times \rho \tena{v} \, dv = \int_{\mathcal{V}(t)} (\tena{x} - \tena{x}_0) \times \rho \tena{b} \, dv + \int_{\mathcal{S}(t)} (\tena{x} - \tena{x}_0) \times \tena{t} \, da
+\end{equation}
+
+The derivation involves applying the Reynolds transport theorem to the angular momentum term and using the divergence theorem for the surface traction term. After extensive algebraic manipulation that accounts for the linear momentum balance, the local form yields:
+
+\begin{equation}
+\epsilon_{ijk} \sigma_{jk} = 0
+\end{equation}
+
+where $\epsilon_{ijk}$ is the permutation tensor. This relationship requires:
+\begin{equation}
+\sigma_{12} = \sigma_{21}, \quad \sigma_{23} = \sigma_{32}, \quad \sigma_{13} = \sigma_{31}
+\end{equation}
+
+Therefore, the stress tensor is symmetric:
+\begin{equation}
+\tenb{\sigma} = \tenb{\sigma}^T
+\end{equation}
+
+This symmetry property is fundamental to continuum mechanics, reducing the number of independent stress components from nine to six and ensuring the existence of three principal stress directions at every point~\autocite{Sadd.2019}.
+
+The physical interpretation is that vanishing internal couples (moment per unit volume) are required for equilibrium. Materials with significant microstructural effects or internal length scales may violate this assumption, leading to couple stress theories or micropolar continuum models.
+
+\section{Energy Conservation (First Law of Thermodynamics)}
+
+Energy conservation expresses the first law of thermodynamics for continuous media, stating that the rate of change of total energy equals the total power input. The total energy includes both kinetic and internal components~\autocite{Sadd.2019}:
+
+\begin{equation}
+\frac{D}{Dt}\int_{\mathcal{V}(t)} \rho \left(e + \frac{1}{2}\tena{v} \scp \tena{v}\right) dv = \mathcal{P}_{mech} + \mathcal{P}_{thermal}
+\end{equation}
+
+where $e(\tena{x}, t)$ represents specific internal energy (per unit mass).
+
+The mechanical power input includes contributions from body forces and surface tractions:
+\begin{equation}
+\mathcal{P}_{mech} = \int_{\mathcal{V}(t)} \rho \tena{b} \scp \tena{v} \, dv + \int_{\mathcal{S}(t)} \tena{t} \scp \tena{v} \, da
+\end{equation}
+
+The thermal power input accounts for heat sources and heat conduction:
+\begin{equation}
+\mathcal{P}_{thermal} = \int_{\mathcal{V}(t)} \rho r \, dv - \int_{\mathcal{S}(t)} \tena{q} \scp \dir{n} \, da
+\end{equation}
+
+where $r(\tena{x}, t)$ represents heat sources per unit mass and $\tena{q}(\tena{x}, t)$ is the heat flux vector.
+
+Applying the divergence theorem to surface integrals and the Reynolds transport theorem to the energy term:
+\begin{equation}
+\int_{\mathcal{V}(t)} \left[\rho \frac{D}{Dt}\left(e + \frac{1}{2}\tena{v} \scp \tena{v}\right) - \rho \tena{b} \scp \tena{v} - \nabla \scp (\tenb{\sigma} \scp \tena{v}) - \rho r + \nabla \scp \tena{q}\right] dv = 0
+\end{equation}
+
+The stress power term can be decomposed using the identity:
+\begin{equation}
+\nabla \scp (\tenb{\sigma} \scp \tena{v}) = (\nabla \scp \tenb{\sigma}) \scp \tena{v} + \tenb{\sigma} \dscp \nabla \tena{v}
+\end{equation}
+
+Using linear momentum balance and kinematic relations, the local form of energy conservation becomes:
+\begin{equation}
+\rho \frac{De}{Dt} = \tenb{\sigma} \dscp \tenb{D} - \nabla \scp \tena{q} + \rho r
+\end{equation}
+
+The term $\tenb{\sigma} \dscp \tenb{D}$ represents the stress power or mechanical dissipation, quantifying the rate of mechanical work per unit volume. This fundamental equation governs thermal-mechanical coupling in continuum systems~\autocite{Sadd.2019}.
+
+\section{Entropy Inequality (Second Law of Thermodynamics)}
+
+The second law of thermodynamics constrains admissible processes through the entropy inequality, also known as the Clausius-Duhem inequality. This principle states that entropy production must be non-negative for any process~\autocite{Sadd.2019}:
+
+\begin{equation}
+\frac{D}{Dt}\int_{\mathcal{V}(t)} \rho \eta \, dv \geq \int_{\mathcal{V}(t)} \frac{\rho r}{T} \, dv - \int_{\mathcal{S}(t)} \frac{\tena{q} \scp \dir{n}}{T} \, da
+\end{equation}
+
+where $\eta(\tena{x}, t)$ represents specific entropy (per unit mass) and $T(\tena{x}, t)$ is absolute temperature.
+
+The right-hand side represents entropy input due to heat sources and heat conduction. The inequality reflects the fundamental thermodynamic principle that entropy can be created but never destroyed in isolated systems.
+
+Applying the divergence theorem and Reynolds transport theorem:
+\begin{equation}
+\int_{\mathcal{V}(t)} \left[\rho \frac{D\eta}{Dt} - \frac{\rho r}{T} + \nabla \scp \left(\frac{\tena{q}}{T}\right)\right] dv \geq 0
+\end{equation}
+
+Expanding the divergence term:
+\begin{equation}
+\nabla \scp \left(\frac{\tena{q}}{T}\right) = \frac{1}{T}\nabla \scp \tena{q} + \tena{q} \scp \nabla\left(\frac{1}{T}\right) = \frac{1}{T}\nabla \scp \tena{q} - \frac{1}{T^2}\tena{q} \scp \nabla T
+\end{equation}
+
+The local form of the entropy inequality becomes:
+\begin{equation}
+\rho \frac{D\eta}{Dt} - \frac{\rho r}{T} + \frac{1}{T}\nabla \scp \tena{q} - \frac{1}{T^2}\tena{q} \scp \nabla T \geq 0
+\end{equation}
+
+Using the energy equation to eliminate heat source and conduction terms:
+\begin{equation}
+\rho \frac{D\eta}{Dt} - \frac{1}{T}\left(\rho \frac{De}{Dt} - \tenb{\sigma} \dscp \tenb{D}\right) - \frac{1}{T^2}\tena{q} \scp \nabla T \geq 0
+\end{equation}
+
+This fundamental inequality constrains constitutive relations and ensures thermodynamic consistency. It leads to restrictions on material behavior and provides criteria for evaluating constitutive models~\autocite{Sadd.2019}.
+
+\section{Thermodynamic Potentials and State Relations}
+
+Thermodynamic analysis of continua often employs thermodynamic potentials that characterize material state. The Helmholtz free energy per unit mass is defined as:
+\begin{equation}
+\psi = e - T\eta
+\end{equation}
+
+The Gibbs free energy extends this concept:
+\begin{equation}
+g = \psi - \frac{1}{\rho}\tenb{\sigma} \dscp \tenb{C}^{-1}
+\end{equation}
+
+where $\tenb{C}$ represents an appropriate deformation measure.
+
+These potentials enable systematic development of constitutive relations through thermodynamic state functions. For elastic materials, the stress derives from the free energy:
+\begin{equation}
+\tenb{\sigma} = \rho \frac{\partial \psi}{\partial \tenb{E}}
+\end{equation}
+
+where $\tenb{E}$ is an appropriate strain measure. This approach ensures thermodynamic consistency and provides a systematic framework for constitutive modeling~\autocite{Sadd.2019}.
+
+\section{Coupled Field Equations}
+
+The complete system of field equations for thermoelastic continua includes coupled thermal and mechanical effects. The governing equations consist of:
+
+\subsection{Kinematic Relations}
+\begin{align}
+\tena{v} &= \frac{D\tena{x}}{Dt}\\
+\tenb{L} &= \nabla \tena{v}\\
+\tenb{D} &= \frac{1}{2}(\tenb{L} + \tenb{L}^T)\\
+\tenb{W} &= \frac{1}{2}(\tenb{L} - \tenb{L}^T)
+\end{align}
+
+\subsection{Balance Laws}
+\begin{align}
+\frac{D\rho}{Dt} + \rho \nabla \scp \tena{v} &= 0 \quad \text{(mass conservation)}\\
+\nabla \scp \tenb{\sigma} + \rho \tena{b} &= \rho \frac{D\tena{v}}{Dt} \quad \text{(momentum balance)}\\
+\rho \frac{De}{Dt} &= \tenb{\sigma} \dscp \tenb{D} - \nabla \scp \tena{q} + \rho r \quad \text{(energy balance)}\\
+\rho \frac{D\eta}{Dt} &\geq \frac{\rho r}{T} - \nabla \scp \left(\frac{\tena{q}}{T}\right) \quad \text{(entropy inequality)}
+\end{align}
+
+\subsection{Constitutive Relations}
+Constitutive equations relate field variables according to material behavior:
+\begin{align}
+\tenb{\sigma} &= \tenb{\sigma}(\tenb{F}, T, \nabla T, \ldots)\\
+\tena{q} &= \tena{q}(\tenb{F}, T, \nabla T, \ldots)\\
+\eta &= \eta(\tenb{F}, T, \nabla T, \ldots)
+\end{align}
+
+The specific forms depend on material type and modeling assumptions~\autocite{Sadd.2019}.
+
+\section{Boundary and Initial Conditions}
+
+Proper formulation of boundary value problems requires specification of boundary and initial conditions that render the system well-posed.
+
+\subsection{Mechanical Boundary Conditions}
+On the spatial boundary $\partial \mathcal{B}$, either displacements or tractions must be prescribed:
+\begin{align}
+\tena{u} &= \tena{u}_0 \quad \text{on } \Gamma_u\\
+\tenb{\sigma} \scp \dir{n} &= \tena{t}_0 \quad \text{on } \Gamma_t
+\end{align}
+
+where $\Gamma_u \cup \Gamma_t = \partial \mathcal{B}$ and $\Gamma_u \cap \Gamma_t = \emptyset$.
+
+\subsection{Thermal Boundary Conditions}
+Temperature or heat flux must be specified on thermal boundaries:
+\begin{align}
+T &= T_0 \quad \text{on } \Gamma_T\\
+-\tena{q} \scp \dir{n} &= q_0 \quad \text{on } \Gamma_q
+\end{align}
+
+Mixed boundary conditions may prescribe different quantities on different portions of the boundary.
+
+\subsection{Initial Conditions}
+Initial conditions specify field values at $t = 0$:
+\begin{align}
+\tena{u}(\tena{X}, 0) &= \tena{u}_0(\tena{X})\\
+\tena{v}(\tena{X}, 0) &= \tena{v}_0(\tena{X})\\
+T(\tena{X}, 0) &= T_0(\tena{X})
+\end{align}
+
+Proper specification ensures solution existence and uniqueness~\autocite{Sadd.2019}.
+
+\section{Special Cases and Simplifications}
+
+Several important special cases arise in practical applications:
+
+\subsection{Static Equilibrium}
+When inertial effects are negligible ($\rho D\tena{v}/Dt \approx \tena{0}$), the momentum balance reduces to:
+\begin{equation}
+\nabla \scp \tenb{\sigma} + \rho \tena{b} = \tena{0}
+\end{equation}
+
+This form governs quasi-static loading processes and long-term material response.
+
+\subsection{Isothermal Processes}
+For isothermal conditions ($DT/Dt = 0$), thermal effects decouple from mechanical response, simplifying analysis significantly.
+
+\subsection{Adiabatic Processes}
+Adiabatic conditions eliminate heat conduction ($\nabla \scp \tena{q} = 0$), leading to simplified energy equations.
+
+\subsection{Linear Processes}
+Small displacement and temperature variations enable linearization of all field equations, resulting in classical linear thermoelasticity~\autocite{Sadd.2019}.
+
+\section{Applications and Engineering Significance}
+
+The balance principles and their associated field equations provide the theoretical foundation for virtually all applications in solid mechanics:
+
+\begin{itemize}
+\item \textbf{Structural Analysis}: Static and dynamic analysis of buildings, bridges, and mechanical systems relies fundamentally on momentum balance equations.
+\item \textbf{Manufacturing Processes}: Metal forming, machining, and other manufacturing operations involve coupled thermal-mechanical analysis using energy and momentum balance.
+\item \textbf{Materials Processing}: Heat treatment, welding, and additive manufacturing require detailed understanding of coupled field equations.
+\item \textbf{Geomechanics}: Soil and rock mechanics applications use simplified forms of balance equations appropriate for geological materials and loading conditions.
+\item \textbf{Biomechanics}: Biological tissue analysis employs modified balance equations that account for growth, remodeling, and transport processes.
+\end{itemize}
+
+Modern computational mechanics relies heavily on numerical solution of these balance equations using finite element, finite difference, and other discrete methods. The systematic framework provided by conservation principles ensures that computational models preserve fundamental physical principles, leading to reliable and accurate predictions for engineering design~\autocite{Sadd.2019}.
+
+\section{Summary}
+
+\begin{subox}[Summary]
+This chapter developed the fundamental conservation and balance principles that govern continuum mechanics:
+
+\textbf{Mathematical Foundation:}
+\begin{itemize}
+\item Reynolds transport theorem converts global conservation statements to local differential equations
+\item Systematic approach: apply conservation to material volumes, then localize using mathematical theorems
+\item Provides framework connecting macroscopic conservation laws to local field equations
+\end{itemize}
+
+\textbf{Conservation Laws:}
+\begin{itemize}
+\item Mass conservation: $D\rho/Dt + \rho \nabla \scp \tena{v} = 0$ (continuity equation)
+\item Linear momentum: $\nabla \scp \tenb{\sigma} + \rho \tena{b} = \rho D\tena{v}/Dt$ (Cauchy's equations of motion)
+\item Angular momentum: leads to stress tensor symmetry $\tenb{\sigma} = \tenb{\sigma}^T$
+\item Energy conservation: $\rho De/Dt = \tenb{\sigma} \dscp \tenb{D} - \nabla \scp \tena{q} + \rho r$ (first law of thermodynamics)
+\end{itemize}
+
+\textbf{Thermodynamic Principles:}
+\begin{itemize}
+\item Entropy inequality (Clausius-Duhem): constrains admissible constitutive relations
+\item Thermodynamic potentials (Helmholtz, Gibbs) enable systematic constitutive development
+\item Second law provides restrictions on material behavior and ensures thermodynamic consistency
+\item Coupled thermal-mechanical effects through energy and entropy balance
+\end{itemize}
+
+\textbf{Complete Field Equation System:}
+\begin{itemize}
+\item Kinematic relations: $\tena{v} = D\tena{x}/Dt$, $\tenb{L} = \nabla \tena{v}$, $\tenb{D} = \frac{1}{2}(\tenb{L} + \tenb{L}^T)$
+\item Balance laws: mass, momentum, energy, and entropy equations
+\item Constitutive relations: material-specific equations relating field variables
+\item Boundary and initial conditions for well-posed problems
+\end{itemize}
+
+\textbf{Special Cases and Applications:}
+\begin{itemize}
+\item Static equilibrium: $\nabla \scp \tenb{\sigma} + \rho \tena{b} = \tena{0}$ (negligible inertia)
+\item Isothermal processes: thermal effects decouple from mechanical response
+\item Adiabatic processes: simplified energy equations without heat conduction
+\item Linear processes: small displacement and temperature variations
+\end{itemize}
+
+\textbf{Engineering Significance:}
+\begin{itemize}
+\item Provides theoretical foundation for all solid mechanics applications
+\item Enables formulation of coupled thermal-mechanical problems
+\item Essential for computational mechanics and finite element implementations
+\item Connects fundamental physics to engineering design and analysis
+\item Ensures conservation principles are preserved in numerical methods
+\end{itemize}
+
+\textbf{Physical Insight:}
+\begin{itemize}
+\item Balance principles represent universal physical laws independent of material type
+\item Conservation statements provide constraints that all constitutive models must satisfy
+\item Systematic framework ensures thermodynamic consistency and physical realizability
+\item Foundation for understanding energy dissipation, material stability, and failure mechanisms
+\end{itemize}
+
+The balance principles developed here provide the fundamental governing equations for continuum mechanics, forming the essential link between kinematics, stress analysis, and constitutive modeling.
+\end{subox}

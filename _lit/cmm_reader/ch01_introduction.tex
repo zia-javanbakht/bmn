@@ -1,0 +1,190 @@
+\chapter{Introduction to Continuum Mechanics}
+
+\section{The Continuum Concept}
+
+Continuum mechanics provides a mathematical framework for modeling material behavior by treating matter as continuously distributed throughout the regions it occupies, rather than considering the discrete nature of atomic and molecular structure~\autocite{Sadd.2019}.
+
+The continuum hypothesis represents the fundamental assumption that material properties can be treated as continuous functions of position and time. This assumption enables the application of differential and integral calculus to the analysis of material behavior.
+
+\begin{keypoint}
+The continuum hypothesis is the cornerstone of continuum mechanics, allowing us to replace the discrete molecular structure of matter with a continuous medium described by smooth field functions.
+\end{keypoint}
+
+\subsection{Validity of the Continuum Approach}
+
+The continuum assumption is valid when:
+\begin{itemize}
+\item The characteristic length scale of the problem is much larger than intermolecular distances
+\item The number of molecules in a representative volume element is sufficiently large for statistical averaging
+\item Surface effects do not dominate bulk behavior
+\end{itemize}
+
+Typical applications range from nanoscale (>10nm) to macroscopic dimensions.
+
+\section{Fundamental Elements of Continuum Mechanics}
+
+The complete development of continuum mechanics requires four essential components:
+
+\begin{enumerate}
+\item \textbf{Kinematics}: Mathematical description of motion and deformation without reference to the forces causing them
+\item \textbf{Stress Analysis}: Characterization of internal forces and their distribution within the material
+\item \textbf{Conservation Laws}: Universal balance principles for mass, linear momentum, angular momentum, and energy
+\item \textbf{Constitutive Relations}: Material-specific equations relating stress, strain, temperature, and other field variables
+\end{enumerate}
+
+These components provide a systematic framework for formulating boundary value problems in continuum mechanics.
+
+\begin{keypoint}
+The four pillars of continuum mechanics—kinematics, stress analysis, conservation laws, and constitutive relations—must all be present to completely describe material behavior.
+\end{keypoint}
+
+\section{Mathematical Tools}
+
+\subsection{Tensor Analysis}
+
+The mathematical description of three-dimensional phenomena requires tensor analysis. Physical quantities are classified as:
+\begin{itemize}
+\item \textbf{Scalars}: Temperature, density, energy (zero-order tensors)
+\item \textbf{Vectors}: Displacement, velocity, force (first-order tensors)
+\item \textbf{Second-order tensors}: Stress, strain, moment of inertia
+\item \textbf{Higher-order tensors}: Elasticity moduli, piezoelectric coefficients
+\end{itemize}
+
+\subsection{Index Notation}
+
+Indicial notation with Einstein summation convention provides an efficient mathematical language. Key conventions include:
+\begin{itemize}
+\item Repeated indices imply summation
+\item Free indices must appear on both sides of equations
+\item Dummy indices can be changed without affecting meaning
+\end{itemize}
+
+\section{Configuration and Motion}
+
+\subsection{Material and Spatial Descriptions}
+
+Two fundamental approaches describe continuum motion:
+
+\textbf{Lagrangian (Material) Description}: Follows individual material particles through their motion, using reference coordinates as independent variables.
+
+\textbf{Eulerian (Spatial) Description}: Observes material behavior at fixed spatial points, using current coordinates as independent variables.
+
+\subsection{Deformation Mapping}
+
+The motion of a continuum is described by the mapping $\tena{x} = \boldsymbol{\chi}(\tena{X}, t)$ that relates the reference position $\tena{X}$ of a material particle to its current position $\tena{x}$ at time $t$.
+
+\begin{keypoint}
+The choice between Lagrangian and Eulerian descriptions depends on the problem: Lagrangian is preferred for solids following material particles, while Eulerian is natural for fluids observing flow through fixed regions.
+\end{keypoint}
+
+\section{Field Variables and Derivatives}
+
+\subsection{Material Time Derivative}
+
+The material time derivative tracks the rate of change of a quantity following a specific material particle:
+$$\frac{D\phi}{Dt} = \frac{\partial \phi}{\partial t} + \tena{v} \scp \nabla \phi$$
+
+where $\tena{v}$ is the velocity field.
+
+\subsection{Gradient Operations}
+
+Key differential operators in continuum mechanics include:
+\begin{itemize}
+\item Gradient: $\nabla \phi$ (for scalar fields), $\nabla \tena{v}$ (for vector fields)
+\item Divergence: $\nabla \scp \tena{v}$ (measures volume change rate)
+\item Curl: $\nabla \times \tena{v}$ (measures rotation)
+\end{itemize}
+
+\section{Applications and Scope}
+
+\subsection{Engineering Applications}
+
+Continuum mechanics provides the theoretical foundation for:
+\begin{itemize}
+\item Structural analysis and design
+\item Fluid mechanics and aerodynamics
+\item Heat and mass transfer
+\item Geomechanics and earthquake engineering
+\item Biomechanics and biomedical engineering
+\item Materials processing and manufacturing
+\end{itemize}
+
+\subsection{Modern Extensions}
+
+Contemporary developments include:
+\begin{itemize}
+\item Computational continuum mechanics
+\item Multiscale modeling approaches
+\item Smart and active materials
+\item Coupled multiphysics phenomena
+\item Microstructurally-informed theories
+\end{itemize}
+
+\section{Historical Perspective}
+
+Continuum mechanics evolved through contributions from:
+\begin{itemize}
+\item \textbf{Euler (1707-1783)}: Equations of fluid motion
+\item \textbf{Cauchy (1789-1857)}: Stress tensor concept
+\item \textbf{Green (1793-1841)}: Strain measures for finite deformation
+\item \textbf{Stokes (1819-1903)}: Viscous fluid theory
+\item \textbf{Rivlin and Ericksen}: Modern constitutive theory
+\end{itemize}
+
+This rich theoretical foundation continues to expand with new materials and applications.
+
+\begin{keypoint}
+Modern continuum mechanics bridges classical field theory with cutting-edge applications in nanotechnology, biomechanics, and smart materials.
+\end{keypoint}
+
+The systematic development of these concepts provides the framework for understanding and predicting the mechanical behavior of engineering materials under various loading conditions.
+
+\section{CM in a Glance}
+The whole arrangement of the classical continuum mechanics can be summarise using a Tonti diagram, see Fig~\ref{fig:tonti}
+
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{01_Tonti/Tonti_diagram.pdf}
+\caption{Modfied Tonti diagram of classic continuum mechanics.}\label{fig:tonti}
+\end{figure}
+
+
+
+\section{Summary}
+
+\begin{subox}[Summary]
+This chapter established the fundamental concepts underlying continuum mechanics:
+
+\textbf{Core Concepts:}
+\begin{itemize}
+\item The continuum hypothesis treats matter as continuously distributed, enabling mathematical analysis using calculus
+\item Validity requires characteristic lengths much larger than molecular scales and sufficient particle numbers for statistical averaging
+\item Four essential components: kinematics, stress analysis, conservation laws, and constitutive relations
+\end{itemize}
+
+\textbf{Mathematical Framework:}
+\begin{itemize}
+\item Tensor analysis provides the mathematical language for describing physical quantities of different orders
+\item Index notation with Einstein summation convention enables efficient mathematical manipulation
+\item Lagrangian and Eulerian descriptions offer alternative viewpoints for analyzing motion and deformation
+\end{itemize}
+
+\textbf{Physical Descriptions:}
+\begin{itemize}
+\item Deformation mapping $\tena{x} = \boldsymbol{\chi}(\tena{X}, t)$ connects reference and current configurations
+\item Material time derivative tracks changes following material particles: $D\phi/Dt = \partial\phi/\partial t + \tena{v} \scp \nabla \phi$
+\item Gradient operations (gradient, divergence, curl) characterize spatial variations of field variables
+\end{itemize}
+
+\textbf{Applications and Significance:}
+\begin{itemize}
+\item Provides theoretical foundation for structural analysis, fluid mechanics, heat transfer, and materials processing
+\item Enables modern computational methods for engineering design and analysis
+\item Historical development from Euler and Cauchy to contemporary multiphysics and multiscale approaches
+\item Continues evolving with new materials (smart materials, biomaterials) and emerging technologies (nanotechnology, additive manufacturing)
+\end{itemize}
+
+The continuum mechanics framework established here forms the foundation for all subsequent developments in stress analysis, deformation theory, and constitutive modeling.
+\end{subox}
