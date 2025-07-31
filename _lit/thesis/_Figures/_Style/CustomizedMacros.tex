@@ -1,0 +1,22 @@
+%%%%%%%%%%%%%%%%%%%%%%%
+%% Customized Macros %%
+%%%%%%%%%%%%%%%%%%%%%%%
+
+% Common macros
+\input{./_Style/CommonMacros}
+
+\endinput
+
+% Beamer- and Non-Beamer-specific macros
+\makeatletter%
+\@ifclassloaded{beamer}%
+  {% Beamer class macros
+  \input{./_Style/BeamerMacros}
+  \input{./_Style/BeamerStyle}
+  }%
+  {% Non-Beamer class macros
+  \input{./_Style/NonBeamerMacros}
+  }%
+\makeatother%
+
+

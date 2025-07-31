@@ -1,0 +1,283 @@
+% !TEX TS-program = lualatex
+% !TeX spellcheck = en_GB
+% !TeX root = ../My_thesis.tex
+
+\addchap{Symbols \& Acronyms}
+
+\section*{Symbolic Notation}
+\begin{longtable}{P{0.2\textwidth}>{\hspace*{0.8cm}}l}
+&\\[-0.5cm]
+\multicolumn{2}{l}{\large General Categories}\\
+$\alpha$, $a$ or $A$              & Scalar, zeroth-order tensor                               \\
+$\tena{t}$              & Monad, representative of the first-order tensors         \\
+$\tenb{T}$              & Dyad, representative of the second-order tensors         \\
+$\tenc{T}$              & Triad, representative of the third-order tensors       \\
+$\tend{T}$              & Tetrad, representative of the fourth-order tensors       \\
+$\ten{T}$               & Representative of the generic $n$-th order tensors        \\
+$\tenn{T}{n}$           & Explicit declaration of the order of a $n$-th order tensor  \\
+$\mat{A}$               & General $n\times m$ matrix (non-serif bold) \\
+$\col{A}$               & General column matrix (non-serif bold) \\
+$\row{A}$               & General row matrix (non-serif bold) \\&\\&\\
+\multicolumn{2}{l}{\large Scalars}\\
+$a^\inv$             & Inverse element                 \\
+$d$                  & Dimension of the vector space                  \\
+$f$                  & Function, failure criterion   \\
+$h$                  & Height   \\
+$t$                  & Thickness      \\
+$e$                  & Identity element, Napier's constant              \\
+$k$                  & Thermal conductivity       \\
+$k_\text{E}$                  & Generalised Einstein's coefficient       \\
+$p$                  & Volumetric fractions     \\
+$w$                  & Width                  \\
+$x,y,z$				 & Cartesian coordinates         \\
+$A$  & Halpin-Tsai parameter for inclusion type and orientation\\
+$B$  & Halpin-Tsai parameter for relative stiffness\\
+$A_0$                & Cross-section area   \\
+$D$	& Diameter\\
+$E_i$                & Elastic modulus      \\
+$G_{ij}$             & Shear modulus        \\
+$I_{i}$              & Modified Bessel function of order $i\in\Natural$        \\
+$K$ & Bulk modulus\\
+$M$                  & Modulus  \\
+$N$                  & Number  \\
+$P$                  & Probability density function \\
+$Q$            & Hata-Taya model parameters      \\
+$\dot{Q}$            & Heat flux      \\
+$S_\text{w}$         & Degree of saturation\\
+$T$                  & Temperature          \\
+$V_\text{w}$         & Water volume\\
+$V_\text{void}$      & Void volume      \\
+$W$                  & Strain energy density function \\
+%$X,Y,Z$   			 & Cartesian coordinates         \\
+$\alpha$             & Scaling parameter of the Weibull distribution, material parameter     \\
+$\beta$              & Shape parameter of the Weibull distribution, material parameter, aspect ratio\\
+$\gamma$             & Mesh density, location parameter of the Weibull distribution\\
+$\delta$             & Dirac delta generalised function\\
+%$\epsilon$           & Permutation\\
+$\varepsilon$           & Infinitesimal strain\\
+$\zeta$              & volume fraction of fibre, volume fraction of solid\\
+$\eta$				& Viscosity\\
+$\eta_{i,jk}$        & Mutual influence of first type (shear-extension coupling), Lekhnitskii's coefficients\\
+$\eta_{ij,k}$        & Mutual influence of second type (extension-shear coupling), Lekhnitskii's coefficients \\
+$\theta$			& Distribution angle\\
+$\vartheta$          & Polar angle in spherical coordinates         \\
+$\kappa$             & Concentration parameter of the von Mises distribution\\
+$\varkappa$ 		 & Correction factors\\
+$\lambda$            & Eigenvalue, material parameter            \\
+$\mu$                & Arithmetic mean of the normal and von Mises distributions \\
+$\mu_{ij,kl}$        & Shear-shear coupling, Chenstov's coefficients\\	
+$\nu$ and $\nu_{ij}$ & Poisson's ratio \\
+$\uppi$				 & Pi's number\\
+$\Gamma$             & Gamma function  \\
+$\sigma$             & Stress, standard deviation of the normal distribution  \\
+$\tau$ & Shear stress\\
+$\phi$               & Rotation angle    \\
+$\varphi$            & Azimuthal angle in spherical coordinates           \\
+$\psi$               & Orientation probability density function                  \\
+$\ell$               & Characteristic length        \\
+$\upDelta z$         & Distance  \\&\\
+\multicolumn{2}{l}{\large Vectors}\\
+$\tena{d}$				& Direction vector\\
+$\unita$                & First-order unit tensor, a basis vector                      \\
+$\base_i$				& The $i$-th basis vector\\
+$\base^\prime_i$		& The $i$-th principal basis vector\\
+$\{\base_i\}$			& A set of basis vectors\\
+$\tena{n}$ & Normal vector\\
+$\nulla$                & Null first-order tensor                                   \\
+$\tena{q}$ & Heat flux, transverse shear stress resultant\\
+$\tena{u},\tena{v},\tena{w}$ & Typical vector arguments\\&\\
+\multicolumn{2}{l}{\large Tensors}\\
+$\tenb{A}$				& First fundamental tensor of the surface, auxiliary tensor\\
+$\tend{A}$				& Strain concentration tensor\\
+$\tend{B}$				& Stress concentration tensor\\
+$\tend{C}$				& Elastic tensor\\
+$\tenb{H}$				& Orientation tensor\\
+$\unitb$                & Second-order unit tensor                                  \\
+$\unitd$                & Fourth-order unit tensor       \\                             
+$\unitdT$				& Fourth-order transposition tensor \\
+$\unitd^\sym$ 			& Symmetric fourth-order unit tensor\\	
+$\unitd^\skw$			&	Skew-symmetric fourth-order unit tensor\\
+$\unitd^\vol$			& Volumetric (dilatoric) fourth-order unit tensor\\
+$\unitd^\dev$			& Deviatoric fourth-order unit tensor\\
+$\tenb{L}$				& Polar (bending/twisting) moment tensor\\
+$\tenb{M}$				& Axial (bending/twisting) moment tensor\\
+$\tenb{N}$				& Membrane stress resultants\\
+$\nullb$                & Null second-order tensors                                 \\
+$\nullc$                & Null third-order tensor                                  \\
+$\nulld$                & Null fourth-order tensor                                  \\
+$\nulln$                & Representative of the generic $n$-th order null tensors   \\
+$\tenb{P}$				& Projector tensor\\
+$\tenb{P}^\ast$			& Complementary projector tensor\\
+$\tenb{Q}_{\tena{d}}$	& Transformation tensor about the direction vector $\tena{d}$\\
+$\tenb{R}_{\tena{d}}$	& Rotation tensor about the direction vector $\tena{d}$\\
+$\tenb{S}$				& Eshelby tensor, 2nd-order strength tensor\\
+$\ten{S}$ & Strength tensor \\
+$\tenb{\sigma}$			& Stress tensor\\
+$\levi$					& Levi-Civita tensor, permutation tensor\\
+$\tenb{\varepsilon}$		& Strain tensor\\
+$\delta_{ij}$ 			& Kronecker delta\\&\\
+\multicolumn{2}{l}{\large Matrices \& Column vectors}\\
+$\col{q}$ & Total transverse shear resultants of the laminate\\
+$\mat{A}$ &Extensional stiffness sub-matrix\\
+$\symbf{\mat{A^\text{\normalfont s}}}$ & Transverse shear stiffness matrix\\
+$\mat{B}$ &Coupling stiffness sub-matrix\\
+$\left[\symbfsf C\right]$ & Stiffness matrix\\
+$\left[\tilde{\symbfsf C}\right]$ & Reduced stiffness matrix\\
+$\mat{D}$ & Bending stiffness sub-matrix\\
+$\col{M}$ & Total moment-stress resultant vector of the laminate\\
+$\col{N}$ & In-plane stress resultant force vector of the laminate\\
+$\col{\mbfsanskappa}$ & Bending/twisting curvature vector\\
+$\col{\mbfsansepsilon}$ & Membrane (in-plane) strains vector\\
+$\col{\mbfitsansgamma^\text{\normalfont s}}$ &Shear strain vector \\&\\
+\multicolumn{2}{l}{\large Sets \& Groups}\\
+$\Real$                 & Set of all real numbers, real space                       \\
+$\Natural$              & Set of all natural numbers (including zero)                        \\
+$\Integer$              & Set of all integers                                       \\
+$\Integer^+$            & Set of all positive integers (excluding zero)   \\
+$\Euclid^n$               & $n$-dimensional Euclidean space    \\
+$(\Group,\Gop)$         & Group consisting of the set $\Group$ and group operation $\Gop$ \\&\\
+\multicolumn{2}{l}{\large Unary Operators}\\
+	$\op$                   & Operand of an operator                                    \\
+%	$\op^*$                 & Eigenvalue                                          \\
+	$\op_0$                 & Prescribed value                                          \\
+	$\gibbs{\op} $         & Gibbs cross (vectorial invariant)     \\
+%	$\funcsc(\op)$          & Generic scalar function of several variables              \\
+%	$\func(\op)$            & Generic tensor function of several variables              \\
+%	$\Lop\op$              & Zeroth-order differential operator                   \\
+%	$\Ltop\op$             & General $n$-th order tensorial differential operator \\
+	$T[\op]$               & Applying map $T$ to $\op$                            \\
+	$\op^\sym$             & Symmetrical component                                \\
+	$\op^\skw$             & Skew-symmetrical component                           \\
+	$\op^\vol$             & Volumetric (dilatoric) component                     \\
+	$\op^\dev$             & Deviatoric component                                 \\
+	$\op^\tran $           & Transpose, main transpose                            \\
+	$\op^\ttran$           & Total transpose                                      \\
+	$\op^\ltran$           & Left transpose                                       \\
+	$\op^\rtran$           & Right transpose                                      \\
+	$\op^\mtran$           & Middle transpose                                     \\
+	$\op^\otran$           & Outer transpose                                      \\
+	$\op^\inv$             & Inverse                                              \\
+	$\op^\tenpow{n}$       & Tensorial power of $n$                                              \\
+	$\tr\op$               & Trace                                              \\
+	$[\dots]_{i\ldots j}$  & Components $i\ldots j$ of $\op$                      \\
+%	$\sign{\op}$ & Signum (sign) function                               \\
+	$\det{\op}$            & Determinant of $\op$\\
+	$\mathscr{\order{\op}}$ & Order (rank) of a tensor\\
+	$\avevol{\op}$			& Volume average\\ 
+	$\averot{\op} $			& Directional average\\
+	$\averot{\op}^\prime $			& Weighted directional average\\
+	$\norm{\op}$ 		& The Frobenius norm\\
+	$[\op]$				& Arguments of a multi-linear map or tensor\\
+	$\inbrack{\op}$			& Through-thickness average\\ 
+  	$\partial$               & Partial derivative symbol           \\
+  	$\dif$                   & Full derivative symbol              \\ 	
+	$\grad{}$                             & 3D Nabla operator                    \\
+%	$\grad{}\equiv \gradX{}$                             & 3D material Nabla operator                    \\
+%	$\gradx{}$                               & 3D spatial Nabla operator                    \\
+%	$\sgrad{}\equiv \sgradX{}$              & 2D (surface) material nabla operator          \\
+%	$\sgradx{}$                              & 2D (surface) spatial nabla operator          \\
+	$\grad{\dyad\op}$ or $\grad{\op}$       & Gradient, left gradient              \\
+	$\diver{\op}$                           & Divergence, left divergence          \\
+	$\curl{\op}$                            & Curl (rotor), left curl (left rotor) \\
+	$\text{Grad}\,\op$                      & Right gradient                       \\
+	$\text{Div}\,\op$                       & Right divergence                     \\
+	$\text{Rot}\,\op$ or $\text{Curl}\,\op$ & Right curl (right rotor)             \\
+	$\gradsym{\op}$                         & Symmetrical part of a gradient       \\
+	$\gradskw{\op}$                         & Skew-symmetrical part of a gradient\\&\\
+\multicolumn{2}{l}{\large Binary Operators}\\
+	$\scp$                         & Inner product (dot product)                              \\
+	$\cross$                       & Cross product, direct product, or Cartesian product     \\
+	%$\crosscp$                    & Cross-dot product                                        \\
+	% or box product               &  \\
+	%or $\boxtimes$  
+%$\scpcross$ & Dot-cross product                                        \\
+	$\dhscp$                       & Double horizontal inner product                          \\
+	%	$\thscp$                     & Triple horizontal inner product                          \\
+	$\dscp$                        & Double vertical inner product                            \\
+	%	$\tscp$                      & Triple vertical inner product                            \\
+	$\scp\ldots\scp$               & $n$-times horizontal inner product                       \\
+	$\odot$                        & $n$-times vertical inner product                         \\
+	$\dyad$                        & Outer product (dyadic/tensor product)                    \\
+	%	$\oplus$                     & Direct sum                                               \\
+	$\dyadu, \dyado $              & Conjugation products (tensor product of transformations) \\
+	$\dyadd $                      & Symmetric product \\
+	$\Rayleigh$						& Rayleigh product\\
+	$\Gop$							& Operator of a group\\
+	$\circ$							& Function composition\\
+	$\mapsto $               & Maps to                             \\
+  	$\equidef$ & Equal by definition\\ %or $\stackrel{\mathrm{def}}{=}$ $\equiv  $ or 
+    $\equimust$    &Enforced equality\\	
+    $\ll$	& Significant inequality\\&\\
+\multicolumn{2}{l}{\large Indices, superscripted}\\
+$\op^{(\text{p})}$	&	Phase, particle\\
+$\op^{(\text{f})}$	&	Fibre\\
+$\op^{(\text{m})}$	&	Matrix\\
+$\op^{(\text{C})}$	&	Constrained\\
+$\op^{(\text{T})}$	&	Transformation\\
+$\op^{\prime}$	&	Pertaining to principal values, strength\\
+$\op^{*}$	&	Eigenvalue\\
+$\tilde{\op}$	&	Reduced stiffness\\
+$\hat{\op}$	&	Enhanced property\\
+$\bar{\op}$	& Average value of the partition, average value\\
+$\bar{\bar{\op}}$	& Average value of the sample\\&\\
+\multicolumn{2}{l}{\large Indices, subscripted}\\
+$\op_{\text{c}}$  	&	Composite\\
+$\op_{\text{eff}}$	&	Effective\\
+$\op_{\text{f}}$  	&	Fibre\\
+$\op_{\text{fb}}$  	&	Fibre bundle\\
+$\op_{\text{p}}$  	&	Phase, particle\\
+$\op_{\text{s}}$	&	Solution\\
+$\op_{\text{m}}$	&	Matrix\\
+$\op_{\text{t}}$  	&	Tangential\\
+$\op_{\text{trans}}$	&	Transverse\\
+$\op_{\text{int}}$  	&	Intermediate\\
+$\op_{\text{l}}$  	&	Lumen\\
+$\op_{\text{max}}$  	&	Maximum\\
+$\op_{\text{min}}$  	&	Minimum\\
+$\op_{\text{v}}$  	&	Virtual\\
+$\op_{\text{w}}$  	&	Water\\
+$\op_{\text{En}}$ 	&	Enhanced\\
+$\op_{\text{L}}$  	&	Longitudinal\\
+$\op_{\text{T}}$  	&	Transverse\\&\\
+\multicolumn{2}{l}{\Large Abbreviations}\\
+1D 			&	One-dimensional\\
+2D 			&	Two-dimensional\\
+3D 			&	Three-dimensional\\
+CNT			& 	Carbon nano-tube\\
+CCA			&	Composite cylinders assemblage\\
+CSA			&	Cross-sectional area, composite spheres assemblage\\
+DoF			&	Degree(s) of freedom\\
+EET			&	Element elimination technique\\
+En-RoM		&	Enhanced rule of mixture\\
+En-KT		&	Enhanced Kelly-Tyson\\
+FE(A/M)		&	Finite element (analysis/method)\\
+FRC			&	Fibre-reinforced composite\\
+FACF		&	Fibre area correction factor\\
+FDDF		&	Fibre diameter distribution factor\\
+FFT			&	Fast Fourier transformation\\
+FFA			&	Full-field approach\\
+FLDF		&	Fibre length distribution factor\\
+FODF		&	Fibre orientation distribution factor\\
+GUI			&	Graphical user interface\\
+HDPE		&	High-density polyethylene\\
+IRoM		&	Inverse rule of mixture\\
+KT			&	Kelly-Tyson\\
+MFA			&	Mean-field approach\\
+NFC/NFRC	&	Natural fibre-reinforced composite\\
+ODF			&	Orientation probability density function\\
+OOP		&	Object-oriented programming\\
+PDF			&	Probability density function\\
+RoM			&	Rule of mixture\\
+RVE			&	Representative volume element\\
+SD			&	Standard deviation\\&\\
+\multicolumn{2}{l}{\large Some Standard Abbreviations}\\
+e.g.	&	For example (from Latin `exempli gratia')\\
+etc.	&	And others (from Latin `et cetera')\\
+i.e.	&	That is (from Latin `id est')\\
+n/a		&	Not/applicable\\
+%viz.	&	Namely, precisely (from Latin `videlicet')\\                                                               
+\end{longtable}
+
+
+
+

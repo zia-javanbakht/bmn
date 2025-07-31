@@ -1,0 +1,105 @@
+%!TEX TS-program = xelatex
+%!TeX spellcheck = en_GB
+%!BIB TS-program = biber
+\documentclass[paper=a4, fontsize=11pt, twoside, parskip=half, parskip=relative]{scrbook} 
+%\documentclass[paper=a4, fontsize=11pt, twoside, parskip=half, parskip=relative,parnumber=true]{scrbook} 
+
+	% double line
+	%\documentclass[paper=a4, fontsize=12pt, twoside, parskip=half]{scrbook}% enabledeprecatedfontcommands is an option used for \rm
+
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+\def\mytitle{Computational Modelling of Fibre-Reinforced Composites\\[0.1cm]\LARGE and Nanocomposites}
+\def\myauthor{Zia Javanbakht\\[0.1cm] {\small B.Sc., M.Sc.}}
+\def\mydate{November 2019}
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+
+% this path points where style, figure, and video folders are located
+\def\sourcefolder{.}
+
+% Packages and macros
+\input{./_Style/MyStyle}
+
+
+
+% Graphics path
+\graphicspath{{\sourcefolder/_Figures/}}
+
+% Define header and footer
+%\clearpairofpagestyles
+\ofoot[\pagemark]{\pagemark}
+\ihead{\sectionmark}
+\ohead{\headmark}
+\pagestyle{scrheadings}
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+
+
+
+
+
+% Indicate the revision
+\definecolor{denim}{rgb}{0.08, 0.38, 0.74}
+	\definecolor{mediumtealblue}{rgb}{0.0, 0.33, 0.71}
+\newcommand{\red}{\relax\color{mediumtealblue}}
+\renewcommand{\red}{\relax}
+\newcommand{\bl}{\color{black}}
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+\begin{document}
+%\showthe\parskip
+%\showthe\baselineskip
+
+%\setlength{\parskip}{0mm}%{0.5\baselineskip}
+%\setlength{\parindent}{1.5em}%{0.5\baselineskip}
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+\input{./_style/coverpage}
+\addtocounter{page}{-2}
+\pagenumbering{roman}
+\input{./_text/abstract}
+\input{./_text/declaration}
+\input{./_text/acknowledgement}
+%\addtocounter{page}{-2}
+\thispagestyle{empty}
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+\tableofcontents
+\input{./_Text/publication_list.tex}
+\listoffigures
+\listoftables
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+\newpage
+\input{./_Text/symbols.tex}
+% list of publications
+
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+\newpage
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+    \input{./_Text/Introduction.tex}
+    \input{./_Text/Literature.tex}
+    \input{./_Text/Methodology.tex}
+    \input{./_Text/paper01.tex}
+    \input{./_Text/paper02.tex}
+    \input{./_Text/paper03.tex}
+    \input{./_Text/paper04.tex}
+    \input{./_Text/paper05.tex}
+    \input{./_Text/paper06.tex}
+    \input{./_Text/paper07.tex}
+    \input{./_Text/Conclusion.tex}
+
+%\appendix
+%\input{./_Text/appendix_a.tex}
+%\input{./_Text/appendix_b.tex}
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+\newpage
+\printbibliography[title=References,heading=bibintoc]
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+
+\end{document}

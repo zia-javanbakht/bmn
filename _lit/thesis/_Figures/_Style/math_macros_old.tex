@@ -1,0 +1,287 @@
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% Math commands
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+
+% Customized underline
+
+
+\makeatletter
+
+\newcommand{\thicku}[1]{%
+\begingroup
+\newdimen\@tempwidth%
+\settowidth{\@tempwidth}{$#1$}%
+\newdimen\@tempheight%
+\settoheight{\@tempheight}{$#1$}%
+\advance\@tempheight by -1ex%
+\smash{\stackrel[\raisebox{\@tempheight}{\rule{\@tempwidth}{0.15ex}}]{}{\smash{#1}}}%
+\endgroup
+}
+
+\newcommand{\thickuu}[1]{
+\begingroup
+\newdimen\@@tempwidth%
+\settowidth{\@@tempwidth}{$#1$}%
+\newdimen\@@tempheight%
+\settoheight{\@@tempheight}{$#1$}%
+\advance\@@tempheight by -1.4ex%
+\stackrel[\smash{\raisebox{+\@@tempheight}{\rule{\@@tempwidth}{0.15ex}}}]{}{\smash{\thicku{#1}}}%
+\endgroup
+}
+\makeatother
+
+
+
+	% Rayleigh product
+	\newcommand{\Rayleigh}{\mathbin{\ooalign{$\star$}}}
+
+
+    % Derivative
+    \def\dif{\text{d}}
+    \newcommand{\dV}{\;\dif V}
+    \newcommand{\dS}{\;\dif S}
+    
+% Transpose
+\newcommand{\tran}{\text{T}}
+\newcommand{\ttran}{\text{TT}}
+\newcommand{\rtran}{\text{RT}}
+\newcommand{\ltran}{\text{LT}}
+\newcommand{\mtran}{\text{MT}}
+\newcommand{\otran}{\text{OT}}
+
+
+
+\def\sym{\text{sym}}
+\def\skw{\text{skw}}
+\def\dev{\text{dev}}
+\def\vol{\text{vol}}
+\def\half{\tfrac{1}{2}}
+\def\third{\tfrac{1}{3}}
+\def\base{\tena{e}}
+
+% Group theory
+\newcommand{\Group}{\mathscr{G}}
+\newcommand{\Gop}{\star}
+\newcommand{\Gorder}[1]{\text{ord}#1}
+
+% Norms
+\newcommand{\norm}[1]{\left\lvert{}#1\right\rvert}
+
+% Geometries 
+\newcommand{\Body}{\mathfrak{B}}
+\newcommand{\Surface}{\mathfrak{S}}
+\newcommand{\Volume}{\mathfrak{V}}
+\newcommand{\Line}{\mathfrak{L}}
+\newcommand{\Point}{\mathfrak{p}}
+\newcommand{\Part}{\mathfrak{P}}
+\newcommand{\Neigh}{\mathfrak{N}}
+\newcommand{\Observer}{\mathfrak{O}}
+
+\newcommand{\funcsc}{\mathcal{F}}
+\newcommand{\func}{\mathbfcal{F}}
+\newcommand{\Lop}{\mathcal{L}}
+\newcommand{\Ltop}{\mathbfcal{L}}
+
+
+
+\newcommand{\levi}{\tenc{\epsilon}}
+\newcommand{\gibbs}[1]{#1_\cross}
+\newcommand{\cross}{\times}
+
+% 3D nabla operator
+	\newcommand{\inv}{{-1}}
+	%\newcommand{\grad}[1]{\text{grad}(#1)}
+
+	\newcommand{\grad}[1]{\tena{\nabla} #1}
+	\newcommand{\gradX}[1]{\tena{\nabla}_{\!X} #1}
+	\newcommand{\gradx}[1]{\tena{\nabla}_{\!x} #1}
+	
+	\newcommand{\gradsym}[1]{\tena{\nabla}^\sym#1}
+	\newcommand{\gradskw}[1]{\tena{\nabla}^\skw#1}
+
+	\newcommand{\lap}[1]{\tena{\nabla}^2 #1}
+	\newcommand{\diver}[1]{\tena{\nabla}\scp#1}
+	\newcommand{\curl}[1]{\tena{\nabla}\cross #1}
+
+% Surface nabla operator
+	\newcommand{\sgrad}[1]   {\overline{\tena{\nabla}} #1}
+	\newcommand{\sgradX}[1]   {\overline{\tena{\nabla}}_{\!X} #1}
+	\newcommand{\sgradx}[1]   {\overline{\tena{\nabla}}_{\!x} #1}
+	\newcommand{\sgradsym}[1]{\overline{\tena{\nabla}}^\sym #1}
+	\newcommand{\sgradskw}[1]{\overline{\tena{\nabla}}^\skw #1}
+	\newcommand{\sdiver}[1]  {\overline{\tena{\nabla}}\scp #1}
+	\newcommand{\scurl}[1]   {\overline{\tena{\nabla}}\cross #1}
+
+    % Trace operator
+    \newcommand{\tr}[1]{\mathrm{tr}\, #1}
+
+% sign
+\newcommand{\sign}[1]{\text{sgn}#1}
+
+
+    % Sets
+    \newcommand{\Real}{\mathbb{R}}
+    \newcommand{\Euclid}{\mathbb{E}}
+    \newcommand{\Integer}{\mathbb{Z}}
+    \newcommand{\Natural}{\mathbb{N}}
+    
+    % 2nd-O tensor sets (text)
+    \newcommand{\linsettext}{\mathrm{Lin}}
+    \newcommand{\linpsettext}{\mathrm{Lin+}}
+    \newcommand{\symsettext}{\mathrm{Sym}}
+    \newcommand{\skwsettext}{\mathrm{Skw}}
+    \newcommand{\sympsettext}{\mathrm{Sym+}}
+    \newcommand{\orthsettext}{\mathrm{Orth}}
+    \newcommand{\orthpsettext}{\mathrm{Orth+}}
+    \newcommand{\unisettext}{\mathrm{Uni}}
+    
+    % 2nd-O tensor sets (math)    
+    \newcommand{\linset}{\class{2}{3}}
+    \newcommand{\linpset}{\null^+\class{2}{3}}
+    \newcommand{\symset}{\null^\text{s}\class{2}{3}}
+    \newcommand{\skwset}{\null^\text{a}\class{2}{3}}
+    \newcommand{\sympset}{\null^{\text{s}+}\class{2}{3}}
+    \newcommand{\orthset}{\null^\text{o}\class{2}{3}}
+    \newcommand{\orthpset}{\null^{\text{o}+}\class{2}{3}}
+    \newcommand{\uniset}{\null^{\pm1}\class{2}{3}}
+
+
+
+% Equality symbols
+%\newcommand{\equidef}{\stackrel{\mathrm{def}}{=}}
+\newcommand{\equidef}{\coloneq}
+\newcommand{\equimust}{\stackrel{\mathrm{!}}{=}}
+    
+    % Tensor order O(T)
+    \newcommand{\order}[1]{\mathscr{O}(#1)}
+
+    % Tensor class O_n^d
+    \newcommand{\class}[2]{\mathscr{O}_{#1}^{#2}}
+
+
+% Roman numbers
+\newcommand{\rom}[1]{\mathrm{\expandafter{\romannumeral #1\relax}}}
+\newcommand{\Rom}[1]{\mathrm{\uppercase\expandafter{\romannumeral #1\relax}}}
+
+% Tensors
+\newcommand{\tena}[1]{\symbf{#1}}                       % tensor with various orders 1
+\newcommand{\tenb}[1]{\symbf{#1}}                       % tensor with various orders 2
+\newcommand{\tenc}[1]{\symbf{\uline{#1}}}           % tensor with various orders 3
+\newcommand{\tend}[1]{\symbf{\wideutilde{#1}}}         % tensor with various orders 4
+\newcommand{\ten}[1]{\symbfcal{#1}}                     % n-th order general tensor
+\newcommand{\tenn}[2]{\:\!^#2\symbfcal{#1}}               % n-th order general tensor w/t explicit order
+
+\newcommand{\nulla}{\tena{\symbfup{o}}}
+\newcommand{\nullb}{\tenb{\symbfup{O}}}
+\newcommand{\nullc}{\tenc{\symbfup{O}}}
+\newcommand{\nulld}{\tend{\symbfup{O}}}
+\newcommand{\nulln}{\ten{\symbfcal{O}}}
+
+\newcommand{\unita}{\base}
+\newcommand{\unitb}{\tenb{I}}
+%\newcommand{\unitc}{\tenc{I}}
+\newcommand{\unitd}{\tend{\;\!I}}
+\newcommand{\unitdT}{\tend{\;\!\overbar{I}}}
+
+% Matrix notation
+\newcommand{\mat}[1]{\uppercase{\mathbfsf#1}}          % matrix notation matrix
+\newcommand{\col}[1]{\{\mat{#1}\}}                     % general column matrix
+\newcommand{\row}[1]{\lfloor\mat{#1}\rfloor}           % general row matrix
+
+
+
+
+% maybe 1st-o tensor only bold, 2nd-o double underline, 4th-o utilde
+
+% Marcus' tensor notation
+%\newcommand{\tena}[1]{\lowercase{\mathbfit{#1}}}       % 1st order tensor
+%\newcommand{\tenb}[1]{{{\symbf{#1}}}}                  % 2nd order tensor
+%\newcommand{\tend}[1]{\uppercase{\mathbfcal{#1}}}      % 4th order tensor
+
+\newcommand{\op}{\mdlgwhtsquare}                       % Empty square for operator (unicode)
+
+
+
+
+
+% old dot product
+%\makeatletter%
+%\newcommand*\scp{\mathpalette\bigcdot@{.65}}%
+%\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}%
+%\newcommand*\dvbigcdot@[2]{%
+%\mathbin{\vcenter{\hbox{\raisebox{0.3em}{\scalebox{#2}{$\m@th#1\bullet$}}\kern-0.225em\scalebox{#2}{$\m@th#1\bullet$}} }}}%
+%%\newcommand*\dscp{\mathpalette\dvbigcdot@{.65}}        % double vertical scalar product
+%\newcommand*\dhscp{\scp\kern-0.5mm\scp\,}               % double horizontal scalar product
+
+
+% dot product
+\makeatletter
+\newcommand{\s@cp}{\raisebox{0.5ex}{\scalebox{1.4}[1.4]{$.$}}}
+
+\DeclareMathOperator{\scp}{%
+  \mathbin{\ooalign{\s@cp}}}%
+
+\DeclareMathOperator{\dscp}{%
+  \mathbin{\ooalign{\raisebox{-0.5ex}{\s@cp}\cr\hidewidth \s@cp\hidewidth}}}%
+  
+\DeclareMathOperator{\tscp}{%
+  \mathbin{\ooalign{\raisebox{-0.5ex}{\s@cp}\cr\hidewidth \raisebox{0.5ex}{\s@cp}\cr\hidewidth \s@cp\hidewidth}}}%
+  
+\DeclareMathOperator{\hdscp}{%
+  \mathbin{\ooalign{\s@cp\kern-0.1ex\s@cp}}}%
+
+
+\DeclareMathOperator{\thscp}{%
+  \mathbin{\ooalign{\s@cp\kern-0.1ex\s@cp\kern-0.1ex\s@cp}}}%
+
+
+
+
+\DeclareMathOperator{\crosscp}{%
+  \mathbin{\ooalign{\cross\s@cp}}}%
+
+
+\DeclareMathOperator{\scpcross}{%
+  \mathbin{\ooalign{\s@cp\cross}}}%
+
+
+    % Conjugation product
+    \newcommand{\conj}{\mathbin{\boxtimes}}
+
+	% height of the bar used for overbar and underbar of dyadic operation	
+	\newdimen\barh
+	\barh=0.7pt\relax
+	
+	% extension of dyadic product
+	\newcommand{\dyadu}{\setbox0\hbox{$\otimes$}\stackrel[\raisebox{5pt}{\vrule height \the\barh width 0.5\wd0\relax}]{}{\dyad}}
+
+	\newcommand{\dyado}{\setbox0\hbox{$\otimes$}\stackrel{\raisebox{-2.5pt}{\vrule height \the\barh width 0.5\wd0\relax}}{\dyad}}
+	
+	\newcommand{\dyadsym}{\setbox0\hbox{$\otimes$}\stackrel[\raisebox{5pt}{\vrule height \the\barh width 0.5\wd0\relax}]{\raisebox{-2.5pt}{\vrule height \the\barh width 0.5\wd0\relax}}{\dyad}}
+    
+
+
+    %   I could not make the following line work:
+    %       \DeclareMathSymbol{\conj}{\mathbin}{symbols}{"22A0}
+    %   Possibly mathspec.sty would have the answer 
+    %       \XeTeXDeclareMathSymbol{}{\conj}{\eu@GreekUppercase@symfont}{`}[]    
+    % It is possible to define a math font group instead of the default symbols, see fontmath.ltx:
+    %
+    %    \DeclareSymbolFont{Symbols}{OMS}{cmsy}{m}{n}
+    %    \SetSymbolFont{Symbols}{bold}{OMS}{cmsy}{b}{n}
+    % 
+
+    % Dyadic product
+    \DeclareMathOperator{\dyad}{\mathbin{\ooalign{\otimes}}}
+
+
+    % Through-thickness integration
+    \newcommand{\thickint}[1]{\int\limits_{-\frac{h}{2}}^{+\frac{h}{2}}#1\;\dif X_3}
+    
+    % Put inside left- and right-angles
+    \newcommand{\inangle}[1]{\,\langle #1 \rangle\,}
+
+% eigen symbol
+\newcommand{\eigen}{\ast}
+
+\makeatother

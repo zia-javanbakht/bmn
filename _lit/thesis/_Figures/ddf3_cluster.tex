@@ -1,0 +1,304 @@
+%!TEX TS-program = xelatex
+%!TeX spellcheck = en_GB
+
+% Load the required package using class
+\documentclass[tikz,class=article]{standalone}
+
+%\usepackage{tikz}
+\usetikzlibrary{spy,fit,matrix,shapes.callouts,calc,trees,positioning,arrows,chains,shapes.geometric,shapes.multipart,arrows.meta,  decorations.pathreplacing,decorations.text,decorations.pathmorphing,decorations.markings,shapes,matrix,shapes.symbols,patterns,datavisualization,datavisualization.formats.functions,angles,backgrounds}
+
+
+\usepackage{contour,pgfplots}                    % for outlining text
+\usepackage{fontspec}
+      	\usepgfplotslibrary{fillbetween}
+              
+    
+\usepackage{fontawesome}                          % web fonts
+
+    
+    % Monospaced font
+    \setmonofont{LibertinusMono-Regular.otf}[
+                 Scale=0.8,
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                ]                
+    
+    % Main text font
+    \setmainfont{LibertinusSerif}[%
+                 Ligatures       = {Common}, %Numbers={OldStyle}, Variant=01,
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 UprightFont     = *-Regular,
+                 BoldFont        = *-Bold,
+                 ItalicFont      = *-Italic,
+                 BoldItalicFont  = *-BoldItalic,
+                ]
+    % Sanserif font
+    \setsansfont{LibertinusSans}[
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 UprightFont     = *-Regular,
+                 BoldFont        = *-Bold,
+                 ItalicFont      = *-Italic,
+                ]
+    
+
+
+
+\usepackage{mathtools}                            % extension to amsmath which loads it automatically
+\usepackage{amsthm}                               % math theorems
+\usepackage{mathrsfs}
+%\usepackage{amssymb}                             % symbols like \square  (always before unicode-math)
+\usepackage{xfrac}                                % slanted fractions 
+\usepackage{accents}
+%\usepackage[bb=mma,cal=cm,scr=esstix]{mathalfa}
+\usepackage{unicode-math}                        % Math for XeLaTeX
+\usepackage{stackrel}                             % Enhancements to the \stackrel command
+
+
+\unimathsetup{math-style=ISO, bold-style=ISO}
+
+
+
+
+    % Math font setting
+    \setmathfont{LibertinusMath-Regular}[             % General math font
+                 Path            = ./_Fonts/,
+                 Extension       = .otf
+                 ]
+    
+    % Requires lm-math package
+    \setmathfont{Latin Modern Math}[                  % Calligraphy font for linear operators
+                 range           = {cal, bfcal},
+                 ]
+    
+    % Requires tex-gyre-math package
+    \setmathfont{TeX Gyre Termes Math}[               % For proper blackboard letters
+                 range=bb
+                 ]
+    
+    \setmathfont{XITSMath-Regular}[               % For fraktur
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 range           = frak,
+                 ]
+    
+    \setmathfont{XITSMath-Bold}[               % For fraktur
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 range           = bffrak,
+                 ]
+    
+    
+    \setmathfont{LibertinusMath-Regular}[             % For upright Greek letters using \mup...
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 range           = up/{greek,Greek},          
+                 math-style      = literal
+                 ]
+    
+    
+
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+
+
+
+
+
+% Packages and macros
+%\input{./_Style/MyStyle}
+
+	% Settings
+%	\pgfplotsset{compat=newest}
+
+
+%	\pgfdeclarelayer{background}
+%	\pgfsetlayers{background}
+%	\pgfsetlayers{background,main,foreground} 
+
+
+
+% Flowchart styles
+  \tikzset{
+   %% Define styles for structural symbols
+    %simple node
+    snode/.style = {draw,thick,circle, text height = 0.2cm, text width= 0.2cm,inner sep=0, minimum size = 2mm },
+    % elements
+    myelement/.style = {draw,ultra thick},
+    % point load
+    pload/.style   = {draw, text width=2cm, rectangle, thick},
+    %% Define styles for flowchart symbols
+    % basic style
+    fbase/.style = {draw, fill=lightgray, inner sep=1mm, semithick},
+    % Node label style (plain text)
+    nlabel/.style = {label=left:{\small#1}},
+    % Process style (Rectangle)
+    fproc/.style = {fbase, rectangle,text width=0.75cm},
+    % I/O style (Parallelogram)
+    fio/.style = {fbase, trapezium, trapezium right angle=120, trapezium left angle=60,text width=0.75cm},
+    % Flowchart Connection style (arrows)
+    fconc/.style = {thick, draw,-stealth,label={"#1"}},
+    % Simple Connection style (lines)
+    sconc/.style = {thick, draw,label={"#1"}},
+    % Terminal style (ellipse)
+    fterm/.style = {fbase, ellipse, inner sep=0.5mm},
+    % Decision style (diamond)
+    fdeci/.style = {fbase, diamond, inner sep=0mm, minimum size=0.3cm},
+    % Extra info bracket style (bracket)
+    fbrac/.style = {decorate, decoration={brace}, thick},
+    % Intrinsic subprogram style (Splited rectangle)
+    fsubin/.style = {fbase,rectangle split, rectangle split parts=3, rectangle split horizontal,semithick,rectangle split empty part width=0.1cm, inner xsep=0.05cm, inner ysep=1mm},
+    % External/internal subprogram (Splited rectangle from top)
+    fsubex/.style = {fbase, inner sep=0,rectangle split,rectangle split every empty part={},rectangle split empty part height=0cm,rectangle split empty part width=0ex, rectangle split empty part depth=0cm,,rectangle split parts=2, semithick,text height=-0.3cm},
+    % Callout style (comments)
+    mycallout/.style = {draw,pattern=north west lines, pattern color=lightgray!75, semithick, rectangle callout, inner sep=2mm,align=justify,callout absolute pointer={#1},text width=4cm},
+    % Junction style (small circles)
+    fjunc/.style = {fbase, circle, inner sep=0mm,text width=1mm,,minimum size=2mm},
+    % Off-page connector style (Trapezoid)
+    fnext/.style = {fbase, inner xsep=1mm,inner ysep=0.5mm,chamfered rectangle,chamfered rectangle ysep=0.5cm,chamfered rectangle xsep=0.5cm,chamfered rectangle corners={south west,south east},text width=2mm},
+    % Matrix style but outside of a matrix
+    matrixoutstyle/.style ={draw,line width=0.75pt, anchor=center,fill=gray!50, text centered, rounded corners=0.1cm, minimum width=1cm, minimum height=5mm, minimum width=0.2cm,inner sep=1mm, font=\scriptsize},
+    % General Matrix style
+    matrixstyle/.style={matrix of nodes, nodes={matrixoutstyle},row sep=0.4cm, column sep=1cm, minimum width=0.2cm,inner sep=0, font=\scriptsize},
+    % General tikzstyle
+    mytikzstyle/.style={node distance=0.5cm,anchor=center,font=\scriptsize},
+    % Pseudocode style
+    pcstyle/.style={node distance=-0.15cm},
+    % Flowchart style
+    fcstyle/.style={row sep=0cm,column sep=0cm,minimum width=1mm,align=center},
+    % Flowchart blank node
+    fblanku/.style={yshift=0.4cm},
+    fblankd/.style={yshift=-0.4cm},
+    % To put a node between two others
+    between/.style args={#1 and #2}{at = ($(#1)!0.5!(#2)$)}
+  }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+	\pgfplotsset{set layers=standard}
+
+
+%[%semithick,
+%% double column legend below
+%%	legend columns=2,
+%%	legend style={at={(0.5,-0.15)},anchor=north},
+%width = 11cm,
+%height = 8cm,
+%xlabel = {Fibre volume fraction (\%), $\zeta_\text{f}$},
+%%xmin = 17.,
+%%xmax = 21.5,
+%%point meta=explicit symbolic,
+%ylabel =  {Normalised effective thermal conductivity, $\sfrac{E_\text{eff}}{E_\text{m}}$},
+%%ymax = 9.5e3,
+%%ymin = 2.5e3,
+%%ytick pos=left,
+%%legend entries= {{0.1},{0.2},{0.3},{0.4}},
+%legend pos=north west,
+%cycle list name=black white,
+%legend style={font=\footnotesize},
+%legend cell align=left,
+%%extra y ticks={0.21513},
+%y label style={yshift=-0.3cm},
+%%/pgf/number format/fixed,
+%%/pgf/number format/precision=5,
+%smooth
+
+	
+		% Drawing settings
+		\newlength{\marksize}
+		\setlength{\marksize}{2pt}
+   \begin{tikzpicture}
+      \begin{axis}[
+      width  = 0.5\textwidth,
+      height = 6cm,
+      major x tick style = transparent,
+      x=4cm,
+      ybar=0.2cm,
+      ylabel=Clustering index,
+      bar width=12pt,
+      ymajorgrids = true,
+      symbolic x coords={{${\rm [CI]}_{11}$},{${\rm [CI]}_{12}$}},
+      xtick = data,
+      scaled y ticks = false,
+      enlarge x limits=0.50,
+      ymin=0,
+      legend cell align=left,
+      legend pos= outer north east,
+      y tick label style={
+              /pgf/number format/.cd,
+                  fixed,
+                  fixed zerofill,
+                  precision=3,
+              /tikz/.cd
+          }
+  ]
+      \addplot[style={fill=white, postaction={pattern=vertical lines}},
+      error bars/.cd, 
+      y dir=both, 
+      error bar style={line width=1pt},
+      error mark options={
+            mark size=0.5pt,
+            line width=4pt
+          },
+      y explicit
+      ]
+          coordinates 
+          {
+          ({${\rm [CI]}_{11}$},0.009) +- (0,0.013)
+          ({${\rm [CI]}_{12}$},0.0161) +- (0,0.016)
+          };
+     \addplot[style={fill=black!20, postaction={pattern=dots}},error bars/.cd, y dir=both, y explicit,error bar style=black,      error bar style={line width=1pt},
+           error mark options={
+                 mark size=0.5pt,
+                 line width=4pt
+               },]
+           coordinates {
+          ({${\rm [CI]}_{11}$},0.0027) +- (0,0.003)
+          ({${\rm [CI]}_{12}$},0.0051) +- (0,0.005       )
+          };
+      \addplot[style={fill=black!40, postaction={pattern=north east lines}},error bars/.cd, y dir=both, y explicit,error bar style=black,      error bar style={line width=1.pt},
+            error mark options={
+                  mark size=0.5pt,
+                  line width=4pt
+                },]
+           coordinates {
+          ({${\rm [CI]}_{11}$},0.007
+          ) +- (0,	0.013
+          )
+          ({${\rm [CI]}_{12}$},0.00475
+          ) +- (0,0.0035
+          )
+          };
+      \addplot[style={fill=black!60, postaction={pattern=grid}},error bars/.cd, y dir=both, y explicit,error bar style=black,      error bar style={line width=1.pt},
+            error mark options={
+                  mark size=0.5pt,
+                  line width=4pt
+                }]
+           coordinates {
+          ({${\rm [CI]}_{11}$},0.008
+          ) +- (0,	0.0074
+          )
+          ({${\rm [CI]}_{12}$},0.00575
+          ) +- (0,0.0077)
+          };
+      \addplot[style={fill=gray!50},,error bars/.cd, y dir=both, y explicit,error bar style=black,      error bar style={line width=1.pt},
+            error mark options={
+                  mark size=0.5pt,
+                  line width=4pt
+                }]
+           coordinates {
+          ({${\rm [CI]}_{11}$},0.0024
+          ) +- (0,	0.0027
+          )
+          ({${\rm [CI]}_{12}$},0.0036
+          ) +- (0,0.00497
+          )
+          };
+      \legend{Case 1, Case 2, Case 3, Case 4,Case 5}
+  \end{axis}
+  \end{tikzpicture}
+
+\end{document}

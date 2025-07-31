@@ -1,0 +1,478 @@
+%!TEX TS-program = xelatex
+%!TeX spellcheck = en_GB
+
+% Load the required package using class
+\documentclass[tikz,class=article]{standalone}
+
+%\usepackage{tikz}
+\usetikzlibrary{spy,fit,matrix,shapes.callouts,calc,trees,positioning,arrows,chains,shapes.geometric,shapes.multipart,arrows.meta,  decorations.pathreplacing,decorations.text,decorations.pathmorphing,decorations.markings,shapes,matrix,shapes.symbols,patterns,datavisualization,datavisualization.formats.functions,angles,backgrounds,shapes.multipart,backgrounds}
+
+
+\usepackage[]{contour}                    % for outlining text
+
+
+\usepackage{fontspec}
+
+% Add a font that is not under the system fonts
+%\fontspec [ Path            = ./_Fonts/,
+%%UprightFont = *-regular,
+%% BoldFont = *-bold
+% Extension       = .otf,
+% ]
+%{FontAwesome}
+\usepackage{scalerel}
+                
+    
+\usepackage{fontawesome}                          % web fonts
+
+%\setmonofont[                                     % Monospace font
+%             Scale=0.8,
+%             Path = ./_Fonts/
+%            ]{DejaVuSansMono.ttf}                 
+%\setmainfont[                                     % Text font
+%             Ligatures={Common}, %Numbers={OldStyle}, Variant=01,
+%             Path = ./_Fonts/,
+%             BoldFont=LinLibertine_RB.otf,
+%             ItalicFont=LinLibertine_RI.otf,
+%             BoldItalicFont=LinLibertine_RBI.otf
+%            ]{LinLibertine_R.otf}
+
+%\setmonofont[Scale=0.9]{SFMono-Bold.otf}
+    
+    % Monospaced font
+    \setmonofont{LibertinusMono-Regular.otf}[
+                 Scale=0.8,
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                ]                
+    
+    % Main text font
+    \setmainfont{LibertinusSerif}[%
+                 Ligatures       = {Common}, %Numbers={OldStyle}, Variant=01,
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 UprightFont     = *-Regular,
+                 BoldFont        = *-Bold,
+                 ItalicFont      = *-Italic,
+                 BoldItalicFont  = *-BoldItalic,
+                ]
+    % Sanserif font
+    \setsansfont{LibertinusSans}[
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 UprightFont     = *-Regular,
+                 BoldFont        = *-Bold,
+                 ItalicFont      = *-Italic,
+                ]
+    
+
+
+
+\usepackage{mathtools}                            % extension to amsmath which loads it automatically
+\usepackage{amsthm}                               % math theorems
+\usepackage{mathrsfs}
+%\usepackage{amssymb}                             % symbols like \square  (always before unicode-math)
+\usepackage{xfrac}                                % slanted fractions 
+\usepackage{accents}
+%\usepackage[bb=mma,cal=cm,scr=esstix]{mathalfa}
+\usepackage{unicode-math}                        % Math for XeLaTeX
+\usepackage{stackrel}                             % Enhancements to the \stackrel command
+
+
+\unimathsetup{math-style=ISO, bold-style=ISO}
+
+
+
+
+    % Math font setting
+    \setmathfont{LibertinusMath-Regular}[             % General math font
+                 Path            = ./_Fonts/,
+                 Extension       = .otf
+                 ]
+    
+    % Requires lm-math package
+    \setmathfont{Latin Modern Math}[                  % Calligraphy font for linear operators
+                 range           = {cal, bfcal},
+                 ]
+    
+    % Requires tex-gyre-math package
+    \setmathfont{TeX Gyre Termes Math}[               % For proper blackboard letters
+                 range=bb
+                 ]
+    
+    \setmathfont{XITSMath-Regular}[               % For fraktur
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 range           = frak,
+                 ]
+    
+    \setmathfont{XITSMath-Bold}[               % For fraktur
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 range           = bffrak,
+                 ]
+    
+    
+    \setmathfont{LibertinusMath-Regular}[             % For upright Greek letters using \mup...
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 range           = up/{greek,Greek},          
+                 math-style      = literal
+                 ]
+    
+    
+
+
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\codescript}[1]{\scriptsize\texttt{#1}}
+
+
+
+%%%%%%%%%%%%%%%%%%%
+%% Common Macros %%
+%%%%%%%%%%%%%%%%%%%
+
+% Common settings for all lectures in this course
+\def\mycampus{Gold Coast Campus}
+\def\myuniversity{Griffith University}
+\def\myschool{Griffith School of Engineering}
+\def\mycoursename{Engineering Materials}
+\def\mycoursecode{1017ENG}
+\def\mycourse{\mycoursecode~\mycoursename}
+\def\myinstitute{\myuniversity\par\myschool\par\mycampus}
+
+% These two lines work for both beamer and non-beamer
+%\date{\mydate}
+%\title{\mytitle}
+
+
+% Add blank page without any numbers
+\newcommand\blankpage{%
+    \afterpage{\null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}\clearpage}
+
+% My Quotation 
+\newcommand{\myquote}[2]{\begin{center}\begin{minipage}{0.6\textwidth}\emph{{#1}}\vspace{-0.3cm}\flushright{{\scriptsize%
+\if\relax\detokenize{#2}\relax
+Anonymous
+\else
+#2
+\fi
+}}\\\end{minipage}\end{center}}
+% Derivative
+\def\der{\text{d}}
+
+
+% x mark
+\newcommand{\xmark}{\ding{55}}
+% Check mark
+\newcommand{\cmark}{\ding{51}}
+% My checkedBox
+\def\myCheckedBox{\hbox{\raise.2em\hbox{\cmark}\kern-0.9em\hbox{$\square$}}}
+% My CrossedBox
+\def\myCrossedBox{\hbox{\hbox{\resizebox{1.2ex}{!}{\xmark}}\kern-0.7em\raise-.05em\hbox{$\square$}}}
+% The tree
+\def\thetree{\BasicTree[3.]{blue!80!red!40!white}{blue!80!red!30!white!30!black}{blue!70!red!60!white}{leaf}}
+% The arrow
+\def\thearrow{\resizebox{2.5em}{!}{\ding{224}}}
+% The hand
+\def\thehand{\resizebox{2.5em}{!}{\ding{45}}}
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% Commands from Advanced Marc/Mentat book 1st edition
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+
+  % My Circled
+  \newcommand\circled[1]{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
+  
+  
+  % My rightarrow
+  \def\ra{$\,\triangleright\,$}
+  
+  % The rightarrow for changing
+  \def\rc{$\,\succ\,$}
+  
+  % My Button
+  \def\button#1{\framebox{\code{#1}}}
+
+
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+% Commands defined for brands
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+
+	\let\x=\xspace
+	
+	% Intel
+	\def\intel{\fontshape\scdefault\selectfont Intel{$^{\scaleobj{1}{\textregistered}}$}\normalfont\x} 
+	
+	% Microsoft Visual Studio
+	\def\VS{\fontshape\scdefault\selectfont Microsoft{$^{\scaleobj{0.7}{\textregistered}}$} Visual Studio\normalfont\x}
+	
+	% WINDOWS
+	\def\win{\fontshape\scdefault\selectfont Windows{$^{\scaleobj{0.7}{\textregistered}}$}\normalfont\x} 
+	
+	% HP
+	\def\hp{\fontshape\scdefault\selectfont HP{$^{\scaleobj{0.7}{\textregistered}}$}\normalfont\x} 
+	
+	% Registered mark
+	\def\reg{$^{\scaleobj{0.7}{\textregistered}}$}
+	
+	% Microsoft C/C++
+	\def\micro{\fontshape\scdefault\selectfont Microsoft{$^{\scaleobj{0.7}{\textregistered}}$}\normalfont\x} 
+	
+	% C/C++
+	\def\ccpp{\fontshape\scdefault\selectfont C/C++\normalfont\x} 
+	
+	% Python in smallcaps
+	\def\py{\fontshape\scdefault\selectfont Python\normalfont\x}
+	\def\pym{\fontshape\scdefault\selectfont PyMentat\normalfont\x}
+	\def\pyp{\fontshape\scdefault\selectfont PyPost\normalfont\x}
+	\def\npy{\fontshape\scdefault\selectfont NumPy\normalfont\x}
+	\def\spy{\fontshape\scdefault\selectfont SciPy\normalfont\x}
+	
+	% Fortran
+	\def\f{\fontshape\scdefault\selectfont Fortran\normalfont\x}
+	
+	% Marc in smallcaps
+	\def\m{\fontshape\scdefault\selectfont Marc\normalfont\x}
+	
+	% Mentat in smallcaps
+	\def\M{\fontshape\scdefault\selectfont Mentat\normalfont\x}
+	
+	% Marc/Mentat in smallcaps
+	\def\mm{\fontshape\scdefault\selectfont Marc/Mentat\normalfont\x}
+	
+	% MATLAB in smallcaps
+	\def\MATLAB{\fontshape\scdefault\selectfont MATLAB\normalfont\x}
+	
+	% MATLAB in smallcaps
+	\def\Pascal{\fontshape\scdefault\selectfont Pascal\normalfont\x}
+  
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% New commands for listings
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+
+
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+% Fortran, Python codes, and text file editing
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+  % General Code
+  \def\code#1{\texttt{\small{#1}}}
+  % General Code (scriptsize)
+  \def\codescript#1{\texttt{\scriptsize{#1}}}
+  % KeyWords
+  \def\kw#1{\code{\MakeTextUppercase{#1}}}
+  % KeyWords (scriptsize)
+  \def\kwscript#1{\codescript{\MakeTextUppercase{#1}}}
+  % Syntax
+  \newenvironment{syntax}{\\[0.25\baselineskip]\indent\ttfamily\small}{\normalfont\\[0.25\baselineskip]}%
+
+
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+% Mentat GUI commands
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+  % General commands
+  \def\cmd#1{\textsf{\small{#1}}}
+  % General commands (scriptsize)
+  \def\cmdscript#1{\textsf{\scriptsize{#1}}}
+  % Command environment for Mentat
+  \newenvironment{mentatcmd}{\\[0.25\baselineskip]\indent\sffamily\small}{\normalfont\\[0.25\baselineskip]}%
+
+
+
+
+
+
+% Strut (to gaurantee a minimal height in a tabular environment)
+\def\mystrut#1{\vrule height #1 depth #1 width 0pt} 
+
+
+
+
+
+% Roman element numbers - lowercase
+
+\def\rnum#1{\scriptsize\romannumeral #1}
+
+% Roman element numbers - uppercase
+\def\Rnum#1{\scriptsize\uppercase\expandafter{\romannumeral #1\relax}}
+% Roman number for the text
+\def\Rnumt#1{\uppercase\expandafter{\romannumeral #1\relax}}
+
+
+% Used for double rows, automatically divided
+  \def\cell#1{\multirow{2}[3]{*}{#1}}
+% Command used for manual multirows separated using \\
+  \def\breakcell#1[#2]{\begin{tabular}[#2]{@{}#2@{}}#1\end{tabular}}
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Overlay commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% command for coordinates in a graph
+\def\sample#1#2#3#4#5[#6]{%
+\coordinate[overlay,remember picture] (#3) at (#1,#2);
+\draw[thick,fill=gray!30] ($(#3.center)+(#1-#3/2,#2-#4/2)$) rectangle ($(#3.center)+(#1+#3/2,#2+#4/2)$);
+  \foreach \x in {0,...,10}
+  \path[draw] ($(#1-#3/2+0.2cm+#5*\x/10,#2-0.3*#4)+(#3.center)$) --  ($(#1-#3/2+0.2cm+#5*\x/10,#2+0.3*#4)+(#3.center)$) node[] {};
+}%
+
+
+
+
+
+
+%
+\tikzset{%
+  highlight/.style={rectangle,rounded corners,fill=red!15,draw,
+    fill opacity=0.5,thick,inner sep=0pt}
+}
+\newcommand{\tikzmark}[2]{\tikz[overlay,remember picture,
+  baseline=(#1.base)] \node (#1) {#2};}
+%
+\newcommand{\Highlight}[1][submatrix]{%
+    \tikz[overlay,remember picture]{
+    \node[highlight,fit=(left.north west) (right.south east)] (#1) {};}
+}
+
+\newcommand{\tikzpin}[1]{\tikz[overlay,remember picture] \node (#1) {};}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% Packages and macros
+%\input{./_Style/MyStyle}
+
+	% Settings
+%	\pgfplotsset{compat=newest}
+
+
+%	\pgfdeclarelayer{background}
+%	\pgfsetlayers{background}
+%	\pgfsetlayers{background,main,foreground} 
+
+
+  \tikzset{
+   %% Define styles for structural symbols
+    %simple node
+    snode/.style = {draw,thick,circle, text height = 0.2cm, text width= 0.2cm,inner sep=0, minimum size = 2mm },
+    % elements
+    myelement/.style = {draw,ultra thick},
+    % point load
+    pload/.style   = {draw, text width=2cm, rectangle, thick},
+    %% Define styles for flowchart symbols
+    % basic style
+    fbase/.style = {draw, fill=lightgray, inner sep=1mm, semithick},
+    % Node label style (plain text)
+    nlabel/.style = {label=left:{\small#1}},
+    % Process style (Rectangle)
+    fproc/.style = {fbase, rectangle,text width=0.75cm},
+    % I/O style (Parallelogram)
+    fio/.style = {fbase, trapezium, trapezium right angle=120, trapezium left angle=60,text width=0.75cm},
+    % Flowchart Connection style (arrows)
+    fconc/.style = {semithick, draw,-stealth,label={"#1"}},
+    % Simple Connection style (lines)
+    sconc/.style = {semithick, draw,label={"#1"}},
+    % Terminal style (ellipse)
+    fterm/.style = {fbase, ellipse, inner sep=0.5mm},
+    % Decision style (diamond)
+    fdeci/.style = {fbase, diamond, inner sep=0mm, minimum size=0.3cm},
+    % Extra info bracket style (bracket)
+    fbrac/.style = {decorate, decoration=brace, thick},
+    % Intrinsic subprogram style (Splited rectangle)
+    fsubin/.style = {fbase,rectangle split, rectangle split parts=3, rectangle split horizontal,semithick,rectangle split empty part width=0.1cm, inner xsep=0.05cm, inner ysep=1mm},
+    % External/internal subprogram (Splited rectangle from top)
+    fsubex/.style = {fbase, inner sep=0,rectangle split,rectangle split every empty part={},rectangle split empty part height=0cm,rectangle split empty part width=0ex, rectangle split empty part depth=0cm,,rectangle split parts=2, semithick,text height=-0.3cm},
+    % Callout style (comments)
+    mycallout/.style = {draw,pattern=north west lines, pattern color=lightgray!75, semithick, rectangle callout, inner sep=2mm,align=justify,callout absolute pointer={#1},text width=4cm},
+    % Junction style (small circles)
+    fjunc/.style = {fbase, circle, inner sep=0mm,text width=1mm,,minimum size=2mm},
+    % Off-page connector style (Trapezoid)
+    fnext/.style = {fbase, inner xsep=1mm,inner ysep=0.5mm,chamfered rectangle,chamfered rectangle ysep=0.5cm,chamfered rectangle xsep=0.5cm,chamfered rectangle corners={south west,south east},text width=2mm},
+    % Matrix style but outside of a matrix
+    mat/.style ={draw,line width=0.75pt, anchor=center,fill=gray!50, text centered, rounded corners=0.1cm, minimum width=1cm, minimum height=5mm, minimum width=0.2cm,inner sep=1mm, font=\scriptsize},
+    % General Matrix style
+    matrixstyle/.style={matrix of nodes, nodes={matrixoutstyle},row sep=0.4cm, column sep=1cm, minimum width=0.2cm,inner sep=0, font=\scriptsize},
+    % General tikzstyle
+    mytikzstyle/.style={node distance=0.5cm,anchor=center,font=\scriptsize},
+    % Pseudocode style
+    pcstyle/.style={node distance=-0.15cm},
+    % Flowchart style
+    fcstyle/.style={row sep=0cm,column sep=0cm,minimum width=1mm,align=center},
+    % Flowchart blank node
+    fblanku/.style={yshift=0.4cm},
+    fblankd/.style={yshift=-0.4cm},
+    % To put a node between two others
+    between/.style args={#1 and #2}{at = ($(#1)!0.5!(#2)$)}
+  }
+
+% Commands for TikZ
+\def\splittedv#1{\nodepart[text width=0.1,inner sep=0]{one}  \nodepart[]{two} #1 \nodepart[text width=0.1]{three}}
+\def\splittedh#1[#2]{\nodepart[text height=0.1cm,inner sep=0,rectangle split every empty part={},rectangle split empty part height=0.1cm,]{one} \nodepart[align=center,text width=1cm,#2]{two}#1}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{3d}
+% https://tex.stackexchange.com/a/12033/121799
+\tikzset{reverseclip/.style={insert path={(current bounding box.north
+        east) rectangle (current bounding box.south west)}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+	% define the layers
+	\pgfdeclarelayer{bg}
+	\pgfdeclarelayer{fg}
+	% order the layers
+	\pgfsetlayers{bg, main,fg}
+
+
+
+%\tdplotsetmaincoords{110}{-30}
+	\begin{tikzpicture}
+	
+	\begin{scope}[every node/.style={mat, text width=1.5cm, anchor=center}]
+	\node[text width=1.75cm]              (tl)       {Understanding the problem};
+	\node[right = 0.75cm of tl.east]       (tr)       {Planning the logic};
+	\node[right = 0.75cm of tr.east]       (tr2)      {Writing the code};
+	\node[below = 1cm of $(tl)!0.5!(tr)$]            (bl)      {Documenting, maintenance, and updating};
+	\node[]                               (br) at ({$(tr)!0.5!(tr2)$} |- bl)         {Compiling, testing, and debugging};
+	\end{scope}
+	
+	\begin{scope}[-stealth, semithick] 
+	\draw [] (tl.east) -- (tr.west);	
+	\draw [] (tr.east) -- (tr2.west);	
+	\draw [] (br.west) -- (bl.east);	
+	\draw [] (bl.west) -| (tl.south);	
+	\draw [] (tr2.south) |- (br.east);	
+	\end{scope}
+	\end{tikzpicture}
+
+
+\end{document}

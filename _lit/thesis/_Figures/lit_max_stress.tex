@@ -1,0 +1,301 @@
+%!TEX TS-program = xelatex
+%!TeX spellcheck = en_GB
+
+% Load the required package using class
+\documentclass[tikz,class=article]{standalone}
+\usepackage{contour,pgfplots} 
+%\usepackage{tikz}
+	\usetikzlibrary{spy,fit,matrix,shapes.callouts,calc,trees,positioning,arrows,chains,shapes.geometric,shapes.multipart,arrows.meta,  decorations.pathreplacing,decorations.text,decorations.pathmorphing,decorations.markings,shapes,matrix,shapes.symbols,patterns,datavisualization,datavisualization.formats.functions,angles,backgrounds, bending,pgfplots.fillbetween}
+
+
+                   % for outlining text
+\usepackage{fontspec}
+              
+    
+\usepackage{fontawesome}                          % web fonts
+
+    
+    % Monospaced font
+    \setmonofont{LibertinusMono-Regular.otf}[
+                 Scale=0.8,
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                ]                
+    
+    % Main text font
+    \setmainfont{LibertinusSerif}[%
+                 Ligatures       = {Common}, %Numbers={OldStyle}, Variant=01,
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 UprightFont     = *-Regular,
+                 BoldFont        = *-Bold,
+                 ItalicFont      = *-Italic,
+                 BoldItalicFont  = *-BoldItalic,
+                ]
+    % Sanserif font
+    \setsansfont{LibertinusSans}[
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 UprightFont     = *-Regular,
+                 BoldFont        = *-Bold,
+                 ItalicFont      = *-Italic,
+                ]
+    
+
+
+
+%\usepackage{mathtools}                            % extension to amsmath which loads it automatically
+\usepackage{amsthm}                               % math theorems
+\usepackage{mathrsfs}
+%\usepackage{amssymb}                             % symbols like \square  (always before unicode-math)
+\usepackage{xfrac}                                % slanted fractions 
+\usepackage{accents}
+%\usepackage[bb=mma,cal=cm,scr=esstix]{mathalfa}
+\usepackage{unicode-math}                        % Math for XeLaTeX
+\usepackage{stackrel}                             % Enhancements to the \stackrel command
+
+
+\unimathsetup{math-style=ISO, bold-style=ISO}
+
+
+
+
+    % Math font setting
+    \setmathfont{LibertinusMath-Regular}[             % General math font
+                 Path            = ./_Fonts/,
+                 Extension       = .otf
+                 ]
+    
+    % Requires lm-math package
+    \setmathfont{Latin Modern Math}[                  % Calligraphy font for linear operators
+                 range           = {cal, bfcal},
+                 ]
+    
+    % Requires tex-gyre-math package
+    \setmathfont{TeX Gyre Termes Math}[               % For proper blackboard letters
+                 range=bb
+                 ]
+    
+    \setmathfont{XITSMath-Regular}[               % For fraktur
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 range           = frak,
+                 ]
+    
+    \setmathfont{XITSMath-Bold}[               % For fraktur
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 range           = bffrak,
+                 ]
+    
+    
+    \setmathfont{LibertinusMath-Regular}[             % For upright Greek letters using \mup...
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 range           = up/{greek,Greek},          
+                 math-style      = literal
+                 ]
+    
+    
+
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+
+
+
+
+
+% Packages and macros
+%\input{./_Style/MyStyle}
+
+	% Settings
+%	\pgfplotsset{compat=newest}
+
+
+%	\pgfdeclarelayer{background}
+%	\pgfsetlayers{background}
+%	\pgfsetlayers{background,main,foreground} 
+
+
+
+% Flowchart styles
+  \tikzset{
+   %% Define styles for structural symbols
+    %simple node
+    snode/.style = {draw,thick,circle, text height = 0.2cm, text width= 0.2cm,inner sep=0, minimum size = 2mm },
+    % elements
+    myelement/.style = {draw,ultra thick},
+    % point load
+    pload/.style   = {draw, text width=2cm, rectangle, thick},
+    %% Define styles for flowchart symbols
+    % basic style
+    fbase/.style = {draw, fill=lightgray, inner sep=1mm, semithick},
+    % Node label style (plain text)
+    nlabel/.style = {label=left:{\small#1}},
+    % Process style (Rectangle)
+    fproc/.style = {fbase, rectangle,text width=0.75cm},
+    % I/O style (Parallelogram)
+    fio/.style = {fbase, trapezium, trapezium right angle=120, trapezium left angle=60,text width=0.75cm},
+    % Flowchart Connection style (arrows)
+    fconc/.style = {thick, draw,-stealth,label={"#1"}},
+    % Simple Connection style (lines)
+    sconc/.style = {thick, draw,label={"#1"}},
+    % Terminal style (ellipse)
+    fterm/.style = {fbase, ellipse, inner sep=0.5mm},
+    % Decision style (diamond)
+    fdeci/.style = {fbase, diamond, inner sep=0mm, minimum size=0.3cm},
+    % Extra info bracket style (bracket)
+    fbrac/.style = {decorate, decoration={brace}, thick},
+    % Intrinsic subprogram style (Splited rectangle)
+    fsubin/.style = {fbase,rectangle split, rectangle split parts=3, rectangle split horizontal,semithick,rectangle split empty part width=0.1cm, inner xsep=0.05cm, inner ysep=1mm},
+    % External/internal subprogram (Splited rectangle from top)
+    fsubex/.style = {fbase, inner sep=0,rectangle split,rectangle split every empty part={},rectangle split empty part height=0cm,rectangle split empty part width=0ex, rectangle split empty part depth=0cm,,rectangle split parts=2, semithick,text height=-0.3cm},
+    % Callout style (comments)
+    mycallout/.style = {draw,pattern=north west lines, pattern color=lightgray!75, semithick, rectangle callout, inner sep=2mm,align=justify,callout absolute pointer={#1},text width=4cm},
+    % Junction style (small circles)
+    fjunc/.style = {fbase, circle, inner sep=0mm,text width=1mm,,minimum size=2mm},
+    % Off-page connector style (Trapezoid)
+    fnext/.style = {fbase, inner xsep=1mm,inner ysep=0.5mm,chamfered rectangle,chamfered rectangle ysep=0.5cm,chamfered rectangle xsep=0.5cm,chamfered rectangle corners={south west,south east},text width=2mm},
+    % Matrix style but outside of a matrix
+    matrixoutstyle/.style ={draw,line width=0.75pt, anchor=center,fill=gray!50, text centered, rounded corners=0.1cm, minimum width=1cm, minimum height=5mm, minimum width=0.2cm,inner sep=1mm, font=\scriptsize},
+    % General Matrix style
+    matrixstyle/.style={matrix of nodes, nodes={matrixoutstyle},row sep=0.4cm, column sep=1cm, minimum width=0.2cm,inner sep=0, font=\scriptsize},
+    % General tikzstyle
+    mytikzstyle/.style={node distance=0.5cm,anchor=center,font=\scriptsize},
+    % Pseudocode style
+    pcstyle/.style={node distance=-0.15cm},
+    % Flowchart style
+    fcstyle/.style={row sep=0cm,column sep=0cm,minimum width=1mm,align=center},
+    % Flowchart blank node
+    fblanku/.style={yshift=0.4cm},
+    fblankd/.style={yshift=-0.4cm},
+    % To put a node between two others
+    between/.style args={#1 and #2}{at = ($(#1)!0.5!(#2)$)}
+  }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\begin{tikzpicture}
+
+
+	\pgfplotsset{compat=1.16}
+
+% creates the use of layered structure and adds the axis on top of all other layers
+\pgfplotsset{set layers=axis on top}
+	
+
+
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+\begin{axis}[%semithick,
+%xmin = 0,
+%ymin=0,
+%xmax = 90,
+%point meta=explicit symbolic,
+ymin=0,
+xmin=0,
+ymax=1400,
+xmax=90,
+xlabel = {Fibre orientation ($ ^\circ$)},
+ylabel =  {Stress (MPa)},
+legend pos=  north east,
+xtick = {0,10,...,90},
+ytick = {0,200,...,1400},
+height=7.5cm,
+width=10cm,
+%yticklabel style	= {
+%	/pgf/number format/precision	= 0,
+%	/pgf/number format/fixed,
+%	/pgf/number format/fixed zerofill,	
+% %xshift=-18,
+%	/pgf/number format/1000 sep =, ,
+%%	rotate							= 90,
+%%	anchor							= west,
+%	/pgf/number format/fixed,
+%	}
+legend cell align=left,
+legend style = {xshift=-0.75cm,font=\scriptsize}
+]
+% elastic moduli
+\def\sfib{1050}
+\def\smat{100}
+
+
+
+
+
+
+% fibre tensile strength
+\addplot 
+[ dashed,name path=fib,
+thick,
+domain=0:30,
+samples=200,
+postaction={decorate,black,very thick,solid,opacity=0.4},
+decoration={
+soft clip,
+soft clip path={domain=0:5.7},
+},
+] 
+{\sfib/cos(x)^2};
+
+% matrix shear strength
+\addplot 
+[dotted,name path=mat_shear,
+thick,
+domain=1:90,
+samples=201,
+postaction={decorate,black,thick,solid,opacity=0.4},
+decoration={
+soft clip,
+soft clip path={domain=5.425:45},
+},
+] 
+{2*\smat/sin(2*x)};
+
+
+% matrix tensile strength
+\addplot
+[dashdotted,name path=mat_tens,
+thick,
+domain=5:90,
+samples=201,
+postaction={decorate,black,thick,solid,opacity=0.4},
+decoration={
+soft clip,
+soft clip path={domain=44.9:89.9},
+},
+] 
+{\smat/sin(x)^2};
+
+% x-axis
+\path [name path=B,domain=0:90]
+(\pgfkeysvalueof{/pgfplots/xmin},0) -- (\pgfkeysvalueof{/pgfplots/xmax},0);
+
+\begin{pgfonlayer}{axis background}
+\addplot [gray!10,domain=0:10] fill between [of=fib and B,soft clip={domain=0:5.7}] ;
+\addplot [gray!25,domain=0:10] fill between [of=mat_shear and B,soft clip={domain=5.425:45}];
+\addplot [gray!50,domain=0:10] fill between [of=mat_tens and B,soft clip={domain=44.9:89.9}];
+\end{pgfonlayer}
+
+% elastic moduli
+\def\eone{1050}
+\def\etwo{100}
+\def\gonetwo{30}
+\def\nuonetwo{0.4}
+
+\addplot % E1=117 E2=7.9 G12=2.95 v12=0.265
+[
+thick,
+domain=0:90,
+samples=201
+] {1.0/ ( (cos(x)^4)/\eone + ((sin(x)^4)/\etwo) + (1.0/\gonetwo-\nuonetwo/\eone)*cos(x)^2*sin(x)^2 )   };
+
+
+\legend{Axial failure, Shear failure, Transverse failure, Fibre-tension controlled region,  Matrix-shear controlled region, Matrix-tension controlled region, Typical failure curve}
+\end{axis}
+
+
+\end{tikzpicture}
+\end{document}

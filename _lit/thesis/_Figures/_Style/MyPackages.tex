@@ -1,0 +1,490 @@
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+% My Packages 
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+\newif\ifdouble
+\doublefalse
+
+
+
+
+% package for speeding up the compilation (I tried it did not work with the xr-hyper)
+%\usepackage{subfiles}
+%\usepackage{xr-hyper}
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% Misc. packages
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+\usepackage{etex}                                % Solves the problem of too many packages
+\usepackage{comment}                             % Defines the comment environment
+\usepackage{makeidx}                             % allows index generation
+%\usepackage{footnote}
+\usepackage[bottom]{footmisc}                    % places footnotes at page bottom
+\usepackage{datetime2}                           % date and time
+\usepackage{enumitem}                            % flexibile options for enumerate env.
+
+
+\iffig
+
+\else
+	 % geometry of the page
+%    \usepackage[xetex, margin=3cm, a4paper]{geometry}                           
+\fi
+
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% Input and encoding
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+\usepackage[english]{babel}                      % Typographical and hyphenation
+%\usepackage[latin1]{inputenc}                      % Accepts ISO Latin-1 encoding (only PDFTeX)
+
+
+%\usepackage[T1]{fontenc}                         % The output can be easily copy pasted
+\usepackage{lscape}                              % landscape env.
+%\usepackage{layout}                              % Allows changing the layout of the page
+
+\usepackage{scrhack}                              % load before setspace for corrections
+
+
+
+% This package replaces lstlistings for xelatex engine. 
+% minted uses Python pygments library, so you need to:
+%    - Install Python, choose any version you like: x64 or x86, it better to choose 2.7.5 version.
+%    - Add Python to PATH: C:\Python27;C:\Python27\Scripts
+%    - pip install pygments to install Pygments 
+\usepackage[cache=false]{minted}
+
+
+%
+%
+%\ifdouble
+%	\usepackage[doublespacing]{setspace}                             % different line spacings
+%	% double spacing
+%	\RedeclareSectionCommand[
+%	  beforeskip=-1sp,
+%	  afterskip=2\baselineskip]{chapter}
+%	\RedeclareSectionCommand[
+%	  beforeskip=-\baselineskip,
+%	  afterskip=0.25\baselineskip]{section}
+%	\RedeclareSectionCommand[
+%	  beforeskip=-.75\baselineskip,
+%	  afterskip=0.25\baselineskip]{subsection}
+%	\RedeclareSectionCommand[
+%	  beforeskip=-.5\baselineskip,
+%	  afterskip=0.25\baselineskip]{subsubsection}
+%	\RedeclareSectionCommand[
+%	  beforeskip=.5\baselineskip,
+%	  afterskip=-1em]{paragraph}
+%	\RedeclareSectionCommand[
+%	  beforeskip=-.5\baselineskip,
+%	  afterskip=-1em]{subparagraph}
+%	
+%	  \setlist[enumerate,itemize]{
+%	                              topsep    = 0.25\parskip,
+%	                              itemsep   = 0.25\parskip,
+%	                              partopsep = 0.25\parskip,
+%	                              parsep    = 0.25\parskip
+%	                             }
+%\else
+%	% Setting the spacing after/before sections
+%	% normal spacing values
+%	\RedeclareSectionCommand[
+%	  beforeskip=-1sp,
+%	  afterskip=2\baselineskip]{chapter}
+%	\RedeclareSectionCommand[
+%	  beforeskip=-\baselineskip,
+%	  afterskip=0.5\baselineskip]{section}
+%	\RedeclareSectionCommand[
+%	  beforeskip=-.75\baselineskip,
+%	  afterskip=0.5\baselineskip]{subsection}
+%	\RedeclareSectionCommand[
+%	  beforeskip=-.5\baselineskip,
+%	  afterskip=0.5\baselineskip]{subsubsection}
+%	\RedeclareSectionCommand[
+%	  beforeskip=.5\baselineskip,
+%	  afterskip=-1em]{paragraph}
+%	\RedeclareSectionCommand[
+%	  beforeskip=-.5\baselineskip,
+%	  afterskip=-1em]{subparagraph}
+%	
+%	  \setlist[enumerate,itemize]{
+%	                              topsep    = 0.5\parskip,
+%	                              itemsep   = 0.25\parskip,
+%	                              partopsep = 0.5\parskip,
+%	                              parsep    = 0.5\parskip
+%	                             }
+%\fi
+
+
+% Centering the subsection title
+%\makeatletter
+%\renewcommand{\sectionlinesformat}[4]{%
+%  \ifstr{#1}{section}{\centering}{}% center section titles
+%  \@hangfrom{\hskip #2#3}{#4.}%
+%}
+%\makeatother
+
+
+% Adding a dot 
+%\renewcommand{\sectioncatchphraseformat}[4]{%
+%  \hskip #2#3#4%
+%  \ifstr{#1}{subsubsection}{.}{}% dot after subsection titles
+%}
+%\renewcommand{\sectioncatchphraseformat}[4]{%
+%  \hskip #2#3#4%
+%  \ifstr{#1}{paragraph}{.}{}% dot after subsection titles
+%}
+%  
+%
+%
+
+
+
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% Fonts
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+%\usepackage{helvet}                              % helvetica font loaded
+%\usepackage{courier}                             % courier font loaded
+%\usepackage{mathptmx}                            % times new roman font loaded for math (for tensors remove this)
+%\usepackage{parskip}
+\usepackage{type1cm}                              % removes the restriction on font scaling
+\usepackage{ragged2e}                             % justifying the text
+\usepackage{fontspec}
+
+% Add a font that is not under the system fonts
+%\fontspec [ Path            = ./_Fonts/,
+%%UprightFont = *-regular,
+%% BoldFont = *-bold
+% Extension       = .otf,
+% ]
+%{FontAwesome}
+
+                
+    
+\usepackage{fontawesome}                          % web fonts
+
+%\setmonofont[                                     % Monospace font
+%             Scale=0.8,
+%             Path = ./_Fonts/
+%            ]{DejaVuSansMono.ttf}                 
+%\setmainfont[                                     % Text font
+%             Ligatures={Common}, %Numbers={OldStyle}, Variant=01,
+%             Path = ./_Fonts/,
+%             BoldFont=LinLibertine_RB.otf,
+%             ItalicFont=LinLibertine_RI.otf,
+%             BoldItalicFont=LinLibertine_RBI.otf
+%            ]{LinLibertine_R.otf}
+
+%\setmonofont[Scale=0.9]{SFMono-Bold.otf}
+    
+    % Monospaced font
+    \setmonofont{LibertinusMono-Regular.otf}[
+                 Scale=0.8,
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                ]                
+    
+    % Main text font
+    \setmainfont{LibertinusSerif}[%
+                 Ligatures       = {Common}, %Numbers={OldStyle}, Variant=01,
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 UprightFont     = *-Regular,
+                 BoldFont        = *-Bold,
+                 ItalicFont      = *-Italic,
+                 BoldItalicFont  = *-BoldItalic,
+                ]
+    % Sanserif font
+    \setsansfont{LibertinusSans}[
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 UprightFont     = *-Regular,
+                 BoldFont        = *-Bold,
+                 ItalicFont      = *-Italic,
+                ]
+    
+
+
+
+
+%\setmainfont{Times New Roman}
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% Math
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+
+%\usepackage{amsmath}                             % main math environment (always before unicode-math)
+\usepackage{mathtools}                            % extension to amsmath which loads it automatically
+\usepackage{amsthm}                               % math theorems
+\usepackage{mathrsfs}
+%\usepackage{amssymb}                             % symbols like \square  (always before unicode-math)
+\usepackage{xfrac}                                % slanted fractions 
+\usepackage{accents}
+%\usepackage[bb=mma,cal=cm,scr=esstix]{mathalfa}
+\usepackage{unicode-math}                        % Math for XeLaTeX
+\usepackage{stackrel}                             % Enhancements to the \stackrel command
+
+
+\unimathsetup{math-style=ISO, bold-style=ISO}
+
+
+
+
+    % Math font setting
+    \setmathfont{LibertinusMath-Regular}[             % General math font
+                 Path            = ./_Fonts/,
+                 Extension       = .otf
+                 ]
+    
+    % Requires lm-math package
+    \setmathfont{Latin Modern Math}[                  % Calligraphy font for linear operators
+                 range           = {cal, bfcal},
+                 ]
+    
+    % Requires tex-gyre-math package
+    \setmathfont{TeX Gyre Termes Math}[               % For proper blackboard letters
+                 range=bb
+                 ]
+    
+    \setmathfont{XITSMath-Regular}[               % For fraktur
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 range           = frak,
+                 ]
+    
+    \setmathfont{XITSMath-Bold}[               % For fraktur
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 range           = bffrak,
+                 ]
+    
+    
+    \setmathfont{LibertinusMath-Regular}[             % For upright Greek letters using \mup...
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 range           = up/{greek,Greek},          
+                 math-style      = literal
+                 ]
+    
+    
+
+
+
+
+% Working math fonts
+%\setmathfont{Latin Modern Math}
+%\setmathfont{XITSMath-bold.otf}[Path = ./_Fonts/,range=bfcal,StylisticSet=1]
+
+
+%% do not remember what are these two lines for
+%\setmathfont{XITSMath-bold.otf}[range=bfgre,StylisticSet=1]
+%\setmathfont[range=bb]{Linux Libertine O}
+
+
+
+
+
+
+
+\usepackage{textcase}                            % creeating upper and lower case letters
+\usepackage{mathtools}
+\usepackage{pifont}
+
+\usepackage{cancel}
+
+%\usepackage{calrsfs} 
+%\usepackage{mathrsfs}                            % Styles for MATH mode
+%\usepackage{dutchcal}
+
+%\usepackage{epstopdf}
+
+
+
+
+
+	% Defining new float environments
+	\usepackage{newfloat}
+
+
+
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% Setting the chapter style for Komma
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+\ifdouble
+
+% Change the chapter style
+\renewcommand{\chapterlinesformat}[3]{%
+\vspace{0.1\textheight}% space between the chapter number and the line
+\raisebox{-0.5\baselineskip}{\parbox[c][15pt]{\linewidth}{#2}}
+\rule{\textwidth}{4pt}
+\parbox[c][45pt]{\dimexpr\linewidth-2\fboxrule-2\fboxsep}{\mdseries\scshape\fontsize{20}{14}\selectfont#3}\\
+\rule{\textwidth}{4pt}\vspace{0.1\textheight}
+}
+
+% Change the chapter font
+\addtokomafont{chapter}{\mdseries\fontsize{14}{10}\selectfont\scshape}
+
+\else
+%
+%% Change the chapter style
+%\renewcommand{\chapterlinesformat}[3]{%
+%\vspace{0.05\textheight}
+%\raisebox{-0.5\baselineskip}{\parbox[c][15pt]{\linewidth}{#2}}
+%\rule{\textwidth}{4pt}
+%\parbox[c][45pt]{\dimexpr\linewidth-2\fboxrule-2\fboxsep}{\mdseries\scshape\fontsize{26}{20}\selectfont#3}\\
+%\rule{\textwidth}{4pt}\vspace{0.1\textheight}
+%}
+%
+%% Change the chapter font
+%\addtokomafont{chapter}{\mdseries\fontsize{18}{12}\selectfont\scshape}
+%\fi
+%
+%
+%
+%
+%% Change the number formating
+%\renewcommand{\chapterformat}{\chaptername\ \thechapter}
+%
+
+
+% Change the appendix style
+\makeatletter
+\g@addto@macro\appendix{%
+  \renewcommand*{\chapterformat}{%
+    {\chapapp\nobreakspace\thechapter\enskip}%
+  }
+  \renewcommand*{\chaptermarkformat}{%
+    {\chapapp\nobreakspace\thechapter\enskip}%
+  }
+  \let\oldaddcontentsline\addcontentsline
+  \newcommand\hackedaddcontentsline[3]{\oldaddcontentsline{#1}{#2}{\chapapp\nobreakspace#3}}
+%  \let\oldchapter\chapter
+%  \renewcommand*\chapter[1]{%
+%    \let\addcontentsline\hackedaddcontentsline%
+%    \oldchapter{#1}%
+%    \let\addcontentsline\oldaddcontentsline%
+%  }
+}
+\makeatother
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% Formatting of the sections
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+%
+%\addtokomafont{section}{\mdseries\normalfont\Large}
+%\addtokomafont{subsection}{\large\mdseries\normalfont}
+%\addtokomafont{subsubsection}{\mdseries\itshape\normalsize}
+%
+%% Change ToC to serif font
+%\setkomafont{disposition}{\normalfont\bfseries}     
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% Symbols
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+%\usepackage{upgreek}                             % upright greek letter
+\usepackage[normalem]{ulem}                      % Various underlinings
+\usepackage{marvosym}                            % adds some symbols, e.g., CheckedBox
+\usepackage{manfnt}                              % symbols from Knuth's TeX manual
+\usepackage{wasysym}                             % adds some symbols, e.g., CheckedBox
+\usepackage{tikzsymbols}                         % tree symbol
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% Tables
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+\usepackage{array}                               % extended capabilities to tabular env.
+\usepackage{booktabs}                            % toprule, bottomrule, midrule etc.
+\usepackage{colortbl}                            % color rows and columns for tables
+\usepackage{multicol, multirow}                  % used for the two-column index
+\usepackage{longtable}
+\usepackage{siunitx}							 % SI units + s-type tabular data
+\usepackage[skip=0em,
+            belowskip=1em,
+            aboveskip=1em,
+            labelfont=bf                         % use bold caption labels
+            ]{caption}                           % placement of caption of the floats is fine-tuned
+
+\setlength{\aboverulesep}{0pt}                   % these two lines are to remove the gap 
+\setlength{\belowrulesep}{0pt}                   % in the color tables when toprule and bottomrule is used
+\setlength{\extrarowheight}{.75ex}
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% Figures
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+%\usepackage{subfigure}                          % using multiple subfigures in figure (obsolete)
+%\usepackage{subcaption}                         % using multiple subfigures in figure (obsolete)
+\usepackage{subfig}                              % better alternative !
+
+\usepackage{hhline}
+%\setlength{\extrarowheight}{.5ex}
+% Graphics
+\usepackage[export]{adjustbox}                           % frame for pictures
+\usepackage{graphicx}                            % standard LaTeX graphics tool
+\usepackage{xcolor}                              % used to introduce different colors
+
+
+
+\usepackage{afterpage}                           % flush floats \afterpage{\clearpage}
+%\usepackage{media9}                              % embeding .h264 format MP4 videos
+%\usepackage{bohr}                                % draws elements
+%\usepackage{chemformula}                         % for chemical formulas
+%\usepackage{chemfig}                             % to draw chemicals
+\usepackage[many]{tcolorbox}                          % for colored and framed text boxes
+\tcbuselibrary{skins,xparse}
+%\usepackage[color=commentcolor,author={Zia}]{pdfcomment}
+
+\usepackage{mdframed}                            % gray box package and the theorem environment
+
+
+
+%\lstset{basicstyle=\footnotesize\ttfamily,backgroundcolor=\color{black!10}}
+
+
+% Programming
+\usepackage{xpatch}                              % patching the biblatex package
+\usepackage{ifpdf}                               % checks if PDFLaTeX is used
+
+
+%\addtobeamertemplate{headline}{\hypersetup{linkcolor=blue}}{}
+%\addtobeamertemplate{footline}{\hypersetup{linkcolor=.}}{}
+
+
+
+
+
+	% hyperref must be loaded after all packages
+    \usepackage[colorlinks = true,  
+                linkcolor  = green!50!black, 
+                urlcolor   = blue!75!green!75,
+                citecolor  = blue!50!green,
+                bookmarks]{hyperref}
+	\hypersetup{pdfinfo	= 
+					{	Author      	= {Zia Javanbakht},
+                 		Subject     	= {Computational Modelling of Natural Fibre Composites, Phd Thesis},
+						Institution 	= {Griffith University}
+					}
+				}
+				
+	% Customising section commands in a KOMA-script files (\usepackage{sectsty} for others)
+    \usepackage[automark, headsepline]{scrlayer-scrpage}       
+
+    \setlist[description]{                           % Setting for symbols and abbreviations
+                          leftmargin    = 2.5cm,
+                          labelindent   = 0.5cm,
+                          labelwidth    = 2cm,
+                          itemindent    = 0.5mm,
+                          labelsep      = 0mm,
+                          topsep        = 0em,
+                          itemsep       = 0mm,
+                          partopsep     = 1em,
+                          parsep        = 0em,
+                          listparindent = 0mm,
+                         }   
+
+
+
+
+
+

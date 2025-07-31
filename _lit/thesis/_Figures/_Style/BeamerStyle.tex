@@ -1,0 +1,374 @@
+% Common settings for all lectures in this course
+\author{\myauthor}
+\institute{\myinstitute}
+\subject{\mycourse}
+\lecture[\arabic{mychapter}]{\mytitle}{}
+\title{\insertlecture}
+\subtitle{\mysubtitle}
+
+% To automatically add a frame for new parts
+\AtBeginPart{\frame{\partpage}}
+
+\definecolor{UniBlue}{RGB}{83,121,170}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Presentation Mode %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\mode<presentation>
+
+%%% BEAMER THEME
+
+%% Main theme
+\setbeamertemplate{caption}[numbered]
+
+\useoutertheme[height=0pt,width=2.cm,right]{sidebar}
+\usecolortheme{rose,sidebartab}
+
+
+\useinnertheme{rounded}                                % uses rounded boxes for blocks and rounds for itemize labels
+
+\setbeamertemplate{navigation symbols}{}               % removes nav. symbols
+\usefonttheme[onlymath]{serif}                         % serif fonts in math mode
+%\setbeamertemplate{bibliography item}[book]
+
+%% Colors
+\setbeamercolor{sidebar right}{bg=black!15}
+
+\setbeamercolor{structure}{fg=blue}
+\setbeamerfont{structure}{size=\normalsize}
+
+\setbeamercolor{author}{parent=structure}
+\setbeamercolor{palette sidebar secondary}{fg=blue!75!white}
+\setbeamercolor{section in sidebar}{bg=gray!75!white}
+%\setbeamercolor{title in sidebar}{fg=blue!85!white}
+
+
+%\setbeamercolor{sidebar}{bg=gray!25!white}
+%\setbeamercolor{palette sidebar primary}{bg=gray!50!white}
+%\setbeamercolor{palette sidebar tertiary}{bg=red!10!white}
+%\setbeamercolor{palette sidebar quaternary}{bg=red}
+
+%\setbeamercolor{frametitle}{fg=blue!75!white}
+%\usefonttheme[normalsize]{structurebold}
+
+%% Fonts
+
+%%% Title
+\setbeamerfont{title}{series=\bfseries,size=\Huge}
+\setbeamercolor{title}{fg=blue!75!black}
+
+%%% Subtitle
+\setbeamerfont{subtitle}{series=\itshape\bfseries,size=\normalsize}
+\setbeamercolor{subtitle}{fg=UniBlue}
+
+%%% Itemize
+%\setlist[itemize]{topsep=0pt,partopsep=0cm, parsep=0cm}
+\setbeamertemplate{itemize items}[triangle]
+
+\setbeamerfont{itemize item}{size=\small,series=\itshape}
+\setitemize{parsep=0cm,label=\usebeamerfont{itemize item} \usebeamercolor{itemize item}\usebeamertemplate{itemize item}}
+
+%% Enumerate
+\setenumerate{parsep=0cm,label=\usebeamerfont{enumerate item}\usebeamercolor{enumerate item}\usebeamertemplate{enumerate items}}
+
+
+%%% Personalised boxes
+\setbeamercolor{ComplexBox}{bg=complexboxcolor, fg=black}
+\setbeamercolor{ReadBox}{bg=readboxcolor, fg=black}
+\setbeamercolor{WriteBox}{bg=writeboxcolor, fg=black}
+\setbeamercolor{DoBox}{bg=doboxcolor, fg=black}
+
+
+
+%\setbeamerfont{title in sidebar}{series=\bfseries}
+%\setbeamerfont{author in sidebar}{series=\bfseries}
+%\setbeamerfont*{item}{series=,size=\footnotesize}
+
+
+
+
+%%% Frame
+\setbeamercolor{frametitle right}{fg=red}
+\setbeamerfont{frametitle}{size=\large, series=\bfseries}
+\setbeamertemplate{frametitle}[default][left,leftskip=0em] 
+
+
+%%% blocks
+\setbeamerfont{block title}{size=\normalsize, series=\normalfont}
+\setbeamerfont{block body}{size=\normalsize}
+\addtobeamertemplate{block begin}{}{\justifying}
+\addtobeamertemplate{block example begin}{}{\justifying}
+%\addtobeamertemplate{block begin}{\setlength\abovedisplayskip{0pt}}
+
+
+
+%\setbeamerfont{caption}{size=\footnotesize}
+%\setbeamerfont{caption name}{size=\footnotesize}
+%\setbeamerfont{footnote}{size=\tiny}
+%\setbeamerfont{section page}{size=\normalsize,series=\scshape}
+%\setbeamerfont{itemize/enumerate body}{size=\tiny}
+%\setbeamerfont{enumerate mini template}{size=\normalsize}
+%\setbeamerfont{subtitle}{size=\normalsize,series=\normalfont}
+%\setbeamerfont{enumerate item}{size=\small}
+%\setbeamerfont{itemize item}{size=\small}
+
+
+
+%%% Bibliography style
+\setbeamercolor{bibliography entry author}{fg=black}%!50!blue}
+\setbeamercolor{bibliography entry title}{fg=black}
+\setbeamercolor{bibliography entry note}{fg=black}
+\defbibenvironment{bibliography}%
+  {\list{}
+       {\settowidth{\labelwidth}{\usebeamertemplate{bibliography item}}%
+        \setlength{\leftmargin}{\labelwidth}%
+        \setlength{\labelsep}{\biblabelsep}%
+        \addtolength{\leftmargin}{\labelsep}%
+        \setlength{\bibitemsep}{0.8em}%
+        \setlength{\itemsep}{\bibitemsep}%
+        \setlength{\parsep}{\bibparsep}}}
+    {\endlist}
+    {\item}
+  
+  \renewcommand*{\bibfont}{\rmfamily\small}
+ 
+\setbeamerfont{bibliography entry author}{size=\tiny,family=\rmfamily}
+\setbeamerfont{bibliography entry title}{size=\tiny}
+\setbeamerfont{bibliography entry note}{size=\tiny}
+\setbeamerfont{bibliography item}{size=\tiny}
+
+
+% customized icons for various references
+\setbeamertemplate{bibliography item}{%
+  \ifboolexpr{ test {\ifentrytype{book}} or test {\ifentrytype{mvbook}}
+    or test {\ifentrytype{collection}} or test {\ifentrytype{mvcollection}}
+    or test {\ifentrytype{reference}} or test {\ifentrytype{mvreference}} }
+    {\setbeamertemplate{bibliography item}[book]}
+    {%
+    \ifboolexpr {test {\ifentrytype{online}} or
+                 test {\ifentrytype{misc}}}%
+    {% for an online document
+    \setbeamertemplate{bibliography item}[online]}
+    {% otherwise it is an article/standard
+    \setbeamertemplate{bibliography item}[article]}}%
+  \usebeamertemplate{bibliography item}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%% Defining the sidebar
+\setbeamertemplate{sidebar right}
+{
+  {\usebeamerfont{title in sidebar}%
+    \vskip1.5em%
+    \hskip3pt%
+\color{blue!85!white}\hypersetup{hidelinks}%
+    \insertshorttitle[width=2cm-6pt,center,respectlinebreaks]\par%
+    \vskip1.25em%
+  }%
+  {%
+    \hskip3pt%
+    \usebeamercolor[fg]{author in sidebar}%
+    \usebeamerfont{author in sidebar}%
+    \insertshortauthor[width=2cm-2pt,center,respectlinebreaks]\par%
+    \vskip1.25em%
+  }%
+  \hbox to2cm{\hss\insertlogo\hss}\vskip0.5em
+%  \hbox to2cm{\hss\myschool{}\hss}
+\vbox{%
+\hsize=2cm\baselineskip=0cm\noindent\centering
+\myschool{}%
+}%
+  \vskip1.25em%
+  \insertverticalnavigation{2cm}%
+  \vfill
+  \hbox to 2cm{\hfill\usebeamerfont{subsection in
+      sidebar}\strut\usebeamercolor[fg]{subsection in
+      sidebar}\insertshortlecture.\insertframenumber\hskip5pt}%
+  \vskip3pt%
+}%
+
+%% Defining the title page
+\setbeamertemplate{title page}
+{
+\vbox{}
+  \vskip0.5cm
+  {\Large \textbf{Chapter \insertshortlecture}\\[0.1cm]}
+  {\usebeamercolor[fg]{title}\usebeamerfont{title}\inserttitle\par}%
+  \ifx\insertsubtitle\@empty%
+  \else%
+    \vskip0.25em%
+    {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+  \fi%
+  \vskip0.5cm\par
+  {\large \mycourse}\par
+  {\small \insertdate}\par
+  \vskip0pt plus1filll
+  \leftskip=0pt plus1fill\insertauthor\par\vskip0.5em
+  {\small\itshape\insertinstitute\vskip0.2cm}%
+  \hfill\resizebox{0.15\textwidth}{!}{\hbox{\itshape\tiny Last updated on \today}}%
+}
+
+%% Select the logo
+\logo{\includegraphics[width=1.9cm]{Griffith_University_Logo}}
+
+
+%% make all the frame titles equal to the that of the subsection
+\makeatletter
+  \CheckCommand*\beamer@checkframetitle{%
+    \@ifnextchar\bgroup\beamer@inlineframetitle{}}
+  \renewcommand*\beamer@checkframetitle{%
+    \global\let\beamer@frametitle\relax\@ifnextchar%
+    \bgroup\beamer@inlineframetitle{}}
+\makeatother
+
+% This is the original code
+
+%\addtobeamertemplate{frametitle}{
+%  \ifx\insertframetitle\empty
+%    \ifx\insertframesubtitle\empty
+%      \ifx\insertsubsection\empty 
+%        \frametitle{\insertsectionhead}
+%      \else
+%        \frametitle{\insertsubsectionhead}
+%        %\frametitle{\insertsubsectionhead}\framesubtitle{\insertsectionhead}
+%      \fi  
+%    \else     
+%    \fi  
+%  \else
+%  \fi
+% }{}
+
+% I replaced it by the following
+% note that \hypersetup{hidelinks} is used so the color is not connected to hyperlink package.
+\addtobeamertemplate{frametitle}{
+ \ifx\insertframetitle\empty
+ \frametitle{\hypersetup{hidelinks}\insertsubsection}
+ \else
+ \fi
+}{}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  Settings for the article mode  %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mode<article>
+
+\usepackage{times}
+\usepackage{mathptmx}
+\usepackage[left=1cm,right=6cm,top=1cm,bottom=2cm,a4paper]{geometry}
+
+
+
+
+\makeatletter
+\def\@listI{\leftmargin\leftmargini
+  \parsep 0pt
+  \topsep 5\p@   \@plus3\p@ \@minus5\p@
+  \itemsep0pt}
+\let\@listi=\@listI
+
+
+\setbeamertemplate{frametitle}{\paragraph*{\insertframetitle\ 
+    \ \small\insertframesubtitle}\ \par
+}
+
+\setbeamertemplate{frame end}{%
+  \marginpar{\scriptsize\hbox to 1cm{\sffamily%
+      \hfill\strut\insertshortlecture.\insertframenumber}\hrule height .2pt}}
+
+\setlength{\marginparwidth}{1cm}
+\setlength{\marginparsep}{4.5cm}
+
+\def\@maketitle{\makechapter}
+
+\def\makechapter{
+  \newpage
+  \null
+  \vskip 2em%
+  {%
+    \parindent=0pt
+    \raggedright
+    \sffamily
+    \vskip8pt
+    {\Large Chapter \@insertshortlecture \par\vskip2pt}
+    {\fontsize{26pt}{28pt}\selectfont \color{blue!50!black} \textbf{\@insertlecture}\par\vskip2pt}
+    {\normalsize\selectfont \color{blue!50!black} \textit{\@insertsubtitle}\par}
+    \vskip5pt
+    {\small \emph{\@lecturename}\par
+    \thecourse\par
+    \@date\par}
+    \vskip1.5em
+    {\raggedleft\@insertauthor\par\vskip0.5em{\scriptsize\@insertinstitute\par}
+   \hfill
+  }
+}
+
+\let\origstartsection=\@startsection
+\def\@startsection#1#2#3#4#5#6{%
+  \origstartsection{#1}{#2}{#3}{#4}{#5}{#6\normalfont\sffamily\color{blue!50!black}\selectfont}}
+
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  Settings for handouts  %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mode
+<handouts>
+  \setbeamercolor{background canvas}{bg=black!5}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  Settings for all modes  %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mode
+<all>
+
+
+
+
+% Common theorem-like environments
+%\theoremstyle{definition}
+%\newtheorem{exercise}[theorem]{\translate{Exercise}}
+
+
+
+
+% New useful definitions:
+
+%\newbox\mytempbox
+%\newdimen\mytempdimen
+%
+%\newcommand\includegraphicscopyright[3][]{%
+%  \leavevmode\vbox{\vskip3pt\raggedright\setbox\mytempbox=\hbox{\includegraphics[#1]{#2}}%
+%    \mytempdimen=\wd\mytempbox\box\mytempbox\par\vskip1pt%
+%    \fontsize{3}{3.5}\selectfont{\color{black!25}{\vbox{\hsize=\mytempdimen#3}}}\vskip3pt%
+%}}
+%
+%\newenvironment{colortabular}[1]{\medskip\rowcolors[]{1}{blue!20}{blue!10}\tabular{#1}\rowcolor{blue!40}}{\endtabular\medskip}
+%
+%\def\equad{\leavevmode\hbox{}\quad}
+%
+%\newenvironment{greencolortabular}[1]
+%{\medskip\rowcolors[]{1}{green!50!black!20}{green!50!black!10}%
+%  \tabular{#1}\rowcolor{green!50!black!40}}%
+%{\endtabular\medskip}
+
+
+

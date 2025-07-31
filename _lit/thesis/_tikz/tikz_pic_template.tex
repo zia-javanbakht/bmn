@@ -1,0 +1,457 @@
+% !TeX TS-program = xelatex
+%\documentclass[tikz,fontsize=12pt,class=scrbook, paper=a4, headinclude, margin=3cm]{standalone}
+\documentclass[crop,fontsize=12pt]{standalone}
+
+
+
+
+%\usepackage[margin=3cm, a4paper]{geometry}
+\usepackage{pgfplots}                            % loads all the pgf packages
+\usepackage[]{contour}                           % for outlining text
+\usepackage{tikz-3dplot,comment}
+
+
+\usetikzlibrary{spy,fit,matrix,shapes.callouts,calc,trees,positioning,arrows,chains,shapes.geometric,shapes.multipart,arrows.meta,  decorations.pathreplacing,decorations.text,decorations.pathmorphing,decorations.markings,shapes,matrix,shapes.symbols,patterns,datavisualization,datavisualization.formats.functions,angles}
+
+\pgfplotsset{compat=newest}
+
+%\storeareas\standalonelayout% save the standalone layout
+%\recalctypearea% recalculate the typearea layout
+%\edef\savedtextheight{\the\textheight}% save the text height of the typearea layout
+%\standalonelayout% restore the standalone layout
+
+    % FEtikz 
+    \input{FEtikz}
+
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+% draw a red rectangle aligned with the upper left corner of the TikZ picture
+% to show the size of the text area in the KOMA document:
+%\tikzset{
+%  every picture/.append style={
+%    execute at end picture={%
+%      \draw[red](current bounding box.north west)
+%        rectangle
+%        ++(\the\textwidth,-\savedtextheight);%
+%}}}
+
+
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+% Definition of pic
+
+% width and length of pic arrows
+\newlength{\picw}
+\newlength{\picl}
+\setlength{\picw}{0.13pt}
+\setlength{\picl}{0.25pt}
+
+\tikzset{
+ xaxis/.pic     ={\path[draw, fill,  pic actions] (0,0,0) -- ++(0,0,\picw/2) -- ++(\picl,0,-\picw/2)-- ++ (-\picl,0,-\picw/2) -- cycle;},
+ xaxisflat/.pic ={\path[draw, fill,  pic actions] (0,0,0) -- ++(0,\picw/2,0) -- ++(\picl,-\picw/2,0)-- ++ (-\picl,-\picw/2,0) -- cycle;},
+ yaxis/.pic     ={\path[draw, fill,  pic actions] (0,0,0) -- ++(0,0,\picw/2) -- ++(0,\picl,-\picw/2)-- ++ (0,-\picl,-\picw/2) -- cycle;},
+ yaxisflat/.pic ={\path[draw, fill,  pic actions] (0,0,0) -- ++(\picw/2,0,0) -- ++(-\picw/2,\picl,0)-- ++ (-\picw/2,-\picl,0) -- cycle;}, 
+ zaxis/.pic     ={\path[draw, fill,  pic actions] (0,0,0) -- ++(0,\picw/2,0) -- ++(0,-\picw/2,\picl)-- ++ (0,-\picw/2,-\picl) -- cycle;},
+ zaxisrot/.pic  ={\path[draw, fill,  pic actions] (0,0,0) -- ++(-\picw/2,0,0) -- ++(\picw/2,0,\picl)-- ++ (+\picw/2,0,-\picl) -- cycle;}
+}
+
+
+% Setting the units of picture enviornment
+\setlength{\unitlength}{1mm}
+
+% Setting a right-handed 
+\tdplotsetmaincoords{235}{140}
+
+
+
+
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+% using the definition from the thesis
+
+\usepackage{mdframed, amsmath, amsthm, tcolorbox,tkz-euclide}
+
+
+\usepackage{newtxtext}
+\usepackage[cmintegrals,cmbraces,varbb,nosymbolsc]{newtxmath}
+
+%\input{../_style/commonmacros.tex}
+%
+
+\newcommand{\fett}[1]{\mbox{\boldmath$#1$}} % only a help for smaller commands
+\renewcommand*{\vec}[1]{\lowercase{\fett{\sf#1}}} % vectors
+\newcommand{\mat}[1]{\uppercase{\fett{\sf#1}}} % matrices
+\newcommand{\tena}[1]{\lowercase{\fett{#1}}} % tensors 1. order
+\newcommand{\tenb}[1]{\uppercase{\fett{#1}}} % tensors 2. order
+\newcommand{\tend}[1]{{\uppercase{\fett{\mathcal#1}}}} % tensors 4. Stufe
+\newcommand{\dyad}{\otimes} % dyadic product
+\newcommand{\skp}{\fett{\cdot\,}} % scalar product
+\newcommand{\dskp}{\fett{:\,}} % double scalar product
+\newcommand{\equimust}{\stackrel{\mathrm{!}}{=}}
+\usepackage{xfrac}
+
+
+% Dimensions of the plate
+\newlength{\plx}
+\newlength{\ply}
+\newlength{\plt}
+
+\setlength{\plx}{3pt}
+\setlength{\ply}{3pt}
+\setlength{\plt}{1.2pt}
+
+% Arrow dimensions
+\newlength{\annotdim}
+\setlength{\annotdim}{5.5pt}
+
+\newlength{\annottext}
+\setlength{\annottext}{9pt}
+
+% Force dimension
+\newlength{\forcelen}
+\setlength{\forcelen}{0.6pt}
+
+\newlength{\baselen}
+\setlength{\baselen}{1pt}
+
+% Right-angle annotation 
+\newlength{\ang}
+\setlength{\ang}{0pt}
+\advance \ang by \forcelen
+\divide \ang by 8
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Plate sides
+\newcommand{\PlateS}[4]{% Start coordinate #1 length #2 node options #3 thickness #4
+    \path[#3] 
+        ($#1+(0,#2,#4)$) -- ++(#2,0,0) -- ++(0,0,-#4) -- ++(-#2,0,0) -- cycle;
+    \path[#3] 
+        ($#1+(#2,0,0)$) -- ++(0,0,#4) -- ++(0,#2,0) -- ++(0,0,-#4) --  cycle;
+    \path[#3] 
+        #1 -- ++(#2,0,0) -- ++(0,0,#4) -- ++(-#2,0,0) -- cycle;
+    \path[#3] 
+        #1 -- ++(0,#2,0) -- ++(0,0,#4) -- ++(0,-#2,0) -- cycle;
+}
+
+% Flat plate
+\newcommand{\PlateF}[3]{% Start coordinate #1 length #2 thickness #3
+    \path[#3] 
+        #1 -- ++(#2,0,0) --  ++(0,#2,0) -- ++(-#2,0,0) --  cycle;
+}
+
+% Plate top and bottom
+\newcommand{\PlateTB}[4]{% Start coordinate #1 length #2 node options #3 thickness #4
+    % Bottom plate
+    \PlateF{($#1+(0,0,#4)$)}{#2}{#3}{#4}
+    \PlateF{#1}{#2}{#3}
+}
+
+% Plate
+\newcommand{\Plate}[4]{% Start coordinate #1 length #2 node options #3 thickness #4
+    % Bottom plate
+%   \PlateF{($#1+(0,0,#4)$)}{#2}{draw,very thin,#3}
+
+    % side faces
+    \PlateS{#1}{#2}{draw,#3}{#4}
+    % Top plate
+    \PlateF{#1}{#2}{draw,#3}
+}
+
+
+\tikzstyle{interface} = [draw, black, dashed, cap=rect, thin, fill=gray!25, opacity=0.75]
+\tikzstyle{surface}   = [draw, black, cap=rect, thin, fill=gray!25, opacity=0.75]
+\tikzstyle{skin}      = [draw, black, cap=rect, thin, fill=gray!75, opacity=0.8]
+\tikzstyle{core}      = [draw, black, cap=rect, thin, fill=gray!80!black   , opacity=0.8]
+% //////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+\begin{document}
+
+    % Use the golden ratio (the aspect ratio = 1.618 ) for the size of your figures.
+    % Using a picture enviornment and \put macro to put tikzpictures inside that for multiple pictures.
+    % Dimensions of A4 paper: 210x297mm or 595.842pt (1pt=0.352778mm or 1mm=2.83465pt)
+
+\centering
+
+
+
+\begin{picture}(165.5,73.5)%84,98
+
+
+\put(0,0){%
+\begin{tikzpicture}[inner sep=0mm, framed, tdplot_main_coords,]
+    % Draw the coordinate system
+
+    
+%    \begin{scope}[thick, -{Latex[length=2mm]}, line cap =round, line join=round]
+%        \draw [] (1.3,4.5cm) -- +(1.cm,0) node[right,pos=0.9] {$y$};
+%        \draw [] (1.3,4.5cm) -- +(0,-1.cm) node[below,pos=0.9] {$z$};
+%        \draw [] (1.3,4.5cm) -- +(-0.7,-0.7cm) node[below left,pos=0.9] {$x$};
+%    \end{scope}
+    
+    
+    %\lcomposite{1}{-1.4}
+    %\pcomposite{1}{-1.}
+    %\pcomposite{1}{-0.6}
+    %\lcomposite{1}{-0.2}
+   
+    
+    \node[anchor=east] at (-0.25,-0.5) {$-45^\circ$};
+    \node[anchor=east] at (-0.25,-1.0) {$+45^\circ$};
+    \node[anchor=east] at (-0.25,-1.5) {$0^\circ$};
+    \node[anchor=east] at (-0.25,-2) {$0^\circ$};
+    
+    
+    \tikzcomposite[x1=0cm,y1=-2cm,  x2=3.25cm, y2=-0.5cm,draw longitudinal]
+    \tikzcomposite[x1=0cm,y1=-1.5cm,  x2=3.25cm, y2=0cm,draw longitudinal]
+    \tikzcomposite[x1=0cm,y1=-1cm,  x2=3.25cm, y2=0.5cm,draw longitudinal]
+    \tikzcomposite[x1=0cm,y1=-0.5cm,  x2=3.25cm, y2=1.cm,draw longitudinal]
+    \tikzcomposite[x1=0cm,y1=0cm,  x2=3.25cm, y2=1.5cm,draw longitudinal]
+
+    
+    % Extra info on the figure
+    \node at (current bounding box.south east) [anchor=south east,inner sep=0mm] {\small\color{gray} Ply-laminate};
+\end{tikzpicture}
+}
+
+\put(0,37){\begin{tikzpicture}[tdplot_main_coords,framed]
+    \path[] (-2.5cm,-0.5cm) rectangle (5.4cm,2.8cm);
+	\node at (current bounding box.south east) [anchor=south east,inner sep=0mm] {\small\color{gray} Top view};
+    % Bottom interface
+    \PlateF{(0,0,0.5)}{\the\plx}{skin }{1pt}
+    % Back surface
+    \PlateF{(0,0,0)}{\the\plx}{surface}
+
+    
+    
+    % Annotations
+    \begin{scope}[{Kite[fill=white, length=\the\annottext]}-]
+        \path[draw] (\the\ply*0.1,\the\ply,0)     -- +(0,1,0.1) node [anchor=west] (f) {Front surface $\mathfrak{F}$};
+    \end{scope}
+    
+    \node  [anchor=west, below=0.5 of f] {Top surface $^t\!\mathfrak{S}$};
+
+
+% Internal forces on the bottom layer
+\begin{scope}
+    \draw[thick, line cap = round] (\the\plx*1/2,\the\ply*1/2,0) -- +(-\the\forcelen,0,0) 
+        node[anchor=north] {\contour{white}{$\tena{s}_1$}} pic[rotate=180,scale=0.65] {xaxisflat};
+
+    \draw[thick, line cap = round] (\the\plx*1/2,\the\ply*1/2,0) -- +(0,-\the\forcelen,0) 
+        node[anchor=north] {\contour{white}{$\tena{s}_2$}} pic[rotate=180,scale=0.65] {yaxisflat};
+
+    \draw[thick, line cap = round] (\the\plx*1/2,\the\ply*1/2,0-\the\picl) 
+         pic[scale=0.65] {zaxisrot} 
+        -- node[anchor=east, yshift=5pt] {\contour{white}{$\tena{p}$}} +(0,0,-\the\forcelen);
+\end{scope}
+\end{tikzpicture}
+
+}
+
+\put(83,0){\begin{tikzpicture}[tdplot_main_coords,framed]
+    \path[] (-2.5cm,-0.5cm) rectangle (5.4cm,2.8cm);
+    
+    \node at (current bounding box.south east) [anchor=south east,inner sep=0mm] {\small\color{gray} Bottom view};
+    
+    % Back surface
+    \PlateF{(0,0,-0.25)}{\the\plx}{interface}
+    
+    % Bottom interface
+    \PlateF{(0,0,0)}{\the\plx}{core}{0.5pt}
+
+    % Back surface
+    \PlateF{(0,0,0.25)}{\the\plx}{interface}
+
+    
+    % Annotations
+    \begin{scope}[{Kite[fill=white, length=\the\annottext]}-]
+        \path[draw] (\the\ply*0.1,\the\ply,-0.25)  -- +(0,1,0.1) node [anchor=west] (ti) {Top interface $\null^t\!\mathfrak{I}$};
+        \path[draw] (0,\the\ply*0.9,.25)  -- +(0,1,0.9) node [anchor=west] (bi) {Bottom interface $\null^b\!\mathfrak{I}$};
+    \end{scope}
+    
+    \node at ($(ti.south west)!0.5!(bi.north west)$) [anchor=west] {Core surface $\mathfrak{C}$};
+
+
+% Internal forces on the bottom layer
+\begin{scope}
+    \draw[thick, line cap = round] (\the\plx*1/3,\the\ply*1/3,0) -- +(+\the\forcelen,0,0) 
+        node[anchor=north east, yshift=4pt, xshift=4pt] {\contour{white}{$^b\!\tena{s}_1$}} pic[scale=0.65] {xaxisflat};
+
+    \draw[thick, line cap = round] (\the\plx*1/3,\the\ply*1/3,0) -- +(0,\the\forcelen,0) 
+        node[anchor=north west, yshift=4pt] {\contour{white}{$^b\!\tena{s}_2$}} pic[scale=0.65] {yaxisflat};
+
+    \draw[thick, line cap = round] (\the\plx*1/3,\the\ply*1/3,0) 
+        -- +(0,0,+\the\forcelen) node[anchor=north west, yshift=5pt] {\contour{white}{$^b\!\tena{p}$}}  pic[scale=0.65] {zaxisrot};
+\end{scope}
+\end{tikzpicture}
+
+}
+
+
+
+\put(83,37){\begin{tikzpicture}[tdplot_main_coords,framed]
+    \path[] (-2.5cm,-0.5cm) rectangle (5.4cm,2.8cm);
+    
+    \node at (current bounding box.south east) [anchor=south east,inner sep=0mm] {\small\color{gray} Top view};
+        
+    % Back surface
+    \PlateF{(0,0,0.25)}{\the\plx}{interface}
+
+    % Bottom interface
+    \PlateF{(0,0,0)}{\the\plx}{core}{0.5pt}
+
+    % Back surface
+    \PlateF{(0,0,-0.25)}{\the\plx}{interface}
+    
+    
+    % Annotations
+    \begin{scope}[{Kite[fill=white, length=\the\annottext]}-]
+        \path[draw] (\the\ply*0.1,\the\ply,-0.25)  -- +(0,1,0.1) node [anchor=west] (ti) {Top interface $\null^t\!\mathfrak{I}$};
+        \path[draw] (0,\the\ply*0.9,.25)  -- +(0,1,0.9) node [anchor=west] (bi) {Bottom interface $\null^b\!\mathfrak{I}$};
+    \end{scope}
+    
+    \node at ($(ti.south west)!0.5!(bi.north west)$) [anchor=west] {Core surface $\mathfrak{C}$};
+
+
+% Internal forces on the bottom layer
+\begin{scope}
+    \draw[thick, line cap = round] (\the\plx*1/2,\the\ply*1/2,-0.25) -- +(-\the\forcelen,0,0) 
+        node[anchor=north] {\contour{white}{$^t\!\tena{s}_1$}} pic[rotate=180,scale=0.65] {xaxisflat};
+
+    \draw[thick, line cap = round] (\the\plx*1/2,\the\ply*1/2,-0.25) -- +(0,-\the\forcelen,0) 
+        node[anchor=north] {\contour{white}{$^t\!\tena{s}_2$}} pic[rotate=180,scale=0.65] {yaxisflat};
+
+    \draw[thick, line cap = round] (\the\plx*1/2,\the\ply*1/2,-0.25-\the\picl) 
+         pic[scale=0.65] {zaxisrot} 
+        -- node[anchor=south east, yshift=0pt] {\contour{white}{$^t\!\tena{p}$}} +(0,0,-\the\forcelen);
+\end{scope}
+\end{tikzpicture}
+
+}
+
+
+\end{picture}
+
+\end{document}
+
+% //////////////////////////////////////////////////////////////////////////////////////////////////
+
+\put(90,0){\begin{tikzpicture}[tdplot_main_coords,framed]
+% Define the macros locally
+\begin{scope}
+
+    % Back surface
+    \PlateF{(0,0,6)}{\the\plx}{surface}
+    
+    % Bottom interface
+    \PlateF{(0,0,5.9)}{\the\plx}{skin }{1pt}
+
+    \PlateF{(0,0,2.85)}{\the\plx}{interface}
+    \PlateF {(0,0,2.55)}{\the\plx}{core     }{0.5pt}
+    
+    \PlateF{(0,0,2.25)}{\the\plx}{interface}
+    \PlateF{(0,0,0.60)}{\the\plx}{skin    }{1pt}
+
+    % 3 axis & bottom layer
+    \draw[thick] (0,0,2.55) -- +(0,0,1) node[anchor=west] {\contour{white}{$\tena{n}$}} pic[scale=0.65] {zaxis};
+    
+    % 1 and 2 directions
+    \draw[thick, line cap = round] (0,0,2.55) -- +(1,0,0) node[anchor=south east] {\contour{white}{$\tena{e}_1$}} pic[scale=0.65] {xaxis};
+    \draw[thick, line cap = round] (0,0,2.55) -- +(0,1,0) node[anchor=south west] {\contour{white}{$\tena{e}_2$}} pic [scale=0.65] {yaxis};
+
+    % Top surface
+    \PlateF{(0,0,0)}{\the\plx}{surface}
+
+    % Annotations
+
+    \begin{scope}[{Kite[fill=white, length=\the\annottext]}-]
+        \path[draw] (\the\ply*0.1,\the\ply,0)     -- +(0,1,0.1) node [anchor=west] (f) {Front surface $\mathfrak{F}$};
+        \path[draw] (\the\ply*0.1,\the\ply,2.25)  -- +(0,1,0.1) node [anchor=west] (ti) {Top interface $\null^t\!\mathfrak{I}$};
+        \path[draw] (0,\the\ply*0.9,2.85)  -- +(0,1,0.9) node [anchor=west] (bi) {Bottom interface $\null^b\!\mathfrak{I}$};
+        \path[draw] (0,\the\ply*0.9,5.15) -- +(0,1,0.9) node [anchor=west] (b) {Back surface $\mathfrak{B}$};
+    \end{scope}
+    
+    \node at ($(f.west)!0.5!(ti.west)$)  [anchor=west] {Top surface    $\null^t\!\mathfrak{S}$};
+    \node at ($(ti.west)!0.5!(bi.west)$) [anchor=west] {Core surface   $\null^c\!\mathfrak{S}$};
+    \node at ($(bi.west)!0.5!(b.west)$)  [anchor=west] {Bottom surface $\null^b\!\mathfrak{S}$};
+    
+
+    % Dimensions
+    \begin{scope}[{Classical TikZ Rightarrow[length=\the\annotdim, width=\the\annotdim/2]}-{Classical TikZ Rightarrow[length=\the\annotdim, width=\the\annotdim/2]}]
+        % heights
+        \path[draw] (\the\plx,-0.5pt,0)      -- ++ (0,0,2.25)  node [midway, left] {$\null^t\!h$};
+        \path[draw] (\the\plx,-0.5pt,2.25pt) -- ++ (0,0,0.6)  node [midway, left] {$\null^c\!h$};
+        \path[draw] (\the\plx,-0.5pt,2.85pt) -- ++ (0,0,2.3) node [midway, left] {$\null^b\!h$};
+    \end{scope}
+
+    % Guideline for dimensions
+    \path[draw, very thin] (\the\plx,-0.1pt,0)   -- ++ (0,-0.5pt,0);
+%    \path[draw, very thin] (\the\plx,-0.1pt,1.1) -- ++ (0,-0.5pt,0);
+    
+    \path[draw, very thin] (\the\plx,-0.1pt,2.25pt) -- ++ (0,-0.5pt,0);
+    \path[draw, very thin] (\the\plx,-0.1pt,2.85pt)  -- ++ (0,-0.5pt,0);
+    
+%    \path[draw, very thin] (\the\plx,-0.1pt,4.05pt)    -- ++ (0,-0.5pt,0);
+    \path[draw, very thin] (\the\plx,-0.1pt,5.15pt) -- ++ (0,-0.5pt,0);
+
+
+
+% External forces
+% Internal forces on the bottom layer
+\begin{scope}
+    \draw[thick, line cap = round] (\the\plx*2/3,\the\ply*2/3,0) -- +(-\the\forcelen,0,0) 
+        node[anchor=north] {\contour{white}{$\tena{s}_1$}} pic[rotate=180,scale=0.65] {xaxisflat};
+
+    \draw[thick, line cap = round] (\the\plx*2/3,\the\ply*2/3,0) -- +(0,-\the\forcelen,0) 
+        node[anchor=north] {\contour{white}{$\tena{s}_2$}} pic[rotate=180,scale=0.65] {yaxisflat};
+
+    \draw[thick, line cap = round] (\the\plx*2/3,\the\ply*2/3,0-\the\picl) 
+         pic[scale=0.65] {zaxisrot} 
+        -- node[anchor=west, yshift=5pt] {\contour{white}{$\tena{p}$}} +(0,0,-\the\forcelen);
+\end{scope}
+
+% Internal forces on the core layer
+%\begin{scope}
+%    \draw[thick, line cap = round] (\the\plx*2/3,\the\ply*2/3,2.55) -- +(-1,0,0) 
+%        node[anchor=north east] {\contour{white}{$^t\!\tena{s}_1$}} pic[rotate=180,scale=0.65] {xaxisflat};
+%
+%    \draw[thick, line cap = round] (\the\plx*2/3,\the\ply*2/3,2.55) -- +(0,-1,0) 
+%        node[anchor=north west] {\contour{white}{$^t\!\tena{s}_2$}} pic[rotate=180,scale=0.65] {yaxisflat};
+%
+%    \draw[thick, line cap = round] (\the\plx*2/3,\the\ply*2/3,3.55) 
+%        node[anchor=south west, xshift=-0.5] {\contour{white}{$^t\!\tena{p}$}} 
+%        -- +(0,0,+1-\the\picl) pic[scale=0.65] {zaxisrot};
+%\end{scope}
+
+% Internal forces on the bottom layer
+\begin{scope}
+    \draw[thick, line cap = round] (\the\plx*2/3,\the\ply*2/3,5.9) -- +(-\the\forcelen,0,0) 
+        node[anchor=north] {\contour{white}{$^b\!\tena{s}_1$}} pic[rotate=180,scale=0.65] {xaxisflat};
+
+    \draw[thick, line cap = round] (\the\plx*2/3,\the\ply*2/3,5.9) -- +(0,-\the\forcelen,0) 
+        node[anchor=north] {\contour{white}{$^b\!\tena{s}_2$}} pic[rotate=180,scale=0.65] {yaxisflat};
+
+    \draw[thick, line cap = round] (\the\plx*2/3,\the\ply*2/3,5.9-\the\picl) 
+         pic[scale=0.65] {zaxisrot} 
+        -- node[anchor=east, yshift=5pt] {\contour{white}{$\tena{p}$}} +(0,0,-\the\forcelen);
+\end{scope}
+
+% Internal forces on the core layer
+\begin{scope}
+    \draw[thick, line cap = round] (\the\plx*2/3,\the\ply*2/3,5.9) -- +(-\the\forcelen,0,0) 
+        node[anchor=north] {\contour{white}{$^b\!\tena{s}_1$}} pic[rotate=180,scale=0.65] {xaxisflat};
+
+    \draw[thick, line cap = round] (\the\plx*2/3,\the\ply*2/3,5.9) -- +(0,-\the\forcelen,0) 
+        node[anchor=north] {\contour{white}{$^b\!\tena{s}_2$}} pic[rotate=180,scale=0.65] {yaxisflat};
+
+    \draw[thick, line cap = round] (\the\plx*2/3,\the\ply*2/3,5.9-\the\picl) 
+         pic[scale=0.65] {zaxisrot} 
+        -- node[anchor=east, yshift=5pt] {\contour{white}{$\tena{p}$}} +(0,0,-\the\forcelen);
+\end{scope}
+
+
+
+\end{scope}
+\end{tikzpicture}
+
+}
+

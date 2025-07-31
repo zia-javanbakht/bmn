@@ -1,0 +1,72 @@
+% !TEX TS-program = xelatex
+% !TeX spellcheck = en\_GB
+% !TeX root = ../My_thesis.tex
+
+\chapter{Tensor Identities}
+
+\begin{equation}
+\diver{\,(\tena{v}\cross\tenb{T})}\equiv (\curl{\tena{v}})\scp\tenb{T}-\tena{v}\scp(\curl{\tenb{T}})
+\end{equation}
+
+\begin{equation}
+\diver{\,(\tenb{T}\cross\tena{v})}\equiv (\diver{\tenb{T}})\cross\tena{v}+  \tenb{T}^\tran\scpcross\grad{\tena{v}}\label{eq:divercross1}
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
+\diver{\,(\tend{A}\dscp\tenb{B})}&\equiv(\diver{\tend{A}})\dscp\tenb{B}+\tend{A}^\ltran\tscp\grad{\tenb{B}}\\
+                                 &\equiv(\diver{\tend{A}})\dscp\tenb{B}+\grad{\tenb{B}}\dscp\kern-0.6ex\scp\tend{A}^\tran
+\end{aligned}
+\end{equation}
+Leibniz's product rule:
+    \begin{subequations}
+    \begin{alignat}{3}
+               \diver{\,(\tenb{A}\alpha)}&\equiv(\diver{\tenb{A}})\alpha+\tenb{A}\scp\grad{\alpha},\\
+    \diver{\,(\tenb{A}\scp\tena{v})}&\equiv(\diver{\tenb{A}})\scp\tena{v}+\tenb{A}\dscp\grad{\tena{v}},\\
+    \diver{\,(\tenb{A}\scp\tenb{B})}&\equiv(\diver{\tenb{A}})\scp\tenb{B}+\tenb{A}\dscp\grad{\tenb{B}}.
+    \end{alignat}
+    \end{subequations}
+    
+    \begin{alignat}{3}
+    \grad{(\tena{u}\dyad\tena{v})}\equiv(\grad{\tena{u}})\dyad\tena{v}+(\grad{\tena{v}})\dyad\tena{u}
+    \end{alignat}
+
+    \begin{equation}
+    \diver{\tena{v}}=\tr{(\grad{\tena{v}})}
+    \end{equation}
+
+
+Gauss-Ostrogradsky's theorem followed by its corollaries:
+    \begin{subequations}
+    \begin{alignat}{2}
+        \int_\Omega \alpha\, \partial_i \beta\dV 
+            +\int_\Omega \beta\, \partial_i \alpha\dV 
+            &=\int_{\partial\Omega} \alpha\beta n_i \dS,\\
+        \int_\Omega \grad{\alpha} \dV 
+            &=\int_{\partial\Omega} \alpha\tena{n} \dS,\\
+        \int_\Omega \grad{\tena{v}} \dV 
+            &=\int_{\partial\Omega} \tena{n}\dyad \tena{v} \dS,\\
+        \int_\Omega \diver{\tena{v}} \dV 
+            &=\int_{\partial\Omega} \tena{n}\scp \tena{v} \dS,\\\label{eq:GOdiv}
+        \int_\Omega \curl{\tena{v}} \dV 
+            &=\int_{\partial\Omega} \tena{n}\cross\tena{v} \dS,\\
+        \int_\Omega \grad{\tenb{A}} \dV 
+            &=\int_{\partial\Omega} \tena{n}\dyad \tenb{A} \dS,\\
+        \int_\Omega \ten{A}\dyad\grad{\ten{B}} \;\dif V 
+            + \int_\Omega \grad{\ten{A}}\dyad\ten{B}\; \dif V 
+            &=\int_{\partial\Omega} \tena{n}\dyad\ten{A}\dyad\ten{B} \;\dif S,\\ 
+        \int_\Omega \grad{\ten{A}}\;\dif V 
+            &= \int_{\partial\Omega} \tena{n}\dyad\ten{A} \;\dif S
+    \end{alignat}
+    \end{subequations}
+Equation \eqref{eq:GOdiv} is used to obtain Green's identities 1--4 by defining a vector field $\tena{v}\equidef \phi\grad{\psi}$ using two scalar fields $\psi$ and $\phi$:
+    \begin{subequations}
+    \begin{alignat}{2}
+        \int_\Omega \grad{\phi}\scp\grad{\psi} + \phi\lap{\psi} \dV 
+            &=\int_{\partial\Omega} \tena{n}\scp  \phi\grad{\psi}\dS,\\
+        \int_\Omega \phi\lap{\psi} - \psi\lap{\phi} \dV 
+            &=\int_{\partial\Omega} \tena{n}\scp(\phi\grad{\psi}-\psi\grad{\phi})\dS,\\
+        \int_\Omega \norm{\grad{\psi}}^2 - \psi\lap{\psi} \dV 
+            &=\int_{\partial\Omega} \tena{n}\scp\psi\grad{\psi}\dS,\\
+    \end{alignat}
+    \end{subequations}

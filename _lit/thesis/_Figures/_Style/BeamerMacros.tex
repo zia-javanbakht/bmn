@@ -1,0 +1,102 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Beamer-specific macros
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Itemized env. within the block env.
+% the default value for an optional argument braced in [] is space which is removed by \unskip 
+% when no optional arguments are specified.
+\newenvironment{checkedlist}[1][\unskip]{%
+\begin{block}{#1}%
+\begin{itemize}[label=\myCheckedBox]%
+\justifying%
+}{%
+\end{itemize}%
+\end{block}%
+}
+
+\newenvironment{crossedlist}[1][\unskip]{%
+\begin{block}{#1}%
+\begin{itemize}[label=\myCrossedBox]%
+\justifying%
+}{%
+\end{itemize}%
+\end{block}%
+}
+
+\newenvironment{itemlist}[1][\unskip]{%
+\begin{block}{#1}%
+\begin{itemize}[]%
+\justifying%
+}{%
+\end{itemize}%
+\end{block}%
+}
+\newenvironment{numberedlist}[1][\unskip]{%
+\begin{block}{#1}%
+\begin{enumerate}%
+\justifying%
+}{%
+\end{enumerate}%
+\end{block}%
+}
+
+% variable color block
+\newenvironment{variableblock}[3]{%
+  \setbeamercolor{block body}{#2}
+  \setbeamercolor{block title}{#3}
+%\addtobeamertemplate{block begin}{\pgfsetfillopacity{0.75}}{\pgfsetfillopacity{1}}
+  \begin{block}{#1}}{\end{block}}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Old beamer lecture boxes %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\newcommand{\ComplexDescription}[1]{%
+%\begin{tabular}{@{\centering}m{0.1\textwidth}@{}p{0.82\textwidth}@{}}%
+%\hspace{-0.4em}
+%\raisebox{1em}{\makebox[\width][c]{\resizebox{!}{1.em}{\dbend}}} & {\fontfamily{ptm}\selectfont #1\normalfont}\end{tabular}}
+%
+%\newcommand{\ReadDescription}[1]{%
+%\begin{tabular}{@{}m{0.1\textwidth}@{}p{0.82\textwidth}@{}}%
+%\multicolumn{1}{c}{   \hspace{-0.4cm}\raisebox{-0.9em}{\makebox[0.1\textwidth][l]{\thetree}}} & {\fontfamily{ptm}\selectfont #1\normalfont}\end{tabular}}
+%
+%\newcommand{\WriteDescription}[1]{%
+%\begin{tabular}{@{}m{0.1\textwidth}  @{}p{0.82\textwidth}@{}}%
+%\hspace{-0.6em}\raisebox{-1em}{\makebox[\width][c]{\thehand}} & {\fontfamily{ptm}\selectfont #1\normalfont}\end{tabular}}
+%
+%\newcommand{\DoDescription}[1]{%
+%\begin{tabular}{@{}m{0.1\textwidth}  @{}p{0.82\textwidth}@{}}%
+%\hspace{-0.6em}\raisebox{-1.2em}{\makebox[\width][c]{\thearrow}} & {\fontfamily{ptm}\selectfont #1\normalfont}\end{tabular}}
+%
+%\def\complexbox#1{%
+%\noindent\parindent1em%
+%\begin{beamercolorbox}[ rounded=true, colsep=0.02mm,dp=0.3ex, sep=0mm]{ComplexBox}
+%\ComplexDescription{#1}
+%\end{beamercolorbox}%
+%}
+%
+%\def\readbox#1{%
+%\noindent\parindent1em%
+%\begin{beamercolorbox}[ rounded=true, colsep=0.02mm,dp=0.3ex,sep=0mm]{ReadBox}
+%\ReadDescription{#1}
+%\end{beamercolorbox}%
+%}
+%
+%\def\writebox#1{%
+%\noindent\parindent1em%
+%\begin{beamercolorbox}[rounded=true, colsep=0.02mm,dp=0.3ex]{WriteBox}
+%\WriteDescription{#1}
+%\end{beamercolorbox}%
+%}
+%
+%\def\dobox#1{%
+%\noindent\parindent1em%
+%\begin{beamercolorbox}[leftskip=0cm, rounded=true, colsep=0.02mm, dp=0.3ex, sep=0mm]{DoBox}
+%\DoDescription{#1}
+%\end{beamercolorbox}%
+%}
+%

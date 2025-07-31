@@ -1,0 +1,145 @@
+\usepackage{pgfgantt}                            % used for gantt chart
+%\usepackage{pgfplotstable}                      % loads all the pgf packages
+\usepackage{pgfplots}                            % loads all the pgf packages
+%\pgfplotsset{compat=1.7}                         % sets the version of pgfplots
+
+\usepackage{tikz}
+\usetikzlibrary{spy,fit,matrix,shapes.callouts,calc,trees,positioning,arrows,chains,shapes.geometric,shapes.multipart,arrows.meta,  decorations.pathreplacing,decorations.text,decorations.pathmorphing,decorations.markings,shapes,matrix,shapes.symbols,patterns,datavisualization,datavisualization.formats.functions,angles,backgrounds}
+
+
+\usepackage[]{contour}                    % for outlining text
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% Commands for picture environment
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+
+
+\endinput
+
+
+
+% width and length of pic arrows
+\newcommand{\picw}{0.13}
+\newcommand{\picl}{0.25}
+
+\tikzset{
+ xaxis/.pic     ={\path[draw, fill,  pic actions] (0,0,0) -- ++(0,0,\picw/2) -- ++(\picl,0,-\picw/2)-- ++ (-\picl,0,-\picw/2) -- cycle;},
+ xaxisflat/.pic ={\path[draw, fill,  pic actions] (0,0,0) -- ++(0,\picw/2,0) -- ++(\picl,-\picw/2,0)-- ++ (-\picl,-\picw/2,0) -- cycle;},
+ yaxis/.pic     ={\path[draw, fill,  pic actions] (0,0,0) -- ++(0,0,\picw/2) -- ++(0,\picl,-\picw/2)-- ++ (0,-\picl,-\picw/2) -- cycle;},
+ yaxisflat/.pic ={\path[draw, fill,  pic actions] (0,0,0) -- ++(\picw/2,0,0) -- ++(-\picw/2,\picl,0)-- ++ (-\picw/2,-\picl,0) -- cycle;}, 
+ zaxis/.pic     ={\path[draw, fill,  pic actions] (0,0,0) -- ++(0,\picw/2,0) -- ++(0,-\picw/2,\picl)-- ++ (0,-\picw/2,-\picl) -- cycle;},
+ zaxisrot/.pic  ={\path[draw, fill,  pic actions] (0,0,0) -- ++(-\picw/2,0,0) -- ++(\picw/2,0,\picl)-- ++ (+\picw/2,0,-\picl) -- cycle;}
+}
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% tikz-3dplot settings
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+\usepackage{tikz-3dplot}
+
+\setlength{\unitlength}{\textwidth*1/160}
+\tdplotsetmaincoords{235}{-40}
+
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% Global values for dimensions, arrows, etc. used in tikzpicture env.
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+
+% Dimensions of the plate
+\newlength{\plx}
+\newlength{\ply}
+\newlength{\plt}
+
+\setlength{\plx}{6pt}
+\setlength{\ply}{6pt}
+\setlength{\plt}{2pt}
+
+% Arrow dimensions
+\newlength{\annotdim}
+\setlength{\annotdim}{5.5pt}
+
+\newlength{\annottext}
+\setlength{\annottext}{10pt}
+
+% Force dimension
+\newlength{\forcelen}
+\setlength{\forcelen}{1.5pt}
+
+\newlength{\baselen}
+\setlength{\baselen}{1pt}
+
+
+% Modified tdplotdrawarc to accomodate pic and extra nodes
+\newcommand{\tdplotarc}[8][tdplot_main_coords]{%
+\pgfmathsetmacro{\tdplottemp}{#5 + #4}
+\tdplotdiv{\tdplottemp}{\tdplottemp}{2}
+\path[#1] #2 + (\tdplottemp:#3) node[#6]{#7};
+\draw[#1] #2 + (#4:#3) arc (#4:#5:#3) #8;
+}
+
+
+
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% Commands for TikZ
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+
+\def\splittedv#1{\nodepart[text width=0.1,inner sep=0]{one}  \nodepart[]{two} #1 \nodepart[text width=0.1]{three}}
+\def\splittedh#1[#2]{\nodepart[text height=0.1cm,inner sep=0,rectangle split every empty part={},rectangle split empty part height=0.1cm,]{one} \nodepart[align=center,text width=1cm,#2]{two}#1}
+% Flowchart styles
+  \tikzset{
+   %% Define styles for structural symbols
+    %simple node
+    snode/.style = {draw,thick,circle, text height = 0.2cm, text width= 0.2cm,inner sep=0, minimum size = 2mm },
+    % elements
+    myelement/.style = {draw,ultra thick},
+    % point load
+    pload/.style   = {draw, text width=2cm, rectangle, thick},
+    %% Define styles for flowchart symbols
+    % basic style
+    fbase/.style = {draw, fill=lightgray, inner sep=1mm, semithick},
+    % Node label style (plain text)
+    nlabel/.style = {label=left:{\small#1}},
+    % Process style (Rectangle)
+    fproc/.style = {fbase, rectangle,text width=0.75cm},
+    % I/O style (Parallelogram)
+    fio/.style = {fbase, trapezium, trapezium right angle=120, trapezium left angle=60,text width=0.75cm},
+    % Flowchart Connection style (arrows)
+    fconc/.style = {semithick, draw,-stealth,label={"#1"}},
+    % Simple Connection style (lines)
+    sconc/.style = {semithick, draw,label={"#1"}},
+    % Terminal style (ellipse)
+    fterm/.style = {fbase, ellipse, inner sep=0.5mm},
+    % Decision style (diamond)
+    fdeci/.style = {fbase, diamond, inner sep=0mm, minimum size=0.3cm},
+    % Extra info bracket style (bracket)
+    fbrac/.style = {decorate, decoration=brace, thick},
+    % Intrinsic subprogram style (Splited rectangle)
+    fsubin/.style = {fbase,rectangle split, rectangle split parts=3, rectangle split horizontal,semithick,rectangle split empty part width=0.1cm, inner xsep=0.05cm, inner ysep=1mm},
+    % External/internal subprogram (Splited rectangle from top)
+    fsubex/.style = {fbase, inner sep=0,rectangle split,rectangle split every empty part={},rectangle split empty part height=0cm,rectangle split empty part width=0ex, rectangle split empty part depth=0cm,,rectangle split parts=2, semithick,text height=-0.3cm},
+    % Callout style (comments)
+    mycallout/.style = {draw,pattern=north west lines, pattern color=lightgray!75, semithick, rectangle callout, inner sep=2mm,align=justify,callout absolute pointer={#1},text width=4cm},
+    % Junction style (small circles)
+    fjunc/.style = {fbase, circle, inner sep=0mm,text width=1mm,,minimum size=2mm},
+    % Off-page connector style (Trapezoid)
+    fnext/.style = {fbase, inner xsep=1mm,inner ysep=0.5mm,chamfered rectangle,chamfered rectangle ysep=0.5cm,chamfered rectangle xsep=0.5cm,chamfered rectangle corners={south west,south east},text width=2mm},
+    % Matrix style but outside of a matrix
+    matrixoutstyle/.style ={draw,line width=0.75pt, anchor=center,fill=gray!50, text centered, rounded corners=0.1cm, minimum width=1cm, minimum height=5mm, minimum width=0.2cm,inner sep=1mm, font=\scriptsize},
+    % General Matrix style
+    matrixstyle/.style={matrix of nodes, nodes={matrixoutstyle},row sep=0.4cm, column sep=1cm, minimum width=0.2cm,inner sep=0, font=\scriptsize},
+    % General tikzstyle
+    mytikzstyle/.style={node distance=0.5cm,anchor=center,font=\scriptsize},
+    % Pseudocode style
+    pcstyle/.style={node distance=-0.15cm},
+    % Flowchart style
+    fcstyle/.style={row sep=0cm,column sep=0cm,minimum width=1mm,align=center},
+    % Flowchart blank node
+    fblanku/.style={yshift=0.4cm},
+    fblankd/.style={yshift=-0.4cm},
+    % To put a node between two others
+    between/.style args={#1 and #2}{at = ($(#1)!0.5!(#2)$)}
+  }
+
+
+
+%\usepackage{flowchart}                          % Flowchart package (TIKZ is implicitly loaded by FLOWCHART package)

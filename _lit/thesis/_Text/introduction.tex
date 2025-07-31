@@ -1,0 +1,67 @@
+% !TEX TS-program = xelatex
+% !TeX spellcheck = en_GB
+% !TeX root = ../My_thesis.tex
+
+\chapter{Introduction}\label{chap:intro}
+
+\section{Overview}
+	The majority of the current developments in science are in the material sector. Either developing new synthetic materials or more natural sustainable alternative seems to attract researchers. The most common method for creating new materials is by combining existing materials to form a composite. The constituents can have various geometries such as particles or fibres and extend over a wide range of properties. Among the mentioned components, the fibre-reinforced composites (FRCs) provide more benefits compared to the particulate counterparts. Customisable anisotropy, high specific properties, variety of manufacturing processes, and the availability of the research literature could be mentioned in this context.
+	
+	Developing new types of materials requires new theories or at least procedures for their description. Characterising such materials requires experiments that can be limited due to availability or suitability. Thus, a less-expensive, yet more attractive, alternative is sought. Namely, computational methods could complement case-based empirical understanding. The flexibility in execution, setup, and cost are the additional advantages that make numerical procedures more suitable in constitutive modelling. These characteristics make material modelling one of the active areas of research.
+
+	
+\section{Objectives}
+In the current study, the major aim was to develop cost-effective numerical procedures to model the thermal and mechanical response of FRCs---that are applicable to a variety of synthetic and natural fibres with various geometrical characteristics. More specifically, the following objectives were pursued:
+	\begin{itemize}
+		\item to provide a flexible framework to create finite element prototypes, e.g., representative volume elements, for modelling and characterising various types of FRCs,
+		\item to develop customised modules to facilitate the automated pre-processing, analysis, and post-processing of finite element prototypes,
+		\item to investigate the relation between mesoscopic heterogeneities and effective/apparent macroscopic material properties through a variety of analytical models and numerical procedures, 
+		\item to fine-tune the available material models by considering the phenomenological behaviour of the constituents to better represent the experimental statistical data, and
+		\item to challenge the available mathematical tools and extend the material models to incorporate local data in the computations.
+	\end{itemize}
+	
+	
+	
+\section{Thesis Layout}
+	\paragraph{Logical organisation} In the course of the current research, three stages are distinguishable through which the conceptualisation and realisation of the last two journal papers has matured at the final stage:
+	\begin{enumerate}[label=\Roman*.]
+	\item Developing the methodology happened through the course of preparing the monograph and experimenting the homogenisation techniques in the first three papers. This stage has provided the author with a solid foundation on which the other stages were built. This stage starts with the thermal analysis of short fibres and shifts towards continuous fibres.
+	\item In the second stage, the non-uniformity of the meso-structural variation was brought into focus. The use of analytical tools along with numerical facilities emerged in this stage.
+	\item The third stage carries the solution for the issues experienced in the previous stages. The complexity has increased from synthetic to natural fibres. A full-field analysis by means of embedded elements was carried out numerically and in the last step, the concept of auxiliary maps was introduced within a novel scheme for modelling fibre-reinforced composites. Furthermore, an in-house portable software package was developed with the capability of parallel computation.
+	\end{enumerate} 
+
+	\paragraph{Physical layout} After laying out the objectives in Chap.~\ref{chap:intro}, the mathematical preliminaries are concisely revisited in Chap.~\ref{chap:math}. Moreover, micromechanical approaches in modelling fibre-reinforced composites are reviewed. Chapters~\ref{chap:p1}--\ref{chap:p7} are the published pieces of work during the current research with the exception of the methodology, which is published as a separate monograph, see~\parencite{Javanbakht.2017}. 
+	
+	\paragraph{The papers} More specifically, the following three chapters focus on the model generation and thermal analysis of discontinuous and continuous fibre-reinforced composites:
+\begin{itemize}
+	\item Chapter~\ref{chap:p1} introduces a primitive algorithm to create 3D randomly-oriented discrete short-fibres of a representative volume and carries out a thermal analysis using the finite element method. The boundary of the representative volume is assumed to be hard (impenetrable).
+	\item Chapter~\ref{chap:p2} uses a similar methodology to create aligned short-fibres and discusses the nominal and true fibre volume fractions in modelling embedded fibre elements. These two studies were conducted assuming that a uniform spatial distribution of the fibres exists. Soft boundary along with periodicity of embedded elements were added to the model.
+	\item Chapter~\ref{chap:p3} deals with the thermal performance of continuous natural fibre composites with various porosities and varied moisture content.
+\end{itemize}
+	The next two chapters deals with the non-uniform distribution of constituents in fibre-reinforced composites by conducting clustering and spectral analyses:
+\begin{itemize}
+	\item Chapter~\ref{chap:p4} illustrates the difference between uniform and non-uniform distributions. The orientation tensor is introduced and used to quantify the non-uniformity by a non-tensorial quantity called the clustering index.
+	\item In Chapter~\ref{chap:p5} the performance of clustering index and spectral analysis is challenged in the context of thermal properties of short fibre-reinforced composites.
+\end{itemize}
+	The last two chapters attempt to develop an efficient modelling methodology for predicting the mechanical properties of natural fibre-reinforced composites based on the findings of the first part. The variability of natural fibre composites imposes more complexity on the approach.  
+\begin{itemize}
+	\item Chapter~\ref{chap:p6} deals with the intricacies of the discrete fibre modelling in the context of continuous natural fibres. The necessity of considering the true cross-sectional area of fibres and length-dependent strength is highlighted. 
+	\item Chapter~\ref{chap:p7} introduces a new cost-effective method for modelling continuous natural fibre composites by considering auxiliary maps. Fibre volume fraction and orientation tensor maps were used to show the sensitivity of the results to local properties.
+\end{itemize}
+	Finally, Chap.~\ref{chap:conc} concludes the work by stating the major findings and the future work.
+
+	\paragraph{The monograph} The monograph is a one-of-a-kind contribution since to this date, there are not any similar publications in the same context. In the monograph, the structured programming paradigm and programming fundamentals are discussed and the advanced FORTRAN programming capabilities are reviewed. The underlying mechanism of the Software package is also elaborated. A library of over 50 customised subroutines were developed in FORTRAN for general-purpose finite element analysis. Their application is illustrated by various basic and advanced examples with complete outputs and code listings. To provide an overview, the following features are included in the monograph (the list is not exhaustive):
+	\begin{itemize}
+		\item scripting for automation (pre- and post-analysis), 
+		\item data handling,
+		\item user-defined material models, 
+		\item user-defined elements,
+		\item variable anisotropy in elements,
+		\item failure thorough element deactivation and mesh splitting, 
+		\item customised nodal value calculation from weighted averaging of elemental quantities,
+		\item interface elements,
+		\item nonlinear adhesive contact,
+		\item nonlinear springs for plastic crack propagation, and
+		\item analysis of fabrication imperfection.
+	\end{itemize}
+	

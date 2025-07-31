@@ -1,0 +1,71 @@
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% !TeX TS-program = xelatex
+% !TeX spellcheck = en_GB
+% !BIB TS-program = biber
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+
+% Use this file to write your milestone report. Then head over to Combine.tex to combine your other forms with this report.
+%\documentclass[fontsize=12pt, twosided]{GU}
+\documentclass[book,11pt,persian]{Z}
+
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+% PREAMBLE
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+\titlehead{\centering\includegraphics[width=0.4\linewidth]{Logo.pdf}}
+% \subject{Confirmation of PhD Candidature}
+ \title{مدل سازی ریاضی و عددی کامپوزیت های ضد ساندویچی با در نظر گرفتن تنش های پس ماند و کرنش های پس ماند}
+\subtitle{مادل}
+\author{ضیا جوانبخت}
+\date{خرداد 1402}
+% \publishers{Associate Professor Wayne Hall\\Dr Zia Javanbakht\\Professor Stefanie Feih}
+% \dedication{School of Engineering and Built Environment\\Griffith University}
+
+
+% list of references
+\addbibresource{./_refs/refs.bib}
+
+
+\begin{document}
+\maketitle
+%{\centering\sffamily\scriptsize\bullet\ Last updated \today\ \bullet\par}
+\newpage
+%\clearpage
+
+
+
+\begin{persian}
+	\begin{abstract}
+		در بخش تحلیلی، معادلات اولیه با در نظر گرفتن تنش ها و کرنش های پس ماند تشکیل شده و در نهایت فرم حساب تغییراتی معادلات تعادل به دست آمده است. این فرمولاسیون مخصوص کامپوزیت های ضد ساندویچی (برای مثال صفحات خورشیدی) است که قابل گسترش به سایر مواد با رفتارهای مشابه است. به دلیل محدودیت های آزمایشگاهی، به نظر می رسد که نتایح محدود به روابط تحلیل و جواب های عددی خواهد بود که با داده های آزمایشگاهی موجود در سایر مقالات چاپ شده قابل قیاس و راستی آزمایی اس
+	\end{abstract}
+
+\end{persian}
+
+\pagestyle{plain}
+\setcounter{page}{1}
+\pagenumbering{roman}
+\hypersetup{linkcolor  = black}
+
+\tableofcontents
+\listoffigures
+\listoftables
+%\clearpage
+\newpage
+
+\hypersetup{linkcolor  = Green4}
+
+\pagenumbering{arabic}
+\pagestyle{scrheadings}
+\setcounter{page}{0}
+
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+% Chapters
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+\input{_chapters/01_intro.tex}
+\input{_chapters/02_tensor.tex}
+\input{_chapters/03_cm.tex}
+
+
+% Print references
+\printbibliography[title=References,heading=bibintoc]
+\end{document}
+

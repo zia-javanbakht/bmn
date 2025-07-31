@@ -1,0 +1,394 @@
+%!TEX TS-program = xelatex
+%!TeX spellcheck = en_GB
+
+% Load the required package using class
+\documentclass[tikz,class=article]{standalone}
+
+%\usepackage{tikz}
+\usetikzlibrary{spy,fit,matrix,shapes.callouts,calc,trees,positioning,arrows,chains,shapes.geometric,shapes.multipart,arrows.meta,  decorations.pathreplacing,decorations.text,decorations.pathmorphing,decorations.markings,shapes,matrix,shapes.symbols,patterns,datavisualization,datavisualization.formats.functions,angles,backgrounds}
+
+
+\usepackage[]{contour}                    % for outlining text
+
+
+\usepackage{fontspec}
+
+% Add a font that is not under the system fonts
+%\fontspec [ Path            = ./_Fonts/,
+%%UprightFont = *-regular,
+%% BoldFont = *-bold
+% Extension       = .otf,
+% ]
+%{FontAwesome}
+
+                
+    
+\usepackage{fontawesome}                          % web fonts
+
+%\setmonofont[                                     % Monospace font
+%             Scale=0.8,
+%             Path = ./_Fonts/
+%            ]{DejaVuSansMono.ttf}                 
+%\setmainfont[                                     % Text font
+%             Ligatures={Common}, %Numbers={OldStyle}, Variant=01,
+%             Path = ./_Fonts/,
+%             BoldFont=LinLibertine_RB.otf,
+%             ItalicFont=LinLibertine_RI.otf,
+%             BoldItalicFont=LinLibertine_RBI.otf
+%            ]{LinLibertine_R.otf}
+
+%\setmonofont[Scale=0.9]{SFMono-Bold.otf}
+    
+    % Monospaced font
+    \setmonofont{LibertinusMono-Regular.otf}[
+                 Scale=0.8,
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                ]                
+    
+    % Main text font
+    \setmainfont{LibertinusSerif}[%
+                 Ligatures       = {Common}, %Numbers={OldStyle}, Variant=01,
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 UprightFont     = *-Regular,
+                 BoldFont        = *-Bold,
+                 ItalicFont      = *-Italic,
+                 BoldItalicFont  = *-BoldItalic,
+                ]
+    % Sanserif font
+    \setsansfont{LibertinusSans}[
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 UprightFont     = *-Regular,
+                 BoldFont        = *-Bold,
+                 ItalicFont      = *-Italic,
+                ]
+    
+
+
+
+\usepackage{mathtools}                            % extension to amsmath which loads it automatically
+\usepackage{amsthm}                               % math theorems
+\usepackage{mathrsfs}
+%\usepackage{amssymb}                             % symbols like \square  (always before unicode-math)
+\usepackage{xfrac}                                % slanted fractions 
+\usepackage{accents}
+%\usepackage[bb=mma,cal=cm,scr=esstix]{mathalfa}
+\usepackage{unicode-math}                        % Math for XeLaTeX
+\usepackage{stackrel}                             % Enhancements to the \stackrel command
+
+
+\unimathsetup{math-style=ISO, bold-style=ISO}
+
+
+
+
+    % Math font setting
+    \setmathfont{LibertinusMath-Regular}[             % General math font
+                 Path            = ./_Fonts/,
+                 Extension       = .otf
+                 ]
+    
+    % Requires lm-math package
+    \setmathfont{Latin Modern Math}[                  % Calligraphy font for linear operators
+                 range           = {cal, bfcal},
+                 ]
+    
+    % Requires tex-gyre-math package
+    \setmathfont{TeX Gyre Termes Math}[               % For proper blackboard letters
+                 range=bb
+                 ]
+    
+    \setmathfont{XITSMath-Regular}[               % For fraktur
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 range           = frak,
+                 ]
+    
+    \setmathfont{XITSMath-Bold}[               % For fraktur
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 range           = bffrak,
+                 ]
+    
+    
+    \setmathfont{LibertinusMath-Regular}[             % For upright Greek letters using \mup...
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 range           = up/{greek,Greek},          
+                 math-style      = literal
+                 ]
+    
+    
+
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+
+
+
+
+
+% Packages and macros
+%\input{./_Style/MyStyle}
+
+	% Settings
+%	\pgfplotsset{compat=newest}
+
+
+%	\pgfdeclarelayer{background}
+%	\pgfsetlayers{background}
+%	\pgfsetlayers{background,main,foreground} 
+
+
+
+% Flowchart styles
+  \tikzset{
+   %% Define styles for structural symbols
+    %simple node
+    snode/.style = {draw,thick,circle, text height = 0.2cm, text width= 0.2cm,inner sep=0, minimum size = 2mm },
+    % elements
+    myelement/.style = {draw,ultra thick},
+    % point load
+    pload/.style   = {draw, text width=2cm, rectangle, thick},
+    %% Define styles for flowchart symbols
+    % basic style
+    fbase/.style = {draw, fill=lightgray, inner sep=1mm, semithick},
+    % Node label style (plain text)
+    nlabel/.style = {label=left:{\small#1}},
+    % Process style (Rectangle)
+    fproc/.style = {fbase, rectangle,text width=0.75cm},
+    % I/O style (Parallelogram)
+    fio/.style = {fbase, trapezium, trapezium right angle=120, trapezium left angle=60,text width=0.75cm},
+    % Flowchart Connection style (arrows)
+    fconc/.style = {thick, draw,-stealth,label={"#1"}},
+    % Simple Connection style (lines)
+    sconc/.style = {thick, draw,label={"#1"}},
+    % Terminal style (ellipse)
+    fterm/.style = {fbase, ellipse, inner sep=0.5mm},
+    % Decision style (diamond)
+    fdeci/.style = {fbase, diamond, inner sep=0mm, minimum size=0.3cm},
+    % Extra info bracket style (bracket)
+    fbrac/.style = {decorate, decoration={brace}, thick},
+    % Intrinsic subprogram style (Splited rectangle)
+    fsubin/.style = {fbase,rectangle split, rectangle split parts=3, rectangle split horizontal,semithick,rectangle split empty part width=0.1cm, inner xsep=0.05cm, inner ysep=1mm},
+    % External/internal subprogram (Splited rectangle from top)
+    fsubex/.style = {fbase, inner sep=0,rectangle split,rectangle split every empty part={},rectangle split empty part height=0cm,rectangle split empty part width=0ex, rectangle split empty part depth=0cm,,rectangle split parts=2, semithick,text height=-0.3cm},
+    % Callout style (comments)
+    mycallout/.style = {draw,pattern=north west lines, pattern color=lightgray!75, semithick, rectangle callout, inner sep=2mm,align=justify,callout absolute pointer={#1},text width=4cm},
+    % Junction style (small circles)
+    fjunc/.style = {fbase, circle, inner sep=0mm,text width=1mm,,minimum size=2mm},
+    % Off-page connector style (Trapezoid)
+    fnext/.style = {fbase, inner xsep=1mm,inner ysep=0.5mm,chamfered rectangle,chamfered rectangle ysep=0.5cm,chamfered rectangle xsep=0.5cm,chamfered rectangle corners={south west,south east},text width=2mm},
+    % Matrix style but outside of a matrix
+    matrixoutstyle/.style ={draw,line width=0.75pt, anchor=center,fill=gray!50, text centered, rounded corners=0.1cm, minimum width=1cm, minimum height=5mm, minimum width=0.2cm,inner sep=1mm, font=\scriptsize},
+    % General Matrix style
+    matrixstyle/.style={matrix of nodes, nodes={matrixoutstyle},row sep=0.4cm, column sep=1cm, minimum width=0.2cm,inner sep=0, font=\scriptsize},
+    % General tikzstyle
+    mytikzstyle/.style={node distance=0.5cm,anchor=center,font=\scriptsize},
+    % Pseudocode style
+    pcstyle/.style={node distance=-0.15cm},
+    % Flowchart style
+    fcstyle/.style={row sep=0cm,column sep=0cm,minimum width=1mm,align=center},
+    % Flowchart blank node
+    fblanku/.style={yshift=0.4cm},
+    fblankd/.style={yshift=-0.4cm},
+    % To put a node between two others
+    between/.style args={#1 and #2}{at = ($(#1)!0.5!(#2)$)}
+  }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%	% define the layers
+%	\pgfdeclarelayer{bg}
+%	\pgfdeclarelayer{fg}
+%	% order the layers
+%	\pgfsetlayers{bg, main,fg}
+\begin{tikzpicture}[node distance=0.5cm,anchor=center,every text node part/.style={align=center,font=\footnotesize},font=\footnotesize, align=center]%,font=\sffamily\small]
+
+% main is the default layer
+\def\y{0.25cm}
+\def\x{1cm}
+
+	\node[fterm]   (s) []    {\code{FibreConstructor()}};
+	\node[fio, below = \y of s, text width=2.5cm] (inp) {Input the fibre volume fraction};
+	\node[fproc, below = \y of inp, inner ysep=2     , inner xsep=1 , text width=3cm  ]   (sub1)  {Calculate the\\ required fibre length};
+	\node[fproc, below = \y of sub1, inner ysep=2     , inner xsep=1 , text width=3cm  ]   (sub11)  {Create the\\coordinates of a fibre};
+	\node[fsubin, below = \y of sub11, inner ysep=0.5\baselineskip    , inner xsep=-2.25 , text width=  ]   (sub12)  {\nodepart[text width=3cm]{two} \code{AdjustCoord()}};
+%	\node[fdeci , below = \y of sub12, inner sep=0.1, minimum size=1cm                        ]   (dec1)    {Is the end-node\\in the RVE?};
+	\node[fdeci , below = \y of sub12, inner sep=0.1     , minimum size=1cm   ]   (dec2)    {Target\\volume fraction\\achieved?};
+
+	% FALSE
+	\node[fproc, below = \y of dec2, inner ysep=2  , inner xsep=0.01  , text width=3cm ]   (sub2)  {Export the fibre\\structure to the data file};
+	\node[fproc, below = \y of sub2, inner ysep=2  , inner xsep=0.1  , text width=3cm ]   (sub3)   {Create the FE model\\using \code{MENTAT}};
+	\node[fproc, below = \y of sub3, inner ysep=2  , inner xsep=0.1  , text width=3.cm ]   (sub4)  {Submit the job to \code{MARC}};
+
+
+
+
+	% TRUE
+	\node[fterm, below = \y of sub4]   (e)  {Return};
+	
+	
+%	\node[fproc, right = \y of dec2, inner ysep=2  , inner xsep=0.1  , text width=3.cm ]   (sub5)  {Generate a new random\\end-node coordinate};	
+	
+%	CONNECTIONS
+\draw[fconc]  (s.south)     --   (inp.north);
+\draw[fconc]  (inp.south)     --   (sub1.north);
+\draw[fconc]  (sub1.south)     --   (sub11.north);
+\draw[fconc]  (sub11.south)     --   (sub12.north);
+\draw[fconc]  (sub12.south)     --   (dec2.north);
+%\draw[fconc]  (dec1.east)     --   (e.west)  node [midway,above] {F};
+\draw[fconc]  (dec2.south)     --   (sub2.north)  node [midway,right] {T};
+\draw[fconc]  (sub2.south)     --   (sub3.north);
+\draw[fconc]  (sub3.south)     --   (sub4.north);
+\draw[fconc]  (sub4.south)     --   (e.north);
+
+
+%\draw[fconc]  (dec2.east)     --   (sub5.west) node [midway,above] {F};
+
+%\draw[fconc]  (sub5.north)     |-   (sub4.east);
+
+\draw[sconc]  (dec2.west) -- +(-0.5\x,0) node [midway,above] {F}  [fconc] |-   (sub11.west);
+
+\end{tikzpicture}
+
+
+
+
+
+
+
+
+
+
+
+
+%\draw[fconc]  (dec1.east)     --   (sub1-1.west) node [midway,above] {T};
+%\draw[fconc]  (dec1-1.south)     --   (sub1-2.north) node [midway,right] {T};
+%\draw[fconc]  (dec1-1.north)     --   (sub1-3.south) node [midway,right] {F};
+%\draw[sconc]  (sub1-2.east) -- +(0.5\x,0) [fconc]     |-   (dec1-1.east);
+%\draw[fconc]  (sub1-1.east)     --   (dec1-1.west);
+%\draw[fconc]  (sub1-3.west)     --   (sub1-4.east);
+%\draw[fconc]  (sub1-4.west)     --   (j1.east);
+%
+%\draw[sconc]  (dec2.north) -- +(0,\y) node [midway,left] {F}   -|  ($(sub12.east)+(0.5\x,0)$) [fconc] -- (sub12.east);
+%\draw[fconc]  (dec3.east)     --   (sub8.west) node [midway,above] {T};
+%\draw[fconc]  (sub8.south)     --   (sub9.north);
+%\draw[fconc]  (sub9.south)     --   (dec4.north);
+%\draw[fconc]  (dec4.west)     --   (sub10.east) node [midway,above] {F};
+%\draw[fconc]  (dec4.south)     --   (sub12.north) node [midway,right] {T};
+%\draw[fconc]  (sub10.west)     --   (sub11.east);
+%\draw[sconc]  (sub11.west)     -|  (j2.south);
+%\draw[fconc]  (j2.north)     --  (sub7.south);
+%
+%\draw[fconc]  (sub12.west)     --   (sub13.east);
+%\draw[fconc]  (sub13.west)     --   (sub14.east);
+%\draw[fconc]  (sub14.west)     --   (e.east);
+%
+%\draw[fconc]  (dec3.south)     |-   (j2.east) node [midway, pos=0.25, right] {F};
+%\draw[fconc]  (sub7.north)     --   (sub6.south);
+
+%  \draw[fbrac,decoration={raise=1cm,amplitude=0.4cm}] (sub4.south west) -- (sub4.south west |-s.west)    node[midway,  xshift=-1.85cm,rotate=90]  {\fc{Python} script};
+%  \draw[fbrac,decoration={raise=11.1cm,amplitude=0.4cm}] (sub12.south west) -- (sub12.south west |-dec4.south west)    node[midway,  xshift=-11.95cm,rotate=90]  {\fc{Python} script};
+%  \draw[fbrac,decoration={raise=1.cm,amplitude=0.4cm}]  (sub5.north west|-sub11.south west) -- (sub5.north west)   node[midway, xshift=-1.85cm,rotate=90]  {\fc{FORTRAN} subroutines};
+
+
+%\begin{pgfonlayer}{bg}
+%	\coordinate (TL) at ($(s.north)+(-2.5cm,0)$);
+%	\coordinate (BD) at ($(sub12.south)+(+2cm,-0.33cm)$);
+%
+%	\coordinate (c) at ($(sub4.south)!0.33!(sub5.north)$);
+%	
+%	\path[fill=gray,opacity=0.25] (TL) rectangle ($(c -| BD)$);
+%
+%	\path  ($(TL)$) rectangle ($(c -| TL)$) node [draw,fill=white,midway,rotate=90,anchor=north west,below] {\fc{Python} script};
+%
+%	\coordinate (b) at ($(sub4.south)!0.67!(sub5.north)$);
+%	
+%	\coordinate (d) at ($(dec4.south)!0!(sub12.north)$);
+%	\coordinate (e) at ($(dec4.south)!0.33!(sub12.north)$);
+%
+%	\path[fill=gray,opacity=0.15] ($(b -| TL)$) rectangle ($(d -| BD)$) ;
+%	
+%	\path  ($(b -| TL)$) rectangle ($(d -| TL)$) node [draw,fill=white,midway,rotate=90,anchor=north west,below] {\fc{FORTRAN} subroutines};
+%	
+%	\coordinate (a) at ($(dec4.south)!0.3!(sub12.north)$);
+%
+%	\path[fill=gray,opacity=0.25] ($(e -| TL)$) rectangle (BD);
+%
+%	\path  ($(e -| TL)$) rectangle ($(BD -| TL)$) node [draw,fill=white,midway,rotate=90,anchor=north west,below] {\fc{Python}\\ script};
+
+
+%	\path[fill=gray,opacity=0.25] ($(sub4.south west)!0.5!(sub5.north west)+(-1cm,0)$) rectangle ($(dec4.south)+(2cm,0)$) node [pos=0, below, left,opacity=1,xshift=0.22cm, gray,draw,rotate=90] (fsub) {\fc{FORTRAN} subroutines};
+%	
+%	\path[fill=gray,opacity=0.1] ($(s.north -| fsub.west)+(-0.25cm,0)$) rectangle ($(sub4.south west -| dec4.south)+(2cm,0)$) node [pos=0, xshift=0.25cm,left,opacity=1, gray,draw,rotate=90] {\fc{Python} script};
+%
+%	\coordinate (a) at ($(dec4.south)!0.3!(sub12.north)$);
+%	\path[fill=gray,opacity=0.1] ($(a -| fsub.west)+(-0.25cm,0)$) rectangle ($(sub12.south) +(2cm,-0.3cm)$) node [pos=0, xshift=0.4cm,left,opacity=1, gray,draw,rotate=90,align=center] {\fc{Python}\\ script};
+	
+	
+%	\path[fill=gray,opacity=0.1] ($(s.south west)!0.5!(sub1.north west)+(-1.6cm,0)$) rectangle ($(sub4.south west -| dec4.south)+(2cm,0)$) node [pos=0, xshift=0.25cm,left,opacity=1, gray,draw,rotate=90] {\fc{Python} script};
+%\end{pgfonlayer}
+
+	
+%\node[fdeci , below = \y of sub1   , inner sep=0.5mm     , minimum size=1cm                         ]   (d1)    {\fc{lovl==4}};
+%\node[fproc , right = 3.5cm of d1   , inner ysep=2mm      , inner xsep=1mm    , text width=     ]   (p1)    {\fc{b}=$E^{\text{elpl}}$\\\fc{sinc}=0\\\fc{avgine}=0};
+%\node[fsubex, below = \y of d1   , inner ysep=2mm      , inner xsep=1mm                           ]   (sub2)  {\nodepart[text width=]{two}Calculate $\sigma_{n+1}^{\text{trial}}$, $\kappa_{n+1}^{\text{trial}}$ and $F(\sigma_{n+1}^{\text{trial}},\kappa_{n+1}^{\text{trial}})$};
+%\node[fproc , below = \y of sub2   , inner ysep=2mm      , inner xsep=1mm    , text width=        ]   (p2)    {i=1};
+%\node[fdeci , below = \y of p2    , inner sep=0mm     , minimum size=1cm, align= flush right  ]   (d2)    {$F(\sigma_{n+1}^{\text{trial}},\kappa_{n+1}^{\text{trial}})$\\$\le0$};
+%\node (p3) at (p1|-d2) [fproc  , inner ysep=2mm      , inner xsep=1mm    , text width=     ]       {\fc{sinc}=$\sigma_{n+1}^{\text{trial}}-\sigma_{n}$\\\fc{avgine}=0};
+%\node[fproc , below = \y of d2   , inner ysep=2mm      , inner xsep=1mm    , text width=          ]   (p4)    {$\vec{v}^{(0)}=\begin{bmatrix} 
+%\sigma^{(0)}\\
+%\kappa^{(0)}\\
+%0\\
+%\end{bmatrix}$};
+%%\node[fproc , below = \y of p4   , inner ysep=2mm      , inner xsep=1mm    , text width=          ]   (p7)    {flag=.FALSE.};
+%%\node[fdeci , below = \y of p7    , inner sep=0.5mm     , minimum size=1cm                        ]   (d3)    {flag=.TRUE.};
+%\node[fproc, below = \y of p4   , inner ysep=2mm      , inner xsep=1mm,text width=                ]   (p5)  {$\vec{v}^{(i)}=\vec{v}^{(i-1)}-\left(\vec{J}(\vec{v}^{(i-1)})\right)^{-1}\times \vec{m}(\vec{v}^{(i-1)}),
+%$};
+%\node[fdeci , below = \y of p5    , inner sep=0.5mm     , minimum size=1cm                        ]   (d3)    {\fc{i==}\\\fc{NMAX\_ITER}};
+%\node (sub3) [fsubex, inner ysep=2mm      , inner xsep=1mm ,right= \x of d3                         ]    {\nodepart[text width=]{two}\fc{QUIT(1234)}} ;
+%\node[fjunc , between = sub3 and d3   , yshift=-1.5cm                                    ]   (j2)    {};
+%\node[fdeci , below = \y of j2  , inner ysep=0mm      , inner xsep=0mm    , text width=          ]   (d4)    {$\begin{matrix}
+%  \left|\left|\vec{v}^{(i)}-\vec{v}^{(i-1)}\right|\right|\\\le\text{\fc{TOL}} \end{matrix}   $};
+%
+%
+%\node (p6) at (p3|-d4) [fproc  , inner ysep=2mm      , inner xsep=1mm    , text width=     ]       {\fc{sinc}=$\vec{v}_{(1)}-\sigma_{n}$\\\fc{avgine}=$\vec{v}_{(2)}-\epsilon_{n}$};
+%
+%\node[fjunc , right = \x of p3                                      ]   (j1)    {};
+%\node (p7) [fproc  , left= 1.5cm of d4,inner ysep=2mm      , inner xsep=1mm    , text width=     ] {\fc{i=i+1}};
+%
+%
+%\node[fterm , right = \y of j1                                                      ]   (e)     {Return};
+%
+
+
+
+%\draw[fconc]  (sub1.south)  --   (d1.north);
+%\draw[fconc]  (d1.east)     --   node[near start, above]  {True}    (p1.west);
+%\draw[fconc]  (d1.south)    --   node[right, near start]   {False (\fc{lovl=6})}   (sub2.north);
+%\draw[fconc]  (sub2.south)    --   (p2.north);
+%\draw[fconc]  (p2.south)    --   (d2.north);
+%\draw[fconc]  (d2.east)     --   node[near start, above]  {True}    (p3.west);
+%\draw[fconc]  (d2.south)    --   node[right, near start]   {False}   (p4.north);
+%\draw[fconc]  (p4.south)    --   (p5.north);
+%\draw[fconc]  (p5.south)    --   (d3.north);
+%\draw[fconc]  (d3.east)     --   node[near start, above]  {True}    (sub3.west);
+%\draw[fconc]  (d3.south)    |-   node[right, near start]   {False}   (j2.west);
+%\draw[fconc]  (d4.west)  --  (p7.east);
+%\draw[fconc]  (p7.west)  -- +(-1.25cm,0) |-   (p5.west);
+%% +(-2,0) node[below, near start]   {False}  |- (p5.west);
+%\draw[fconc]  (d4.east)     --   node[near start, above]  {True}    (p6.west);
+%\draw[fconc]  (p1.east)  -|   (j1.north);
+%\draw[fconc]  (sub3.south)  |-   (j2.east);
+%\draw[fconc]  (p3.east)  --   (j1.west);
+%\draw[fconc]  (j2.south)  --   (d4.north);
+%\draw[fconc]  (p6.east)  -|   (j1.south);
+%\draw[fconc]  (j1.east)  --   (e.west);
+%
+%\let\y\undefined
+%\let\x\undefined
+
+\end{document}

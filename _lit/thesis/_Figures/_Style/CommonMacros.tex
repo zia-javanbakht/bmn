@@ -1,0 +1,718 @@
+%%%%%%%%%%%%%%%%%%%
+%% Common Macros %%
+%%%%%%%%%%%%%%%%%%%
+
+% Common settings for all lectures in this course
+\def\mycampus{Gold Coast Campus}
+\def\myuniversity{Griffith University}
+\def\myschool{Griffith School of Engineering and Built Environment}
+\def\mycoursename{Engineering Materials}
+\def\mycoursecode{1017ENG}
+\def\mycourse{\mycoursecode~\mycoursename}
+\def\myinstitute{\myuniversity\par\myschool\par\mycampus}
+
+% These two lines work for both beamer and non-beamer
+\date{\mydate}
+\title{\mytitle}
+
+
+% Add blank page
+\newcommand\blankpage{%
+    \afterpage{\null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}\clearpage}
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% Abbreviations in smallcaps
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+
+% Marc in smallcaps
+\def\m{\fontshape\scdefault\selectfont Marc\normalfont}
+% Mentat in smallcaps
+\def\M{\fontshape\scdefault\selectfont Mentat\normalfont}
+% Marc/Mentat in smallcaps
+\def\mm{\fontshape\scdefault\selectfont Marc/Mentat\normalfont}
+% Fortran Code
+\def\fc#1{\textsf{\small{#1}}}
+% Fortran Code scriptsize
+\def\fcscript#1{\textsf{\scriptsize{#1}}}
+% KeyWords
+\def\kw#1{\fc{\MakeTextUppercase{#1}}}
+% KeyWords scriptsize
+\def\kwscript#1{\fcscript{\MakeTextUppercase{#1}}}
+% New Paragraph without indents
+\def\np{\par\noindent}
+% My Quotation 
+\newcommand{\myquote}[2]{\begin{center}\begin{minipage}{0.6\textwidth}\emph{{#1}}\vspace{-0.3cm}\flushright{{\scriptsize%
+\if\relax\detokenize{#2}\relax
+Anonymous
+\else
+#2
+\fi
+}}\\\end{minipage}\end{center}}
+
+% Fortran Code
+  \def\fc#1{\textsf{#1}}
+% Fortran Code scriptsize
+\def\fcscript#1{\textsf{\scriptsize{#1}}}
+% Fortran
+\def\f{\fontshape\scdefault\selectfont Fortran\normalfont}
+% Marc in smallcaps
+\def\m{\fontshape\scdefault\selectfont Marc\normalfont}
+% Mentat in smallcaps
+\def\M{\fontshape\scdefault\selectfont Mentat\normalfont}
+% Marc/Mentat in smallcaps
+\def\mm{\fontshape\scdefault\selectfont Marc/Mentat\normalfont}
+% Intel
+\def\intel{\fontshape\scdefault\selectfont Intel{$^{\scaleobj{0.7}{\textregistered}}$}\normalfont} 
+% Syntax
+
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% Symbols
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+
+\newenvironment{syntax}{\par\vspace{0.2cm}\sffamily\small}{\vspace{0.2cm}\normalfont\newline\noindent}%
+% x mark
+\newcommand{\xmark}{\ding{55}}
+% Check mark
+\newcommand{\cmark}{\ding{51}}
+% My checkedBox
+\def\myCheckedBox{\hbox{\raise.2em\hbox{\cmark}\kern-0.9em\hbox{$\square$}}}
+% My CrossedBox
+\def\myCrossedBox{\hbox{\hbox{\resizebox{1.2ex}{!}{\xmark}}\kern-0.7em\raise-.05em\hbox{$\square$}}}
+% The tree
+\def\thetree{\BasicTree[3.]{blue!80!red!40!white}{blue!80!red!30!white!30!black}{blue!70!red!60!white}{leaf}}
+% The arrow
+\def\thearrow{\resizebox{2.5em}{!}{\ding{224}}}
+% The hand
+\def\thehand{\resizebox{2.5em}{!}{\ding{45}}}
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% Environments
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+
+% Summary box using mdframed
+\newenvironment{summary}{%
+\begin{mdframed}[middlelinewidth=2pt, backgroundcolor=gray!50, linecolor=white]%
+\textbf{Summary}\quad
+}{%
+\end{mdframed}%
+}
+
+
+
+\makeatletter
+	% For Koma-script, automatically add a full stop after the paragraph title
+	
+
+
+
+%
+%% Defintition box using mdframed
+%\newtheoremstyle{mystyle2}{0}{}{}{}{\bfseries}{:}{ }{\thmname{#1} \thmnumber{#2} --- \textbf{\thmnote{#3}}}
+%\theoremstyle{mystyle2}
+%\newmdtheoremenv[
+%hidealllines        = true,
+%leftline            = true,
+%linewidth           = 4pt,
+%linecolor           = gray!40,
+%innerrightmargin    = 0pt,
+%frametitleaboveskip = 0mm,
+%frametitlebelowskip = 0mm,
+%skipabove           = \baselineskip,
+%skipbelow           = \baselineskip,
+%splittopskip        = 0mm,
+%innerbottommargin   = 0pt,
+%innertopmargin      = 0.75\baselineskip,
+%]{definition}{Definition}[chapter]
+%
+%\renewcommand{\thedefinition}{\arabic{chapter}.\arabic{definition}}
+%
+%% Theorem box using mdframed
+%\newtheoremstyle{mystyle1}{0}{}{}{}{\bfseries}{:}{ }{\thmname{#1} \thmnumber{#2} --- \textbf{\thmnote{#3}}}
+%\theoremstyle{mystyle1}
+%\newmdtheoremenv[hidealllines=true,
+%hidealllines        = true,
+%leftline            = true,
+%linewidth           = 4pt,
+%linecolor           = gray!40,
+%innerrightmargin    = 0pt,
+%frametitleaboveskip = 0mm,
+%frametitlebelowskip = 0mm,
+%skipabove           = 2\parskip,
+%skipbelow           = -2\parskip,
+%splittopskip        = 2\parskip,
+%innerbottommargin   = 0pt
+%]{theorem}{Theorem}[chapter]
+
+%\renewcommand{\thetheorem}{\arabic{chapter}.\arabic{theorem}}
+\makeatother
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Overlay commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% command for coordinates in a graph
+\def\sample#1#2#3#4#5[#6]{%
+\coordinate[overlay,remember picture] (#3) at (#1,#2);
+\draw[thick,fill=gray!30] ($(#3.center)+(#1-#3/2,#2-#4/2)$) rectangle ($(#3.center)+(#1+#3/2,#2+#4/2)$);
+  \foreach \x in {0,...,10}
+  \path[draw] ($(#1-#3/2+0.2cm+#5*\x/10,#2-0.3*#4)+(#3.center)$) --  ($(#1-#3/2+0.2cm+#5*\x/10,#2+0.3*#4)+(#3.center)$) node[] {};
+}%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% Table color
+\colorlet{tableheadercolor}{gray!50}
+
+
+
+
+
+
+
+% Box color definitions
+\colorlet{commentcolor}{red!50}
+
+\definecolor{complexboxcolor}{RGB}{244, 217, 83}%{yellow!80!red!75!white}
+\colorlet{readboxcolor}{blue!80!red!30!white}
+\colorlet{writeboxcolor}{green!65!red!60!white}
+\definecolor{doboxcolor}{RGB}{114, 166, 234}%{green!90!yellow!40!red!60!white}
+\definecolor{thinkboxcolor}{RGB}{239, 141, 161}
+
+\colorlet{blockboxcolor}{green!40!blue}
+\definecolor{exampleboxcolor}{RGB}{38, 115, 77}
+
+\definecolor{enumerateboxcolor}{RGB}{31, 66, 173}
+
+\colorlet{checkedboxcolor}{black!80!white}
+\definecolor{itemizeboxcolor}{RGB}{77, 51, 153}
+\definecolor{noteboxcolor}{RGB}{173, 31, 31}
+\definecolor{quoteboxcolor}{RGB}{230, 195, 0}
+
+\definecolor{instructboxcolor}{RGB}{237, 156, 235}
+
+
+
+\def\allboxrule{0.12em}
+
+% Box styles: read/write/do/complex
+\tcbset{
+  myboxstyle/.style={
+  width=\textwidth,
+  top=0.7em, left skip=-0.5cm, right skip = -0.25cm,
+  bottom=0.7em,
+  left=0.7em,
+  right=0.7em,
+  boxsep=0.3em, 
+  sharp corners=west, 
+  before=,%\centering,
+  breakable,
+  enhanced,
+  arc=1mm,
+  boxrule =\allboxrule,
+  leftrule=3.5em
+  %
+},
+  allboxstyle/.style={
+  enhanced,
+  breakable,
+  before=\smallskip,
+  left=0.5em,
+  right=0.5em,
+  top=0.5em, 
+  bottom=0.5em,
+  boxsep=0mm,
+  attach boxed title to top left={xshift=\tcboxedtitleheight/2,yshift=-\tcboxedtitleheight/4},    %xshift=2em,yshift=-0.4em},
+  coltitle=white,
+  toptitle    = 0mm,
+  bottomtitle = 0mm
+  titlerule = 0mm,
+  arc =0.2em, 
+  boxrule =\allboxrule,
+  %outer arc = 0mm,
+  left skip =0mm,
+  right skip= 0mm
+  },
+  blockboxstyle/.style={
+  allboxstyle,
+  colframe=blockboxcolor,
+  colback=blockboxcolor!10, 
+  boxed title style={left=0em,top=0mm,bottom=0mm,right=0em,sharp corners=south, text height=0.8em, boxrule=0mm,colback=blockboxcolor!90}
+  },
+  exampleboxstyle/.style={
+  allboxstyle,
+  colframe=exampleboxcolor,
+  colback=exampleboxcolor!10,
+  boxed title style={left=0em,top=0mm,bottom=0mm,right=0em,sharp corners=south,text height=0.8em, boxrule=0mm,colback=exampleboxcolor!90}
+  },
+  checkedboxstyle/.style={
+  allboxstyle,
+  colframe=checkedboxcolor,
+  colback=checkedboxcolor!10,
+  boxed title style={left=0em,top=0mm,bottom=0mm,right=0em,sharp corners=south,text height=0.8em, boxrule=0mm,colback=checkedboxcolor!90}
+  },
+    itemizeboxstyle/.style={
+    allboxstyle,
+    colframe=itemizeboxcolor,
+    colback=itemizeboxcolor!10,
+    boxed title style={left=0em,top=0mm,bottom=0mm,right=0em,sharp corners=south,text height=0.8em, boxrule=0mm,colback=itemizeboxcolor!90}
+    },
+    enumerateboxstyle/.style={
+    allboxstyle,
+    colframe=enumerateboxcolor,
+    colback=enumerateboxcolor!10,
+    boxed title style={left=0em,top=0mm,bottom=0mm,right=0em,sharp corners=south,text height=0.8em, boxrule=0mm,colback=enumerateboxcolor!90}
+    },
+    noteboxstyle/.style={
+    allboxstyle,
+    colframe=noteboxcolor,
+    colback=noteboxcolor!10,
+    boxed title style={left=0em,top=0mm,bottom=0mm,right=0em,sharp corners=south,text height=0.8em, boxrule=0mm,colback=noteboxcolor!90}
+    },
+    quoteboxstyle/.style={
+    allboxstyle,
+    outer arc = 0mm,
+    arc = 1mm,
+    left=0em,
+    right=0em,
+    top=1.5em, 
+    bottom=0.5em,
+    colframe=black,%quoteboxcolor,
+    colback = quoteboxcolor!10
+%    interior style={
+%    top color   = quoteboxcolor!10,
+%    bottom color=  quoteboxcolor!60},
+%    interior hidden,
+%    frame style image=gold.jpg,
+   % colback=quoteboxcolor!60,
+   % drop fuzzy shadow = black,
+   % interior style={fill overzoom image=gold},
+    }
+}
+
+
+
+
+% blockbox environment
+\newenvironment{blockbox}[2][\unskip]{%
+\if\relax\detokenize{#1}\relax
+\begin{tcolorbox}[blockboxstyle]%
+\else%
+\begin{tcolorbox}[blockboxstyle,title={#1}
+,overlay unbroken and first={
+      \path
+        let
+        \p1=(title.north east),
+        \p2=(frame.north east)
+        in
+        node[anchor=west,color=blockboxcolor,text width=\x2-\x1,yshift=0.1em] 
+        at (title.east) {\small\ #2};
+  }]%
+\fi
+}{%
+\end{tcolorbox}%
+}
+
+% examplebox environment
+\newenvironment{examplebox}[2][\unskip]{%
+\if\relax\detokenize{#1}\relax
+\begin{tcolorbox}[exampleboxstyle]%
+\else%
+\begin{tcolorbox}[exampleboxstyle,title={#1}
+,overlay unbroken and first={
+      \path
+        let
+        \p1=(title.north east),
+        \p2=(frame.north east)
+        in
+        node[anchor=west,color=exampleboxcolor,text width=\x2-\x1,yshift=0.1em] 
+        at (title.east) {\small\ #2};
+  }]%
+\fi
+}{%
+\end{tcolorbox}%
+}
+
+
+% checkedbox environment
+\newenvironment{checkedbox}[2][\unskip]{%
+\if\relax\detokenize{#1}\relax
+\begin{tcolorbox}[checkedboxstyle]%
+\else%
+\begin{tcolorbox}[checkedboxstyle, title={#1}
+,overlay unbroken and first={
+      \path
+        let
+        \p1=(title.north east),
+        \p2=(frame.north east)
+        in
+        node[anchor=west,color=checkedboxcolor,text width=\x2-\x1,yshift=0.1em] 
+        at (title.east) {\small\ #2};
+  }]%
+\fi
+\begin{itemize}[label=\myCheckedBox,leftmargin=*,labelindent=0.5em]%
+}{%
+\end{itemize}%
+\end{tcolorbox}%
+}
+
+% crossedox environment
+\newenvironment{crossedbox}[2][\unskip]{%
+\if\relax\detokenize{#1}\relax
+\begin{tcolorbox}[checkedboxstyle]%
+\else%
+\begin{tcolorbox}[checkedboxstyle, title={#1}
+,overlay unbroken and first={
+      \path
+        let
+        \p1=(title.north east),
+        \p2=(frame.north east)
+        in
+        node[anchor=west,color=checkedboxcolor,text width=\x2-\x1,yshift=0.1em] 
+        at (title.east) {\small\ #2};
+  }]%
+\fi
+\begin{itemize}[label=\myCrossedBox,leftmargin=*,labelindent=0.5em]%
+}{%
+\end{itemize}%
+\end{tcolorbox}%
+}
+
+
+
+
+
+
+
+
+% itemizedbox environment
+\newenvironment{itemizebox}[2][\unskip]{%
+\if\relax\detokenize{#1}\relax%
+\begin{tcolorbox}[itemizeboxstyle,notitle]%
+\else
+\begin{tcolorbox}[itemizeboxstyle,title={#1}%
+,overlay unbroken and first={%
+      \path
+        let
+        \p1=(title.north east),
+        \p2=(frame.north east)
+        in
+        node (t) [anchor=west,color=itemizeboxcolor,text width=\x2-\x1,yshift=0.1em] 
+        at (title.east) {\small\ #2};
+  }]%
+\fi
+\begin{itemize}[leftmargin=*,labelindent=0.5em]%
+}{%
+\end{itemize}%
+\end{tcolorbox}%
+}
+
+
+
+% enumerate environment
+\newenvironment{enumeratebox}[2][\unskip]{%
+\if\relax\detokenize{#1}\relax
+\begin{tcolorbox}[enumerateboxstyle]%
+\else%
+\begin{tcolorbox}[enumerateboxstyle,title={#1}%
+,overlay unbroken and first={%
+      \path
+        let
+        \p1=(title.north east),
+        \p2=(frame.north east)
+        in
+        node [anchor=west,color=enumerateboxcolor,text width=\x2-\x1,yshift=0.1em] 
+        at (title.east) {\small\ #2};
+  }]%
+\fi
+\begin{enumerate}[leftmargin=*,labelindent=0.5em]%
+}{%
+\end{enumerate}%
+\end{tcolorbox}%
+}
+
+
+
+% notebox environment
+\newenvironment{notebox}[2][\unskip]{%
+\if\relax\detokenize{#1}\relax%
+\begin{tcolorbox}[noteboxstyle]%
+\else%
+\begin{tcolorbox}[noteboxstyle,title={#1}
+,overlay unbroken and first={
+      \path
+        let
+        \p1=(title.north east),
+        \p2=(frame.north east)
+        in
+        node[anchor=west,color=noteboxcolor,text width=\x2-\x1,yshift=0.1em] 
+        at (title.east) {\small\ #2};
+  }]%
+\fi
+}{%
+\end{tcolorbox}%
+}
+
+
+
+
+
+
+
+
+
+
+
+% The complexbox
+\newtcolorbox{tcomplexbox}{myboxstyle,colframe=complexboxcolor,colback=white!90!complexboxcolor,every float=\centering,
+overlay={ \node[anchor=west,outer sep=0.4em, xshift=0.4em] at (frame.west) {\textdbend}; }}
+\newcommand{\complexbox}[1]{%
+\begin{tcomplexbox}
+\fontfamily{ptm}\selectfont%
+#1
+\end{tcomplexbox}
+}
+% The dobox
+\newtcolorbox{tdobox}{myboxstyle,colframe=doboxcolor,colback=white!90!doboxcolor,
+overlay={ \node[text centered, anchor=west,outer sep=0em, xshift=0.3em, yshift=-0.15em] at (frame.west) {\thearrow}; }}
+\def\dobox#1{
+\begin{tdobox}
+\fontfamily{ptm}\selectfont%
+#1
+\end{tdobox}
+}
+% The writebox
+\newtcolorbox{twritebox}{myboxstyle,
+colback=white!90!writeboxcolor,colframe=writeboxcolor,
+overlay={ \node[anchor=west,outer sep=0em,xshift=0.2em] at (frame.west) {\centering\thehand}; }}
+\def\writebox#1{
+\begin{twritebox}
+\fontfamily{ptm}\selectfont%
+#1
+\end{twritebox}
+}
+% The readbox
+\newtcolorbox{treadbox}{myboxstyle,
+colback=white!90!readboxcolor,colframe=readboxcolor,
+overlay={
+\path[] ($(frame.west) +(3.5em,0em)$) -- node[midway]  {\thetree} (frame.west) ; }}
+
+% \node[draw,anchor=west,outer sep=0em,text centered,align=flush center, xshift=0.05em] at (frame.west) {\thetree}; }}
+
+
+
+%overlay={ \node[draw,anchor=west,outer sep=0em,text centered,align=flush center, xshift=0.05em] at (frame.west) {\thetree}; }}
+
+\def\readbox#1{%
+\begin{treadbox}%
+\fontfamily{ptm}\selectfont%
+#1
+\end{treadbox}
+}
+
+
+% The thinkbox
+\newtcolorbox{tthinkbox}{myboxstyle,
+colback=white!90!thinkboxcolor,colframe=thinkboxcolor,
+overlay={ \node[anchor=west,outer sep=0em,xshift=0.3em] at (frame.west) {\huge\faGraduationCap}; }}
+
+\def\thinkbox#1{%
+\begin{tthinkbox}%
+\fontfamily{ptm}\selectfont%
+#1
+\end{tthinkbox}
+}
+
+
+% The instructbox
+\newtcolorbox{tinstructbox}{myboxstyle,
+colback=white!90!instructboxcolor,colframe=instructboxcolor,
+overlay={ \node[anchor=west,outer sep=0em,xshift=0.4em] at (frame.west) {\huge\faUsers}; }}
+
+\def\instructbox#1{%
+\ifx\instructmode\undefined
+%
+\else
+\begin{tinstructbox}%
+\fontfamily{ptm}\selectfont%
+#1
+\end{tinstructbox}
+\fi
+}
+
+
+
+
+
+
+% The example style
+%\tcbset{myexamplestyle/.style={
+%  breakable,
+%  enhanced,
+%  colframe=myexamplecolor,
+%  colback=myexamplecolor!10,
+%  arc=0mm, outer arc=0mm,
+%  attach boxed title to top left={xshift=0em,yshift=-0.13em},
+%  boxed title style={
+%    colback=myexamplecolor, 
+%    outer arc=0mm,
+%    arc=0mm,
+%    }
+%  }
+%}
+% The example style
+%\newtcolorbox[auto counter,number within=section]{examplebox}[1][]{
+%  myexamplestyle,
+%  title=Example~\thetcbcounter,
+%  overlay unbroken and first={
+%      \path
+%        let
+%        \p1=(title.north east),
+%        \p2=(frame.north east)
+%        in 
+%        node[anchor=west,color=exampleboxcolor,text width=\x2-\x1] 
+%        at (title.south) {#1};
+%  }
+%}
+% checkedlist environment
+%\newenvironment{mycheckedlist}[1][\unskip]{%
+%\begin{tcolorbox}[title=#1]%
+%\begin{itemize}[label=\myCheckedBox]%
+%\justifying%
+%}{%
+%\end{itemize}%
+%\end{tcolorbox}%
+%}
+
+% Quotation macro
+%\def\placequote#1[#2]{%
+%\begin{variableblock}{}{fg=orange!40!yellow, bg=black!70!white}{}%
+%\fontfamily{ptm}\selectfont\large%
+%\begin{quote}
+%``#1''\\%
+%\if\relax\detokenize{#2}\relax
+%\flushright\footnotesize{Anonymous}\\
+%\else
+%\flushright\footnotesize{#2}\\
+%\fi
+%\end{quote}%
+%\end{variableblock}}
+
+
+
+\def\placequote#1[#2]{
+\begin{tcolorbox}[quoteboxstyle]%
+\begin{quotation}
+\large\fontfamily{ptm}\selectfont%
+\noindent``#1''\\%
+\if\relax\detokenize{#2}\relax
+\flushright\footnotesize{Anonymous}
+\else
+\flushright\footnotesize{#2}
+\fi
+\end{quotation}%
+\end{tcolorbox}
+}
+
+%
+\tikzset{%
+  highlight/.style={rectangle,rounded corners,fill=red!15,draw,
+    fill opacity=0.5,thick,inner sep=0pt}
+}
+\newcommand{\tikzmark}[2]{\tikz[overlay,remember picture,
+  baseline=(#1.base)] \node (#1) {#2};}
+%
+\newcommand{\Highlight}[1][submatrix]{%
+    \tikz[overlay,remember picture]{
+    \node[highlight,fit=(left.north west) (right.south east)] (#1) {};}
+}
+
+\newcommand{\tikzpin}[1]{\tikz[overlay,remember picture] \node (#1) {};}
+
+
+
+
+
+
+% Signature place-holder
+\makeatletter
+\newcommand{\my@sign}[2]{\begin{tabular}{@{}p{0.35\textwidth}@{}p{0.35\textwidth}@{}p{0.3\textwidth}}
+\hrulefill &\hfill Date:\ &\hrulefill#2\hrulefill\\[-0.5cm]
+#1&\\
+\end{tabular}}
+
+\newcommand{\supersign}[1]{\my@sign{#1}{\relax}}
+
+\newcommand{\Zia}[1]{\my@sign{Zia Javanbakht}{\relax}}
+\newcommand{\Wayne}{\supersign{Associate Professor Wayne Hall}}
+\makeatother 
+
+
+
+	
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% NEW ENVIRONMENTS
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+
+	% Box environment for algorithms
+	\DeclareFloatingEnvironment[fileext=frm,placement={!ht},name=Algorithm]{algorithm}
+	
+	% set up the respective caption placement
+	\captionsetup[Algorithm]{
+							skip		= 0em,
+							belowskip	= 1em,
+							aboveskip	= 0em,
+							labelfont	= bf 
+							}
+	% define the style for the respective mdframed
+	\mdfdefinestyle{algorithm}{
+							innerleftmargin	= 0.01\textwidth,
+							linewidth		= 1pt,
+							skipabove		= 0mm,
+							leftline		= false,
+							rightline		= false}
+
+	% define the style of enumerate
+	\SetEnumitemKey{algorithm}{leftmargin=0.03\textwidth}
+
+%\newenvironment{algorithm}[1]
+%    {\begin{myalgo}\begin{mdframed}[roundcorner=10pt,backgroundcolor=blue!10]#1}
+%    {\end{mdframed}\end{myalgo}\ignorespacesafterend}
+
+	% Definition of Concept check environment
+%	\newcounter{ex}[chapter]
+%	\newenvironment{Example}{%
+%	\refstepcounter{ex}%
+%	\begin{svgraybox}%
+%	\textbf{Example~\theex}%
+%	\par\medskip\noindent\rmfamily\ignorespaces}{%
+%	\end{svgraybox}\ignorespacesafterend}
+

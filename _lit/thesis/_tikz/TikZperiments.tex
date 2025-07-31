@@ -1,0 +1,187 @@
+% !TeX TS-program = xelatex
+
+\documentclass[tikz,fontsize=12pt,class=scrbook, paper=a4, headinclude, margin=3cm]{standalone}
+
+
+
+
+
+%\usepackage[margin=3cm, a4paper]{geometry}
+\usepackage{pgfplots}                            % loads all the pgf packages
+\usepackage[]{contour}                           % for outlining text
+\usepackage{tikz-3dplot,comment}
+
+
+\usetikzlibrary{spy,fit,matrix,shapes.callouts,calc,trees,positioning,arrows,chains,shapes.geometric,shapes.multipart,arrows.meta,  decorations.pathreplacing,decorations.text,decorations.pathmorphing,decorations.markings,shapes,matrix,shapes.symbols,patterns,datavisualization,datavisualization.formats.functions}
+
+\pgfplotsset{compat=newest}
+
+\storeareas\standalonelayout% save the standalone layout
+\recalctypearea% recalculate the typearea layout
+\edef\savedtextheight{\the\textheight}% save the text height of the typearea layout
+\standalonelayout% restore the standalone layout
+
+
+
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+% draw a red rectangle aligned with the upper left corner of the TikZ picture
+% to show the size of the text area in the KOMA document:
+\tikzset{
+  every picture/.append style={
+    execute at end picture={%
+      \draw[red](current bounding box.north west)
+        rectangle
+        ++(\the\textwidth,-\savedtextheight);%
+}}}
+
+
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+% Definition of pic
+
+% width and length of pic arrows
+\newlength{\picw}
+\newlength{\picl}
+\setlength{\picw}{0.13pt}
+\setlength{\picl}{0.25pt}
+
+\tikzset{
+ xaxis/.pic     ={\path[draw, fill,  pic actions] (0,0,0) -- ++(0,0,\picw/2) -- ++(\picl,0,-\picw/2)-- ++ (-\picl,0,-\picw/2) -- cycle;},
+ xaxisflat/.pic ={\path[draw, fill,  pic actions] (0,0,0) -- ++(0,\picw/2,0) -- ++(\picl,-\picw/2,0)-- ++ (-\picl,-\picw/2,0) -- cycle;},
+ yaxis/.pic     ={\path[draw, fill,  pic actions] (0,0,0) -- ++(0,0,\picw/2) -- ++(0,\picl,-\picw/2)-- ++ (0,-\picl,-\picw/2) -- cycle;},
+ yaxisflat/.pic ={\path[draw, fill,  pic actions] (0,0,0) -- ++(\picw/2,0,0) -- ++(-\picw/2,\picl,0)-- ++ (-\picw/2,-\picl,0) -- cycle;}, 
+ zaxis/.pic     ={\path[draw, fill,  pic actions] (0,0,0) -- ++(0,\picw/2,0) -- ++(0,-\picw/2,\picl)-- ++ (0,-\picw/2,-\picl) -- cycle;},
+ zaxisrot/.pic  ={\path[draw, fill,  pic actions] (0,0,0) -- ++(-\picw/2,0,0) -- ++(\picw/2,0,\picl)-- ++ (+\picw/2,0,-\picl) -- cycle;}
+}
+
+
+% Setting a right-handed 
+\setlength{\unitlength}{1mm}
+\tdplotsetmaincoords{235}{-40}
+
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+% using the definition from the thesis
+
+\usepackage{mdframed, amsmath, amsthm, tcolorbox, unicode-math, tkz-euclide}
+\input{../_style/commonmacros.tex}
+
+
+
+
+% Dimensions of the plate
+\newlength{\plx}
+\newlength{\ply}
+\newlength{\plt}
+
+\setlength{\plx}{6pt}
+\setlength{\ply}{6pt}
+\setlength{\plt}{2pt}
+
+% Arrow dimensions
+\newlength{\annotdim}
+\setlength{\annotdim}{5.5pt}
+
+\newlength{\annottext}
+\setlength{\annottext}{10pt}
+
+% Force dimension
+\newlength{\forcelen}
+\setlength{\forcelen}{1.5pt}
+
+\newlength{\baselen}
+\setlength{\baselen}{1pt}
+
+
+% //////////////////////////////////////////////////////////////////////////////////////////////////
+\begin{document}
+\centering
+\begin{tikzpicture}
+    \begin{scope}[opacity=0.2]
+
+        \path[draw, fill=gray] (0,0) rectangle (10,5) node [above,midway,opacity=1] {Generlized continua};
+
+
+    \end{scope}
+
+
+
+\end{tikzpicture}
+\end{document}
+% //////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{tikzpicture}[tdplot_main_coords,framed]
+\begin{scope}
+
+
+%% side surfaces
+%\path[draw, fill=gray, opacity=0.20] (\the\plx,0,\the\plt/2) -- ++(0,\the\ply,0) -- ++(0,0,-\the\plt) -- ++(0,-\the\ply,0) -- cycle;
+%\path[draw, fill=gray, opacity=0.20] (0,\the\ply,\the\plt/2) -- ++(\the\plx,0,0) -- ++(0,0,-\the\plt) -- ++(-\the\ply,0,0) -- cycle;
+
+% 3 axis & bottom layer
+\draw[thick] (0,0,0) -- (0,0,1) node[anchor=west] {\contour{white}{$\tena{n}$}} pic[scale=0.65] {zaxis};
+%\path[draw, fill=gray, opacity=0.20] (0,0,+\the\plt/2) -- ++(\the\plx,0,0) -- ++(0,\the\ply,0) -- ++(-\the\plx,0,0) -- cycle;
+
+% line at the back of the COORDSYS
+%\path[draw, fill=gray, opacity=0.20] (0,0,-\the\plt/2) -- ++(0,0,\the\plt);
+
+% mid layer
+\path[draw, thick, fill=gray, opacity=0.5, dashed]  (0,0,0) -- ++(\the\plx,0,0) -- ++(0,\the\ply,0) -- ++(-\the\plx,0,0) -- cycle;
+
+% 1 and 2 directions
+\draw[thick, line cap = round] (0,0,0) -- (1,0,0) node[anchor=south west] {\contour{white}{$\base_1$}} pic[scale=0.65] {xaxisflat};
+\draw[thick, line cap = round] (0,0,0) -- (0,1,0) node[anchor=south east] {\contour{white}{$\base_2$}} pic [scale=0.65] {yaxisflat};
+
+% top layer
+%\path[draw, fill=gray, opacity=0.20] (0,0,-\the\plt/2) -- ++(\the\plx,0,0) -- ++(0,\the\ply,0) -- ++(-\the\plx,0,0) -- cycle;
+
+
+% Dimensions
+\begin{scope}[{Classical TikZ Rightarrow[length=\the\annotdim, width=\the\annotdim/2]}-{Classical TikZ Rightarrow[length=\the\annotdim, width=\the\annotdim/2]}  ]
+
+% height
+%\path[draw] (-0.2,\the\ply+.2,-\the\plt/2) -- ++ (0,0,+\the\plt/2);
+%\path[draw] (-0.2,\the\ply+.2,+\the\plt/2) -- ++ (0,0,-\the\plt/2) node [at end, left] {$\textstyle 2\times \frac{h}{2}$};
+
+% Length
+%\path[draw] (0,\the\ply,\the\plt-0.1) -- ++ (\the\plx,0,0) node [midway, below left] {$\ell_1$};
+%\path[draw] (\the\plx,0,\the\plt-0.1) -- ++ (0,\the\ply,0) node [midway, below right] {$\ell_2$};
+
+\end{scope}
+
+% Annotation
+\begin{scope}[-{Kite[fill=white, length=\the\annottext]}]
+ \path[draw] (\the\plx*2/3,0,0) -- +(1.5,-1.5,1) node [pos=0.1, anchor=south west] {\contour{white}{$\partial\mathfrak{S}$}};
+ \node at (\the\plx-0.5,0.5,0) [] {$\mathfrak{S}$};
+\end{scope}
+
+% Surface forces
+\begin{scope}
+  \draw[thick, line cap = round] (\the\plx*2/3,\the\ply*2/3,0) -- +(-1,0,0) node[anchor=north east] {\contour{white}{$\tena{s}_1$}} pic[rotate=180,scale=0.65] {xaxisflat};
+  \draw[thick, line cap = round] (\the\plx*2/3,\the\ply*2/3,0) -- +(0,-1,0) node[anchor=north west] {\contour{white}{$\tena{s}_2$}} pic[rotate=180,scale=0.65] {yaxisflat};
+  \draw[thick, line cap = round] (\the\plx*2/3,\the\ply*2/3,-1) node[anchor=south west, xshift=-0.5] {\contour{white}{$\tena{p}$}} -- +(0,0,+1-\the\picl) pic[scale=0.65] {zaxisrot};
+\end{scope}
+
+% normal vectors to the contour
+\begin{scope}
+  \draw[thick, line cap = round] (\the\plx,\the\ply/2,0) -- +(+1,0,0) node[anchor=south west] {\contour{white}{$\tena{\upsilon}$}} pic[scale=0.65] {xaxisflat};
+  \draw[thick, line cap = round] (\the\plx/2,\the\ply,0) -- +(0,1,0) node[anchor=north west] {\contour{white}{$\tena{\upsilon}$}} pic[scale=0.65] {yaxisflat};
+\end{scope}
+
+% arclength
+\begin{scope}
+  \draw[-,thick, line cap = round] (\the\plx,\the\ply,0) -- +(-1,0,0) node[anchor=north east] {s} pic[rotate=180,scale=0.65] {xaxisflat};
+\end{scope}
+
+\end{scope}
+
+

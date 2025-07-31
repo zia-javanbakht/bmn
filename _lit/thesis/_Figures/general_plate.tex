@@ -1,0 +1,50 @@
+\begin{tikzpicture}[tdplot_main_coords,framed]
+\begin{scope}
+
+
+% side surfaces
+\path[draw, fill=gray, opacity=0.20] (\the\plx,0,\the\plt/2) -- ++(0,\the\ply,0) -- ++(0,0,-\the\plt) -- ++(0,-\the\ply,0) -- cycle;
+\path[draw, fill=gray, opacity=0.20] (0,\the\ply,\the\plt/2) -- ++(\the\plx,0,0) -- ++(0,0,-\the\plt) -- ++(-\the\ply,0,0) -- cycle;
+
+% 3 axis & bottom layer
+\draw[thick] (0,0,0) -- (0,0,1) node[anchor=west] {\contour{white}{$\tena{n}$}} pic[scale=0.65] {zaxis};
+\path[draw, fill=gray, opacity=0.20] (0,0,+\the\plt/2) -- ++(\the\plx,0,0) -- ++(0,\the\ply,0) -- ++(-\the\plx,0,0) -- cycle;
+
+% line at the back of the COORDSYS
+\path[draw, fill=gray, opacity=0.20] (0,0,-\the\plt/2) -- ++(0,0,\the\plt);
+
+% mid layer
+\path[draw, fill=gray, opacity=0.5, dashed]  (0,0,0) -- ++(\the\plx,0,0) -- ++(0,\the\ply,0) -- ++(-\the\plx,0,0) -- cycle;
+
+% 1 and 2 directions
+\draw[thick, line cap = round] (0,0,0) -- (1,0,0) node[anchor=south west] {\contour{white}{$\base_1$}} pic[scale=0.65] {xaxisflat};
+\draw[thick, line cap = round] (0,0,0) -- (0,1,0) node[anchor=south east] {\contour{white}{$\base_2$}} pic [scale=0.65] {yaxisflat};
+
+% top layer
+\path[draw, fill=gray, opacity=0.20] (0,0,-\the\plt/2) -- ++(\the\plx,0,0) -- ++(0,\the\ply,0) -- ++(-\the\plx,0,0) -- cycle;
+
+
+% Dimensions
+\begin{scope}[{Classical TikZ Rightarrow[length=\the\annotdim, width=\the\annotdim/2]}-{Classical TikZ Rightarrow[length=\the\annotdim, width=\the\annotdim/2]}  ]
+
+% height
+\path[draw] (-0.2,\the\ply+.2,-\the\plt/2) -- ++ (0,0,+\the\plt/2);
+\path[draw] (-0.2,\the\ply+.2,+\the\plt/2) -- ++ (0,0,-\the\plt/2) node [at end, left] {$\textstyle 2\times \frac{h}{2}$};
+
+% Length
+\path[draw] (0,\the\ply,\the\plt-0.1) -- ++ (\the\plx,0,0) node [midway, below left] {$l_1$};
+\path[draw] (\the\plx,0,\the\plt-0.1) -- ++ (0,\the\ply,0) node [midway, below right] {$l_2$};
+
+\end{scope}
+
+% Annotation
+\begin{scope}[-{Kite[fill=white, length=\the\annottext]}]
+ \path[draw] (\the\plx+1,1,-1.5) -- (\the\plx,1.5,0) node [pos=0.1, anchor=south west] {Middle-plane};
+\end{scope}
+
+
+\end{scope}
+
+
+
+\end{tikzpicture}

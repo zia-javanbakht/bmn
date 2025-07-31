@@ -1,0 +1,271 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Notes on BibLaTex Package
+%%%
+%%
+%
+% There are four important files:
+%  1. biblatex.bst
+%  2. biblatex.def
+%  3. biblatex.sty
+%  4. standard.bbx
+%  5. biblatex.bst which is used if the backend is set to bibtex.
+%
+% Natbib is another alternative for BibLaTeX
+%   \usepackage[]{natbib}                           % used along with springer package
+%   \setcitestyle{authoryear,round}
+%   \setcitestyle{authoryear,round,sorted}
+%
+%
+%
+
+\usepackage[%
+  bibencoding=ascii,
+  giveninits=true, 
+  sorting=nyt, 
+  dateabbrev = false,
+  doi=false,
+  isbn=false,
+  url=false,
+  useprefix,
+  terseinits=true,
+  backend=biber,
+  style=authoryear,
+  uniquename=init
+           ]{biblatex}
+\usepackage{bibentry}
+\usepackage[style=english]{csquotes}                            % this is recommended to be used with biblatex for quotations
+\addbibresource{E:/#Science/Continuum Mechanics/My Thesis/_References/references.bib}
+\addbibresource{E:/#Science/Continuum Mechanics/My Thesis/_References/paper4.bib}
+\addbibresource{E:/#Science/Continuum Mechanics/My Thesis/_References/paper5.bib}
+
+
+
+\DeclareNameAlias{sortname}{last-first}          % reverses the last/first name
+\renewcommand*{\finalnamedelim}{%                % change the final delimiter to &
+  \ifnumgreater{\value{liststop}}{2}{}{}%
+  \addspace\&\space}%
+
+
+% Change the font of the URLs
+\renewcommand{\UrlFont}{\small\rm}
+
+\renewrobustcmd*{\bibinithyphendelim}{}
+\renewcommand{\labelnamepunct}{\addcomma\space}   % comma after year
+\renewcommand{\subtitlepunct}{\addcolon\space}    % comma after year
+\renewcommand{\newunitpunct}{\addcomma\space}     % punctuation after a \newunit command
+
+\renewcommand{\newblockpunct}{}     % punctuation after a \newunit command
+
+
+%%%%%% \xpretobibmacro{date+extrayear}{\setunit{\space}}{}{}
+
+
+%\renewcommand*{\multinamedelim}{{{\color{red!80!black}\addsemicolon\addspace}}}
+
+
+
+\renewbibmacro{in:}{}                            % remove `in' in every type of entry
+
+% Swaping the location and publisher
+\renewbibmacro*{publisher+location+date}{%
+  \printlist{publisher}%
+  \iflistundef{location}
+    {\setunit*{\addcomma\space}}
+    {\setunit*{\addcomma\space}}%
+  \printlist{location}%
+  \setunit*{\addcomma\space}%
+  \usebibmacro{date}%
+  \newunit}
+% Removing parantheses around the yaer
+\makeatletter
+\def\act@on@bibmacro#1#2{%
+  \expandafter#1\csname abx@macro@\detokenize{#2}\endcsname
+}
+\def\patchbibmacro{\act@on@bibmacro\patchcmd}
+\def\pretobibmacro{\act@on@bibmacro\pretocmd}
+\def\apptobibmacro{\act@on@bibmacro\apptocmd}
+\def\showbibmacro{\act@on@bibmacro\show}
+\makeatother
+
+% this changes the abbreviated first name
+\patchbibmacro{date+extrayear}{%
+  \printtext[parens]%
+}{%
+  \setunit{\space}% this line is what appears after the last name field
+  \printtext%
+}{}{}
+
+
+% Journal article
+
+\DeclareFieldFormat[article]{volume}{\bibstring{jourvol}\addnbspace #1}
+\DeclareFieldFormat*[article]{issue}{#1}
+
+
+\renewbibmacro*{volume+number+eid}{%
+  \addcomma\space
+  \printfield{volume}%
+  \setunit{\addcomma\space}%
+  \newunit
+  \printfield{number}%
+  \printfield{eid}}
+ 
+% removes the brackets around the issue number and puts no. before it.
+\renewbibmacro*{issue+date}{%
+    \iffieldundef{issue}
+      {\usebibmacro{date}}
+      {% if issue exists...
+        \addcomma\space no.\addnbspace
+        \printfield{issue}%
+        \setunit{\addcomma\space}%
+       \usebibmacro{date}}%
+  \newunit}
+
+
+
+\DefineBibliographyStrings{english}{%
+    number = {\lowercase{v}ol\adddot}, % avoid capitalization after dots.
+    issue  = {\lowercase{i}ss\adddot}, % avoid capitalization after dots.
+}
+
+%
+% a unit is a field for a bibliographical item, e.g., for a book
+% the following units are mandatory: author, title, and year/date.
+% after each unit a \newunit command runs to add the proper punctuation
+%
+
+
+\DeclareFieldFormat[book]{title}{\mkbibemph{#1}}  % italic title for books
+
+
+\DeclareFieldFormat{series}{#1}% publication series
+
+\renewbibmacro*{title}{%
+  \ifboolexpr{
+    test {\iffieldundef{title}}
+    and
+    test {\iffieldundef{subtitle}}
+  }
+    {}
+    {\printtext[title]{%
+       \printfield[titlecase]{title}%
+       \setunit{\subtitlepunct}%
+       \printfield[titlecase]{subtitle}}%
+     \newunit}%
+  \printfield{titleaddon}}
+
+
+
+%% For online source
+\DeclareFieldFormat{url}{<\url{#1}>}
+%\DeclareFieldFormat{urldate}{viewed\space#1}
+\DeclareFieldFormat{urldate}{viewed\space\thefield{urlday}\addspace%
+  \mkbibmonth{\thefield{urlmonth}}\addspace%
+  \thefield{urlyear}}
+
+
+\renewbibmacro{url+urldate}{%
+  \usebibmacro{urldate}%
+  \newunitpunct%
+  \usebibmacro{url}%
+}
+
+%%% Defining a driver for the `standard' type
+%
+% sample bib item
+%   @standard{s.2020,
+%    title = {Tutoring code of practice},
+%    url = {www.saiglobal.com},
+%    urldate = {2020-01-01},
+%    number = {HB201--2006},
+%    abstract = {},
+%    date = {2006},
+%    author = {{Standards Australia}}
+%   }
+%
+% The driver decleration is adopted from  standard.bbx
+%
+% example:
+% Standards Australia International 2000, \textit{AS 1235-2000 Road vehicles: roof load carriers: roof bars}, 5th edn, standards, viewed 3 February 2012, http://infostore.saiglobal.com/store/Details.aspx?ProductID=218577
+%
+
+\DeclareBibliographyDriver{standard}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{title}%
+  \newunit\newblock
+  \printfield{number}%
+  \setunit{\addspace\addcomma}\newblock\newunit%
+  \addcomma\addspace standards\newunit%
+  \iftoggle{bbx:url}
+    {}
+    {\usebibmacro{url+urldate}}%
+  \usebibmacro{finentry}%
+}
+
+
+% misc type is used as wiki type 
+\DeclareFieldFormat[misc]{title}{\mkbibquote{#1}}  % quotes title for wiki
+\DeclareFieldFormat[misc]{year}{#1}  % quotes title for wiki
+
+
+\DeclareBibliographyDriver{misc}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+%
+  \iffieldundef{author}
+  {% w/o author(s)
+  \setunit{\addspace}%
+  }
+  {% w/t author(s)
+  \usebibmacro{author}%
+  \printdate%
+  \setunit{\labelnamepunct\addspace}%
+  }
+  \printfield{title}%
+  \iffieldundef{author}%
+  {% w/o author(s)
+  \printdate%
+  }
+  {% w/t author(s)
+  }
+  \setunit{\addcomma\addspace}%
+  \printtext{\mkbibemph{Wikipedia}\addcomma\addspace}%
+  \iftoggle{bbx:url}
+    {}
+    {\usebibmacro{url+urldate}}%
+  \usebibmacro{finentry}%
+}
+%
+% \newunit
+%   finished the current unit,
+%   puts \newunitpunct in the buffer
+%   next print command prints the entire buffer after itself
+%
+% \setunit
+%   finishes the current unit,
+%   next print command prints the entire buffer after itself
+%
+% \setunit*
+%   it runs / setunit provided that the last print command actually printed anything.
+%
+% \fineentry
+%   at the end of every bibliographical item it must run and it 
+%
+% \newblock
+%   records the end of the current block in the buffer
+%   puts \newblockpunct 
+%   a new block is automatically started after a printing command
+%
+% \printtext[text-format]{text}
+%    prints {text} with the [text-format]
+%    flushes the buffer
+%    usually used for a piece of text rather than a field
+%
+
+
+%\DeclareFieldFormat
+%  [article,inbook,incollection,inproceedings,patent,thesis,unpublished]
+%  {title}{\makebibquote{#1}}

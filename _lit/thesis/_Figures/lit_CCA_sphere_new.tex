@@ -1,0 +1,183 @@
+%!TEX TS-program = xelatex
+%!TeX spellcheck = en_GB
+
+% Load the required package using class
+\documentclass[tikz,class=article]{standalone}
+
+%\usepackage{tikz}
+\usetikzlibrary{spy,fit,matrix,shapes.callouts,calc,trees,positioning,arrows,chains,shapes.geometric,shapes.multipart,arrows.meta,  decorations.pathreplacing,decorations.text,decorations.pathmorphing,decorations.markings,shapes,matrix,shapes.symbols,patterns,datavisualization,datavisualization.formats.functions,angles,backgrounds}
+
+
+\usepackage[]{contour}                    % for outlining text
+
+
+\usepackage{fontspec}
+
+% Add a font that is not under the system fonts
+%\fontspec [ Path            = ./_Fonts/,
+%%UprightFont = *-regular,
+%% BoldFont = *-bold
+% Extension       = .otf,
+% ]
+%{FontAwesome}
+
+                
+    
+\usepackage{fontawesome}                          % web fonts
+
+%\setmonofont[                                     % Monospace font
+%             Scale=0.8,
+%             Path = ./_Fonts/
+%            ]{DejaVuSansMono.ttf}                 
+%\setmainfont[                                     % Text font
+%             Ligatures={Common}, %Numbers={OldStyle}, Variant=01,
+%             Path = ./_Fonts/,
+%             BoldFont=LinLibertine_RB.otf,
+%             ItalicFont=LinLibertine_RI.otf,
+%             BoldItalicFont=LinLibertine_RBI.otf
+%            ]{LinLibertine_R.otf}
+
+%\setmonofont[Scale=0.9]{SFMono-Bold.otf}
+    
+    % Monospaced font
+    \setmonofont{LibertinusMono-Regular.otf}[
+                 Scale=0.8,
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                ]                
+    
+    % Main text font
+    \setmainfont{LibertinusSerif}[%
+                 Ligatures       = {Common}, %Numbers={OldStyle}, Variant=01,
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 UprightFont     = *-Regular,
+                 BoldFont        = *-Bold,
+                 ItalicFont      = *-Italic,
+                 BoldItalicFont  = *-BoldItalic,
+                ]
+    % Sanserif font
+    \setsansfont{LibertinusSans}[
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 UprightFont     = *-Regular,
+                 BoldFont        = *-Bold,
+                 ItalicFont      = *-Italic,
+                ]
+    
+
+
+
+\usepackage{mathtools}                            % extension to amsmath which loads it automatically
+\usepackage{amsthm}                               % math theorems
+\usepackage{mathrsfs}
+%\usepackage{amssymb}                             % symbols like \square  (always before unicode-math)
+\usepackage{xfrac}                                % slanted fractions 
+\usepackage{accents}
+%\usepackage[bb=mma,cal=cm,scr=esstix]{mathalfa}
+\usepackage{unicode-math}                        % Math for XeLaTeX
+\usepackage{stackrel}                             % Enhancements to the \stackrel command
+
+
+\unimathsetup{math-style=ISO, bold-style=ISO}
+
+
+
+
+    % Math font setting
+    \setmathfont{LibertinusMath-Regular}[             % General math font
+                 Path            = ./_Fonts/,
+                 Extension       = .otf
+                 ]
+    
+    % Requires lm-math package
+    \setmathfont{Latin Modern Math}[                  % Calligraphy font for linear operators
+                 range           = {cal, bfcal},
+                 ]
+    
+    % Requires tex-gyre-math package
+    \setmathfont{TeX Gyre Termes Math}[               % For proper blackboard letters
+                 range=bb
+                 ]
+    
+    \setmathfont{XITSMath-Regular}[               % For fraktur
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 range           = frak,
+                 ]
+    
+    \setmathfont{XITSMath-Bold}[               % For fraktur
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 range           = bffrak,
+                 ]
+    
+    
+    \setmathfont{LibertinusMath-Regular}[             % For upright Greek letters using \mup...
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 range           = up/{greek,Greek},          
+                 math-style      = literal
+                 ]
+    
+    
+
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+
+\def\k{0.55191496}
+
+\tikzset{
+    sphere color/.store in=\spherecolor,
+    sphere scale/.store in=\spherescale,
+    sphere color=blue,
+    sphere scale=1,
+    sphere/.style={
+        ultra thick,
+        line join=round,
+        draw=#1!75!black,
+        ball color=#1,
+    },
+    sphere inside/.style={
+        shading angle=180,
+        sphere=#1!25!gray!75!black
+    }
+}
+
+\newenvironment{sphere}[1][]
+    {
+        \begin{scope}[x=(0:1cm), y=(90:1cm), z=(260:0.25cm), #1]
+            \path [sphere inside=\spherecolor, scale=\spherescale] 
+            circle [radius=1];
+    }
+    {
+        \path let \n1={cos 10}, \n2={sin 10} in [sphere=\spherecolor, scale=\spherescale, even odd rule, opacity=0.5]
+        circle [radius=1] 
+        % Rotate 10 degrees around the y and x axes
+        [x={(\n1, \n2^2, \n2*\n1)},
+         y={(0, \n1, \n2)}, 
+         z={(-\n2, -\n1*\n2, \n1^2)}] (0,1,0) 
+                .. controls ++( 0, 0,\k) and ++(0,\k, 0) .. (0, 0, 1)
+                .. controls ++(\k, 0, 0) and ++(0, 0,\k) .. (1, 0, 0) 
+                .. controls ++(0, \k, 0) and ++(\k,0, 0) .. (0, 1, 0);
+        \end{scope}
+    }
+
+\begin{document}
+
+\begin{tikzpicture}[background rectangle/.style={fill=none}, show background rectangle]
+
+\begin{sphere}[sphere scale=5, sphere color=black!50!white]
+    \begin{sphere}[sphere scale=3, sphere color=black!10!white]
+        \begin{sphere}[sphere scale=2, sphere color=black!30!white]
+        \begin{sphere}[sphere scale=1, sphere color=black!70!white]
+        \end{sphere}        
+        \end{sphere}
+    \end{sphere}
+\end{sphere}
+
+\end{tikzpicture}
+
+
+\end{document}

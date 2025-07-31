@@ -1,0 +1,570 @@
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+%
+%
+%
+% Last update 19/12/2017
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+
+
+
+%\newcommand\CL{\sffamily C\kern -4pt\raise -2pt\hbox{L}}
+\newcommand\CL{\sffamily CL}
+% Roman element numbers - lowercase
+\def\rnum#1{\scriptsize\romannumeral #1}
+% Roman element numbers - uppercase
+\def\Rnum#1{\scriptsize\uppercase\expandafter{\romannumeral #1\relax}}
+% Roman number for the text
+\def\Rnumt#1{\uppercase\expandafter{\romannumeral #1\relax}}
+
+
+% tikzbeam
+\pgfkeys{/tikz/beam/.cd,
+x/.initial=0cm,
+y/.initial=0cm,
+length/.initial=4cm,
+width/.initial=0.3cm,
+fill/.initial=black!15,
+border/.initial=1pt,
+axis thickness/.initial=0.5pt,
+rotation/.initial=0,
+axis/.code={%
+\draw[line width=\pgfkeysvalueof{/tikz/beam/axis thickness},
+      dash pattern=on 2pt off 2pt on 8pt off 2pt,
+      color=black,
+      rotate around={\pgfkeysvalueof{/tikz/beam/rotation}:(\pgfkeysvalueof{/tikz/beam/x},\pgfkeysvalueof{/tikz/beam/y})}] (\pgfkeysvalueof{/tikz/beam/x},\pgfkeysvalueof{/tikz/beam/y}) -- ++(\pgfkeysvalueof{/tikz/beam/length},0);},
+cap start end/.code={%
+\draw[line width=\pgfkeysvalueof{/tikz/beam/width},
+      color=black,
+      rotate around={\pgfkeysvalueof{/tikz/beam/rotation}:(\pgfkeysvalueof{/tikz/beam/x},\pgfkeysvalueof{/tikz/beam/y})}] 
+      (\pgfkeysvalueof{/tikz/beam/x}-\pgfkeysvalueof{/tikz/beam/border}/2,\pgfkeysvalueof{/tikz/beam/y}) -- 
+    ++(\pgfkeysvalueof{/tikz/beam/length}+\pgfkeysvalueof{/tikz/beam/border},0);
+\draw[line width=\pgfkeysvalueof{/tikz/beam/width}-\pgfkeysvalueof{/tikz/beam/border}/0.5,
+      color=\pgfkeysvalueof{/tikz/beam/fill},
+      rotate around={\pgfkeysvalueof{/tikz/beam/rotation}:(\pgfkeysvalueof{/tikz/beam/x},\pgfkeysvalueof{/tikz/beam/y})}] (\pgfkeysvalueof{/tikz/beam/x}+\pgfkeysvalueof{/tikz/beam/border}/2,\pgfkeysvalueof{/tikz/beam/y}) -- ++(\pgfkeysvalueof{/tikz/beam/length}-\pgfkeysvalueof{/tikz/beam/border},0cm);},
+uncap start/.code={
+\draw[line width=\pgfkeysvalueof{/tikz/beam/width},
+      color=black,
+      rotate around={\pgfkeysvalueof{/tikz/beam/rotation}:(\pgfkeysvalueof{/tikz/beam/x},\pgfkeysvalueof{/tikz/beam/y})}] 
+      (\pgfkeysvalueof{/tikz/beam/x},\pgfkeysvalueof{/tikz/beam/y}) -- ++(\pgfkeysvalueof{/tikz/beam/length}+\pgfkeysvalueof{/tikz/beam/border}/2,0);
+\draw[line width=\pgfkeysvalueof{/tikz/beam/width}-\pgfkeysvalueof{/tikz/beam/border}/0.5,
+      color=\pgfkeysvalueof{/tikz/beam/fill},
+      rotate around={\pgfkeysvalueof{/tikz/beam/rotation}:(\pgfkeysvalueof{/tikz/beam/x},\pgfkeysvalueof{/tikz/beam/y})}] 
+      (\pgfkeysvalueof{/tikz/beam/x},\pgfkeysvalueof{/tikz/beam/y}) -- ++(\pgfkeysvalueof{/tikz/beam/length}-\pgfkeysvalueof{/tikz/beam/border}/2,0cm);
+},
+uncap end/.code={%
+\draw[line width=\pgfkeysvalueof{/tikz/beam/width},
+      color=black,
+      rotate around={\pgfkeysvalueof{/tikz/beam/rotation}:(\pgfkeysvalueof{/tikz/beam/x},\pgfkeysvalueof{/tikz/beam/y})}]%
+      (\pgfkeysvalueof{/tikz/beam/x}-\pgfkeysvalueof{/tikz/beam/border}/2,\pgfkeysvalueof{/tikz/beam/y}) -- ++(\pgfkeysvalueof{/tikz/beam/length}+\pgfkeysvalueof{/tikz/beam/border}/2,0);
+%
+\draw[line width=\pgfkeysvalueof{/tikz/beam/width}-\pgfkeysvalueof{/tikz/beam/border}/0.5,
+      color=\pgfkeysvalueof{/tikz/beam/fill},
+      rotate around={\pgfkeysvalueof{/tikz/beam/rotation}:(\pgfkeysvalueof{/tikz/beam/x},\pgfkeysvalueof{/tikz/beam/y})}] (\pgfkeysvalueof{/tikz/beam/x}+\pgfkeysvalueof{/tikz/beam/border}/2,\pgfkeysvalueof{/tikz/beam/y}) -- ++(\pgfkeysvalueof{/tikz/beam/length}-\pgfkeysvalueof{/tikz/beam/border}/2,0cm);
+},
+uncap start end/.code={
+\draw[line width=\pgfkeysvalueof{/tikz/beam/width},
+      color=black,
+      rotate around={\pgfkeysvalueof{/tikz/beam/rotation}:(\pgfkeysvalueof{/tikz/beam/x},\pgfkeysvalueof{/tikz/beam/y})}] (\pgfkeysvalueof{/tikz/beam/x},\pgfkeysvalueof{/tikz/beam/y}) -- 
+    ++(\pgfkeysvalueof{/tikz/beam/length},0);
+    
+\draw[line width=\pgfkeysvalueof{/tikz/beam/width}-\pgfkeysvalueof{/tikz/beam/border}/0.5,
+      color=\pgfkeysvalueof{/tikz/beam/fill},
+      rotate around={\pgfkeysvalueof{/tikz/beam/rotation}:(\pgfkeysvalueof{/tikz/beam/x},\pgfkeysvalueof{/tikz/beam/y})}] (\pgfkeysvalueof{/tikz/beam/x},\pgfkeysvalueof{/tikz/beam/y}) -- ++(\pgfkeysvalueof{/tikz/beam/length},0cm);
+
+}
+}
+\newcommand{\tikzbeam}[1][]{\tikzset{/tikz/beam/.cd,#1}}
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% tikzlabel
+\pgfkeys{/tikz/label/.cd,
+x/.initial=0cm,
+y/.initial=0cm,
+x distance/.initial=0.2cm,
+y distance/.initial=-0.4cm,
+node option/.style={below right,pos=0.6},
+path option/.style={draw},
+line thickness/.initial=0.5pt,
+text/.initial=$EA$,
+draw/.code={\path[line width=\pgfkeysvalueof{/tikz/label/line thickness},/tikz/label/path option] (\pgfkeysvalueof{/tikz/label/x},\pgfkeysvalueof{/tikz/label/y}) -- +(\pgfkeysvalueof{/tikz/label/x distance},\pgfkeysvalueof{/tikz/label/y distance}) node [/tikz/label/node option] {\pgfkeysvalueof{/tikz/label/text}};
+},
+top left/.style={y distance=0.4cm, x distance=-0.2cm,node option/.style={above left,pos=0.7}},
+top right/.style={y distance=0.4cm, x distance=0.2cm,node option/.style={above right,pos=0.8,xshift=-0.1cm}},
+top/.style={y distance=0.4cm, x distance=0cm,node option/.style={above,pos=0.2}},
+no line/.code={\pgfkeys{/tikz/label/path option/.style={}}},
+use arrow/.style={path option/.style={draw,arrows={Stealth[length=2.5mm,fill=white]-}}},
+reverse arrow/.style={path option/.style={draw,arrows={-Stealth[length=2.5mm,fill=white]}}}
+}
+\newcommand{\tikzlabel}[1][]{\tikzset{/tikz/label/.cd,#1}}
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% tikzsupport
+\pgfkeys{/tikz/support/.cd,
+x/.initial=0cm,
+y/.initial=0cm,
+height/.initial=1.25cm,
+width/.initial=0.2cm,
+fill/.initial=black!15,
+fill/.initial=black!15,
+border/.initial=1pt,
+rotation/.initial=0,
+sliding distance/.initial=0.1cm,
+pinned/height/.initial=0.35cm,
+pinned/depth/.initial=0.15cm,
+pinned/width/.initial=0.6cm,
+pinned/gap/.initial=0.1cm,
+pinned/thickness/.initial=0.5pt,
+pinned/border thickness/.initial=1pt,
+fixed/.code={
+    \draw [draw=none,pattern={north east lines},
+    rotate around={\pgfkeysvalueof{/tikz/support/rotation}:(\pgfkeysvalueof{/tikz/support/x},\pgfkeysvalueof{/tikz/support/y})}]
+   (\pgfkeysvalueof{/tikz/support/x}-\pgfkeysvalueof{/tikz/support/width},\pgfkeysvalueof{/tikz/support/y}-\pgfkeysvalueof{/tikz/support/height}/2) rectangle
+   (\pgfkeysvalueof{/tikz/support/x},\pgfkeysvalueof{/tikz/support/y}+\pgfkeysvalueof{/tikz/support/height}/2);
+   \draw [line width=\pgfkeysvalueof{/tikz/support/border}, rotate around={\pgfkeysvalueof{/tikz/support/rotation}:(\pgfkeysvalueof{/tikz/support/x},\pgfkeysvalueof{/tikz/support/y})}] (\pgfkeysvalueof{/tikz/support/x},\pgfkeysvalueof{/tikz/support/y}-\pgfkeysvalueof{/tikz/support/height}/2) -- +(0cm,\pgfkeysvalueof{/tikz/support/height});
+},
+fixed sliding/.code={
+\draw [draw=none,pattern={north east lines},
+    rotate around={\pgfkeysvalueof{/tikz/support/rotation}:(\pgfkeysvalueof{/tikz/support/x},\pgfkeysvalueof{/tikz/support/y})}]
+   (\pgfkeysvalueof{/tikz/support/x}-\pgfkeysvalueof{/tikz/support/width}-\pgfkeysvalueof{/tikz/support/sliding distance},\pgfkeysvalueof{/tikz/support/y}-\pgfkeysvalueof{/tikz/support/height}/2) rectangle
+   (\pgfkeysvalueof{/tikz/support/x}-\pgfkeysvalueof{/tikz/support/sliding distance},\pgfkeysvalueof{/tikz/support/y}+\pgfkeysvalueof{/tikz/support/height}/2);
+   \draw [line width=\pgfkeysvalueof{/tikz/support/border}, rotate around={\pgfkeysvalueof{/tikz/support/rotation}:(\pgfkeysvalueof{/tikz/support/x},\pgfkeysvalueof{/tikz/support/y})}] (\pgfkeysvalueof{/tikz/support/x},\pgfkeysvalueof{/tikz/support/y}-\pgfkeysvalueof{/tikz/support/height}/2) -- +(0cm,\pgfkeysvalueof{/tikz/support/height});
+
+   \draw [line width=\pgfkeysvalueof{/tikz/support/border},rotate around={\pgfkeysvalueof{/tikz/support/rotation}:(\pgfkeysvalueof{/tikz/support/x},\pgfkeysvalueof{/tikz/support/y})}] (\pgfkeysvalueof{/tikz/support/x}-\pgfkeysvalueof{/tikz/support/sliding distance},\pgfkeysvalueof{/tikz/support/y}-\pgfkeysvalueof{/tikz/support/height}/2) -- +(0cm,\pgfkeysvalueof{/tikz/support/height});
+},
+pinned/.code={
+\pgfkeysgetvalue{/tikz/support/y}{\temp}
+\pgfkeyssetvalue{/tikz/support/y}{\temp-0.04cm}
+\path[draw,line width=\pgfkeysvalueof{/tikz/support/pinned/border thickness}, rotate around={\pgfkeysvalueof{/tikz/support/rotation}:(\pgfkeysvalueof{/tikz/support/x},\pgfkeysvalueof{/tikz/support/y})}] (\pgfkeysvalueof{/tikz/support/x}+\pgfkeysvalueof{/tikz/support/pinned/height}/2,
+\pgfkeysvalueof{/tikz/support/y}-\pgfkeysvalueof{/tikz/support/pinned/height}) -- ++(-\pgfkeysvalueof{/tikz/support/pinned/height}/2,
++\pgfkeysvalueof{/tikz/support/pinned/height}) -- ++(-\pgfkeysvalueof{/tikz/support/pinned/height}/2,-\pgfkeysvalueof{/tikz/support/pinned/height});
+\draw[line width=\pgfkeysvalueof{/tikz/support/pinned/border thickness}, rotate around={\pgfkeysvalueof{/tikz/support/rotation}:(\pgfkeysvalueof{/tikz/support/x},\pgfkeysvalueof{/tikz/support/y})}] (\pgfkeysvalueof{/tikz/support/x}-\pgfkeysvalueof{/tikz/support/pinned/width}/2,\pgfkeysvalueof{/tikz/support/y}-\pgfkeysvalueof{/tikz/support/pinned/height}) -- 
+++(\pgfkeysvalueof{/tikz/support/pinned/width},0);
+\draw [draw=none,pattern={north east lines},
+    rotate around={\pgfkeysvalueof{/tikz/support/rotation}:(\pgfkeysvalueof{/tikz/support/x},\pgfkeysvalueof{/tikz/support/y})}]
+  (\pgfkeysvalueof{/tikz/support/x}-\pgfkeysvalueof{/tikz/support/pinned/width}/2,\pgfkeysvalueof{/tikz/support/y}-\pgfkeysvalueof{/tikz/support/pinned/height}-\pgfkeysvalueof{/tikz/support/pinned/depth}) rectangle
+   +(\pgfkeysvalueof{/tikz/support/pinned/width},\pgfkeysvalueof{/tikz/support/pinned/depth});
+},
+roller/.code={
+\pgfkeysgetvalue{/tikz/support/y}{\temp}
+\pgfkeyssetvalue{/tikz/support/y}{\temp-0.04cm}
+\path[draw,line width=\pgfkeysvalueof{/tikz/support/pinned/border thickness}, rotate around={\pgfkeysvalueof{/tikz/support/rotation}:(\pgfkeysvalueof{/tikz/support/x},\pgfkeysvalueof{/tikz/support/y})}] (\pgfkeysvalueof{/tikz/support/x}+\pgfkeysvalueof{/tikz/support/pinned/height}/2,
+\pgfkeysvalueof{/tikz/support/y}-\pgfkeysvalueof{/tikz/support/pinned/height}) -- ++(-\pgfkeysvalueof{/tikz/support/pinned/height}/2,
++\pgfkeysvalueof{/tikz/support/pinned/height}) -- ++(-\pgfkeysvalueof{/tikz/support/pinned/height}/2,-\pgfkeysvalueof{/tikz/support/pinned/height}) -- cycle;
+
+\draw[line width=\pgfkeysvalueof{/tikz/support/pinned/border thickness}, rotate around={\pgfkeysvalueof{/tikz/support/rotation}:(\pgfkeysvalueof{/tikz/support/x},\pgfkeysvalueof{/tikz/support/y})}] (\pgfkeysvalueof{/tikz/support/x}-\pgfkeysvalueof{/tikz/support/pinned/width}/2,\pgfkeysvalueof{/tikz/support/y}-\pgfkeysvalueof{/tikz/support/pinned/height}-\pgfkeysvalueof{/tikz/support/pinned/gap}) -- ++(\pgfkeysvalueof{/tikz/support/pinned/width},0);
+
+\draw [draw=none,pattern={north east lines},
+    rotate around={\pgfkeysvalueof{/tikz/support/rotation}:(\pgfkeysvalueof{/tikz/support/x},\pgfkeysvalueof{/tikz/support/y})}]
+  (\pgfkeysvalueof{/tikz/support/x}-\pgfkeysvalueof{/tikz/support/pinned/width}/2,\pgfkeysvalueof{/tikz/support/y}-\pgfkeysvalueof{/tikz/support/pinned/height}-\pgfkeysvalueof{/tikz/support/pinned/depth}-\pgfkeysvalueof{/tikz/support/pinned/gap}) rectangle
+   +(\pgfkeysvalueof{/tikz/support/pinned/width},\pgfkeysvalueof{/tikz/support/pinned/depth});
+}
+}
+\newcommand{\tikzsupport}[1][]{\tikzset{/tikz/support/.cd,#1}}
+
+% tikz
+\pgfkeys{/tikz/point/.cd,
+x/.initial=0cm,
+y/.initial=0cm,
+radius/.initial=0.05cm,
+draw/.code={\draw [fill] (\pgfkeysvalueof{/tikz/point/x},\pgfkeysvalueof{/tikz/point/y}) circle [radius=\pgfkeysvalueof{/tikz/point/radius}];}
+}
+\newcommand{\tikzpoint}[1][]{\tikzset{/tikz/point/.cd,#1}}
+
+% tikzforce
+\pgfkeys{/tikz/force/.cd,
+x/.initial=0cm,
+y/.initial=0cm,
+%x distance/.initial=0.2cm,
+%y distance/.initial=-0.4cm,
+radius/.initial=0.03cm,
+length/.initial=0.5cm,
+thickness/.initial=1pt,
+rotation/.initial=0,
+text/.initial=$F_0$,
+node option/.style={below,pos=0.9,yshift=-0.05cm},
+downward/.style={rotation=-90,node option/.style={above left,pos=0.4, yshift=-0.1cm}},
+upward/.style={rotation=+90,node option/.style={above left,pos=0.6, yshift=-0.1cm}},
+point load/.code={
+\draw [fill] (\pgfkeysvalueof{/tikz/force/x},\pgfkeysvalueof{/tikz/force/y}) circle [radius=\pgfkeysvalueof{/tikz/force/radius}];
+\draw [line width=\pgfkeysvalueof{/tikz/force/thickness},
+       -latex,
+       rotate around={\pgfkeysvalueof{/tikz/force/rotation}:(\pgfkeysvalueof{/tikz/force/x},\pgfkeysvalueof{/tikz/force/y})}] (\pgfkeysvalueof{/tikz/force/x},\pgfkeysvalueof{/tikz/force/y})  -- +(\pgfkeysvalueof{/tikz/force/length},0) node [/tikz/force/node option] {\pgfkeysvalueof{/tikz/force/text}};
+},
+load/.code={
+\draw [line width=\pgfkeysvalueof{/tikz/force/thickness},
+       -latex,
+       rotate around={\pgfkeysvalueof{/tikz/force/rotation}:(\pgfkeysvalueof{/tikz/force/x},\pgfkeysvalueof{/tikz/force/y})}] (\pgfkeysvalueof{/tikz/force/x},\pgfkeysvalueof{/tikz/force/y})  -- +(\pgfkeysvalueof{/tikz/force/length},0) node [/tikz/force/node option] {\pgfkeysvalueof{/tikz/force/text}};
+},
+reaction load/.code={
+\draw [line width=\pgfkeysvalueof{/tikz/force/thickness},
+       -latex,
+       rotate around={\pgfkeysvalueof{/tikz/force/rotation}:(\pgfkeysvalueof{/tikz/force/x},\pgfkeysvalueof{/tikz/force/y})},postaction= {decorate,decoration={markings,mark= at position 0.4 with {\draw[-] ++(-0.05,0.05) -- (+0.05,-0.05);}
+       } }] (\pgfkeysvalueof{/tikz/force/x}-\pgfkeysvalueof{/tikz/force/length},\pgfkeysvalueof{/tikz/force/y})  -- +(+\pgfkeysvalueof{/tikz/force/length},0) node [/tikz/force/node option] {\pgfkeysvalueof{/tikz/force/text}};
+
+}
+}
+\newcommand{\tikzforce}[1][]{\tikzset{/tikz/force/.cd,#1}}
+
+% tikzmoment
+\pgfkeys{/tikz/moment/.cd,
+x/.initial=0cm,
+y/.initial=0cm,
+%x distance/.initial=0.2cm,
+%y distance/.initial=-0.4cm,
+point radius/.initial=0.03cm,
+radius/.initial=0.3cm,
+thickness/.initial=1pt,
+rotation/.initial=0,
+text/.initial=$M$,
+node option/.style={left,pos=0.5,xshift=0.1cm},
+moment/.code={
+\draw [line width=\pgfkeysvalueof{/tikz/moment/thickness}, -{Latex[sep=-4,scale=0.7]},
+       rotate around={\pgfkeysvalueof{/tikz/moment/rotation}:(\pgfkeysvalueof{/tikz/moment/x},\pgfkeysvalueof{/tikz/moment/y})}]  
+       (\pgfkeysvalueof{/tikz/moment/x},\pgfkeysvalueof{/tikz/moment/y}-\pgfkeysvalueof{/tikz/moment/radius}) 
+       arc [start angle = 270, end angle=90,radius=\pgfkeysvalueof{/tikz/moment/radius}] node [/tikz/moment/node option] {\pgfkeysvalueof{/tikz/moment/text}};
+},
+point moment/.code={
+\draw [fill] (\pgfkeysvalueof{/tikz/moment/x},\pgfkeysvalueof{/tikz/moment/y}) circle [radius=\pgfkeysvalueof{/tikz/moment/point radius}];
+\draw [line width=\pgfkeysvalueof{/tikz/moment/thickness}, -{Latex[sep=-4,scale=0.7]},
+       rotate around={\pgfkeysvalueof{/tikz/moment/rotation}:(\pgfkeysvalueof{/tikz/moment/x},\pgfkeysvalueof{/tikz/moment/y})}]  
+       (\pgfkeysvalueof{/tikz/moment/x},\pgfkeysvalueof{/tikz/moment/y}-\pgfkeysvalueof{/tikz/moment/radius}) 
+       arc [start angle = 270, end angle=90,radius=\pgfkeysvalueof{/tikz/moment/radius}] node [/tikz/moment/node option] {\pgfkeysvalueof{/tikz/moment/text}};
+},
+reaction moment/.code={
+\draw [line width=\pgfkeysvalueof{/tikz/moment/thickness}, -{Latex[sep=-4,scale=0.7]},
+       rotate around={\pgfkeysvalueof{/tikz/moment/rotation}:(\pgfkeysvalueof{/tikz/moment/x},\pgfkeysvalueof{/tikz/moment/y})},postaction= {decorate,decoration={markings,mark= at position 0.5 with {\draw[-] ++(-0.05,0.05) -- (+0.05,-0.05);}
+       } }] 
+       (\pgfkeysvalueof{/tikz/moment/x},\pgfkeysvalueof{/tikz/moment/y}-\pgfkeysvalueof{/tikz/moment/radius}) 
+       arc [start angle = 270, end angle=90,radius=\pgfkeysvalueof{/tikz/moment/radius}] node [/tikz/moment/node option] {\pgfkeysvalueof{/tikz/moment/text}};
+},
+point reaction moment/.code={
+\draw [fill] (\pgfkeysvalueof{/tikz/moment/x},\pgfkeysvalueof{/tikz/moment/y}) circle [radius=\pgfkeysvalueof{/tikz/moment/point radius}];
+\draw [line width=\pgfkeysvalueof{/tikz/moment/thickness}, -{Latex[sep=-4,scale=0.7]},
+       rotate around={\pgfkeysvalueof{/tikz/moment/rotation}:(\pgfkeysvalueof{/tikz/moment/x},\pgfkeysvalueof{/tikz/moment/y})},postaction= {decorate,decoration={markings,mark= at position 0.5 with {\draw[-] ++(-0.05,0.05) -- (+0.05,-0.05);}
+       } }] 
+       (\pgfkeysvalueof{/tikz/moment/x},\pgfkeysvalueof{/tikz/moment/y}-\pgfkeysvalueof{/tikz/moment/radius}) 
+       arc [start angle = 270, end angle=90,radius=\pgfkeysvalueof{/tikz/moment/radius}] node [/tikz/moment/node option] {\pgfkeysvalueof{/tikz/moment/text}};
+}
+}
+\newcommand{\tikzmoment}[1][]{\tikzset{/tikz/moment/.cd,#1}}
+
+% tikzaxis
+\pgfkeys{/tikz/axis/.cd,
+x1/.initial=0cm,
+y1/.initial=0cm,
+x2/.initial=1cm,
+y2/.initial=1cm,
+thickness/.initial=0.5pt,
+line type/.initial=densely dash dot,
+rotation/.initial=0,
+rotation x/.initial=0,
+rotation y/.initial=0,
+node option/.style={above},
+text/.initial=\CL,
+draw/.code={
+\draw [line width=\pgfkeysvalueof{/tikz/axis/thickness},\pgfkeysvalueof{/tikz/axis/line type}] (\pgfkeysvalueof{/tikz/axis/x1},\pgfkeysvalueof{/tikz/axis/y1}) -- (\pgfkeysvalueof{/tikz/axis/x2},\pgfkeysvalueof{/tikz/axis/y2}) node [/tikz/axis/node option] {\pgfkeysvalueof{/tikz/axis/text}};
+}
+}
+\newcommand{\tikzaxis}[1][]{\tikzset{/tikz/axis/.cd,#1}}
+
+
+
+\makeatletter
+\newcount\my@repeat@count
+\newcommand{\myrepeat}[2]{%
+  \begingroup
+  \my@repeat@count=\z@
+  \@whilenum\my@repeat@count<#1\do{#2\advance\my@repeat@count\@ne}%
+  \endgroup
+}
+\makeatother
+
+
+% tikzdistributed
+\pgfkeys{/tikz/distributed/.cd,
+x1/.initial=0cm,
+y1/.initial=0cm,
+x2/.initial=1cm,
+y2/.initial=1cm,
+line width/.initial=1pt,
+line type/.initial=densely dash dot,
+rotation/.initial=0,
+text/.initial=$q$,
+uniform/length/.initial      = 0.5cm,
+uniform/step/.initial        = 0.2cm,
+uniform/n/.initial           = 5,
+uniform/gap/.initial         = 0.1cm,
+uniform/line width/.initial  = 0.5pt,
+uniform/node option/.style   = {above},
+uni/.code={%
+%\pgfkeys{/tikz/distributed/uniform/step=(\pgfkeysvalueof{/tikz/distributed/uniform/x2}-\pgfkeysvalueof{/tikz/distributed/uniform/x1})/ \pgfkeysvalueof{/tikz/distributed/uniform/n}}
+\draw [cap=rect, rotate around={\pgfkeysvalueof{/tikz/distributed/rotation}:(\pgfkeysvalueof{/tikz/distributed/x1},\pgfkeysvalueof{/tikz/distributed/y1})},
+line width=\pgfkeysvalueof{/tikz/distributed/line width}, 
+postaction= {decorate,
+             decoration={markings,
+                         mark= between positions 0 and 1 step \pgfkeysvalueof{/tikz/distributed/uniform/step} with {\draw[-latex,line width=\pgfkeysvalueof{/tikz/distributed/line width}] ++(0,0) -- (0,-\pgfkeysvalueof{/tikz/distributed/uniform/length});}
+                        }
+            }] (\pgfkeysvalueof{/tikz/distributed/x1},\pgfkeysvalueof{/tikz/distributed/y1}) -- (\pgfkeysvalueof{/tikz/distributed/x2},\pgfkeysvalueof{/tikz/distributed/y2});
+},
+uni axial/.code={
+% For the axial uniform load, the step of each axial load (uniform/step), i.e., their length, is calculated by specifying the number of arrows (uniform/n). 
+\begingroup
+\pgfmathsetlengthmacro\step{ (\pgfkeysvalueof{/tikz/distributed/x2} - \pgfkeysvalueof{/tikz/distributed/x1} - 2*\pgfkeysvalueof{/tikz/distributed/uniform/gap}) / \pgfkeysvalueof{/tikz/distributed/uniform/n}}
+\pgfmathsetmacro\num{\pgfkeysvalueof{/tikz/distributed/uniform/n}-1}
+
+\draw[line width=\pgfkeysvalueof{/tikz/distributed/uniform/line width}] (\pgfkeysvalueof{/tikz/distributed/x1},\pgfkeysvalueof{/tikz/distributed/y1}) rectangle (\pgfkeysvalueof{/tikz/distributed/x2},\pgfkeysvalueof{/tikz/distributed/y2}) node [distributed/uniform/node option] {\pgfkeysvalueof{/tikz/distributed/text}};
+
+\foreach \counter in {0,...,\num} 
+{
+\draw[-latex, line width=\pgfkeysvalueof{/tikz/distributed/line width}] 
+(\pgfkeysvalueof{/tikz/distributed/x1}+\pgfkeysvalueof{/tikz/distributed/uniform/gap}+\counter*\step,\pgfkeysvalueof{/tikz/distributed/y1}/2+\pgfkeysvalueof{/tikz/distributed/y2}/2) -- +(\step,0cm);
+}
+\endgroup
+}
+}
+
+\newcommand{\tikzdistributed}[1][]{\tikzset{/tikz/distributed/.cd,#1}}
+%
+% Original uniform code which did not work
+%
+%\pgfmathparse{(\pgfkeysvalueof{/tikz/distributed/y2}-\pgfkeysvalueof{/tikz/distributed/y1})/(\pgfkeysvalueof{/tikz/distributed/x2}-\pgfkeysvalueof{/tikz/distributed/x1})}
+%\let\myslope\pgfmathresult%
+%\pgfmathparse{(\pgfkeysvalueof{/tikz/distributed/x2}-\pgfkeysvalueof{/tikz/distributed/x1})/(\pgfkeysvalueof{/tikz/distributed/uniform/n})}
+%\let\myalpha\pgfmathresult%
+%\pgfmathparse{\pgfkeysvalueof{/tikz/distributed/y1}-(\myslope*\pgfkeysvalueof{/tikz/distributed/x1})}
+%\let\myabscissa\pgfmathresult%
+%\newcounter{mytempcounter}%
+%\setcounter{mytempcounter}{0}
+%\myrepeat{\pgfkeysvalueof{/tikz/distributed/uniform/n}}{%
+%\pgfmathparse{\pgfkeysvalueof{/tikz/distributed/x1}+(\value{mytempcounter}*\myalpha)}%
+%\let\myxi\pgfmathresult%
+%\pgfmathparse{(\myslope*\myxi)+\myabscissa}%
+%\let\myyi\pgfmathresult%
+%\draw (\myxi,\myyi) -- +(0,\pgfkeysvalueof{/tikz/distributed/uniform/length});
+%\stepcounter{mytempcounter}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% tikztruss
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pgfkeys{/tikz/truss/.cd,
+x/.initial=0cm,
+y/.initial=0cm,
+length/.initial=4cm,
+width/.initial=0.2cm,
+fill/.initial=black!15,
+border/.initial=1pt,
+axis thickness/.initial=0.5pt,
+rotation/.initial=0,
+axis/.code={%
+\draw[line width=\pgfkeysvalueof{/tikz/truss/axis thickness},
+      dash pattern=on 2pt off 2pt on 8pt off 2pt,
+      color=black,
+      rotate around={\pgfkeysvalueof{/tikz/truss/rotation}:(\pgfkeysvalueof{/tikz/truss/x},\pgfkeysvalueof{/tikz/truss/y})}] (\pgfkeysvalueof{/tikz/truss/x},\pgfkeysvalueof{/tikz/truss/y}) -- ++(\pgfkeysvalueof{/tikz/truss/length},0cm);},
+draw/.code={%
+\draw[line cap=round,line width=\pgfkeysvalueof{/tikz/truss/width},
+      color=black,
+      rotate around={\pgfkeysvalueof{/tikz/truss/rotation}:(\pgfkeysvalueof{/tikz/truss/x},\pgfkeysvalueof{/tikz/truss/y})}] 
+      (\pgfkeysvalueof{/tikz/truss/x},\pgfkeysvalueof{/tikz/truss/y}) -- 
+    +(\pgfkeysvalueof{/tikz/truss/length},0cm);
+
+\draw[line cap=round,line width=\pgfkeysvalueof{/tikz/truss/width}-\pgfkeysvalueof{/tikz/truss/border}/0.5,      color=\pgfkeysvalueof{/tikz/truss/fill},
+      rotate around={\pgfkeysvalueof{/tikz/truss/rotation}:(\pgfkeysvalueof{/tikz/truss/x},\pgfkeysvalueof{/tikz/truss/y})}] (\pgfkeysvalueof{/tikz/truss/x},\pgfkeysvalueof{/tikz/truss/y}) -- +(\pgfkeysvalueof{/tikz/truss/length},0cm);
+
+
+      \draw [rotate around={\pgfkeysvalueof{/tikz/truss/rotation}:(\pgfkeysvalueof{/tikz/truss/x},\pgfkeysvalueof{/tikz/truss/y})}] (\pgfkeysvalueof{/tikz/truss/x},\pgfkeysvalueof{/tikz/truss/y}) circle (1pt);
+
+
+      \draw[rotate around={\pgfkeysvalueof{/tikz/truss/rotation}:(\pgfkeysvalueof{/tikz/truss/x},\pgfkeysvalueof{/tikz/truss/y})}] ( \pgfkeysvalueof{/tikz/truss/x}+\pgfkeysvalueof{/tikz/truss/length},\pgfkeysvalueof{/tikz/truss/y}) circle (1pt);
+      }
+}
+\newcommand{\tikztruss}[1][]{\tikzset{/tikz/truss/.cd,#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% tikzframe
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pgfkeys{/tikz/frame/.cd,
+x/.initial=0cm,
+y/.initial=0cm,
+width/.initial=0.3cm,
+thickness/.initial=0.5pt,
+axis thickness/.initial=0.5pt,
+fill/.initial=black!15,
+border/.initial=1pt,
+line type/.initial=densely dash dot,
+rotation/.initial=0,
+axis/.code={%
+\draw[line width=\pgfkeysvalueof{/tikz/frame/axis thickness},
+      dash pattern=on 2pt off 2pt on 8pt off 2pt,
+      color=black,
+      rotate around={\pgfkeysvalueof{/tikz/frame/rotation}:(\pgfkeysvalueof{/tikz/frame/x},\pgfkeysvalueof{/tikz/frame/y})}] (\pgfkeysvalueof{/tikz/frame/x},\pgfkeysvalueof{/tikz/frame/y}) \foreach \x/\y in {#1} {-- (\x,\y)};
+      },
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This code assumes that the frame is drawn from left to write and the last part of it is a horizontal beam.
+cap end x/.code={
+% let us first count how many elements are in the array:
+\foreach \x/\y [count=\xi] in {#1} {}
+% Only the last item must be handled differently, and thus that is our target:
+\edef\mytarget{\xi}
+\draw[line width=\pgfkeysvalueof{/tikz/frame/width},
+      color=black,
+      rotate around={\pgfkeysvalueof{/tikz/frame/rotation}:(\pgfkeysvalueof{/tikz/frame/x},\pgfkeysvalueof{/tikz/frame/y})}] (\pgfkeysvalueof{/tikz/frame/x},\pgfkeysvalueof{/tikz/frame/y})
+\foreach \x/\y [count=\xi] in {#1}
+{\ifnum\xi=\mytarget
+-- (\x+\pgfkeysvalueof{/tikz/frame/border},\y)
+\else
+-- (\x,\y)
+\fi};
+\draw[line width=\pgfkeysvalueof{/tikz/frame/width}-\pgfkeysvalueof{/tikz/frame/border}/0.5,
+      color=\pgfkeysvalueof{/tikz/frame/fill},
+      rotate around={\pgfkeysvalueof{/tikz/frame/rotation}:(\pgfkeysvalueof{/tikz/frame/x},\pgfkeysvalueof{/tikz/frame/y})}] (\pgfkeysvalueof{/tikz/frame/x},\pgfkeysvalueof{/tikz/frame/y}) \foreach \x/\y in {#1} {-- (\x,\y)};
+},
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+draw/.code={%
+\draw[line width=\pgfkeysvalueof{/tikz/frame/width},
+      color=black,
+      rotate around={\pgfkeysvalueof{/tikz/frame/rotation}:(\pgfkeysvalueof{/tikz/frame/x},\pgfkeysvalueof{/tikz/frame/y})}] (\pgfkeysvalueof{/tikz/frame/x},\pgfkeysvalueof{/tikz/frame/y}) \foreach \x/\y in {#1} {-- (\x,\y)};
+\draw[line width=\pgfkeysvalueof{/tikz/frame/width}-\pgfkeysvalueof{/tikz/frame/border}/0.5,
+      color=\pgfkeysvalueof{/tikz/frame/fill},
+      rotate around={\pgfkeysvalueof{/tikz/frame/rotation}:(\pgfkeysvalueof{/tikz/frame/x},\pgfkeysvalueof{/tikz/frame/y})}] (\pgfkeysvalueof{/tikz/frame/x},\pgfkeysvalueof{/tikz/frame/y}) \foreach \x/\y in {#1} {-- (\x,\y)};
+}
+}
+\newcommand{\tikzframe}[1][]{\tikzset{/tikz/frame/.cd,#1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% tikzNODE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pgfkeys{/tikz/node/.cd,
+x/.initial          = 0cm,
+y/.initial          = 0cm,
+radius/.initial     = 0.15cm,
+fill/.initial       = white,
+color/.initial      = black,
+line width/.initial = 0.5pt,
+text size/.initial  = \tiny,
+text/.initial       = 1,
+draw/.code={
+\filldraw [fill = \pgfkeysvalueof{/tikz/node/fill}, line width=\pgfkeysvalueof{/tikz/node/line width}] (\pgfkeysvalueof{/tikz/node/x},\pgfkeysvalueof{/tikz/node/y}) circle [radius=\pgfkeysvalueof{/tikz/node/radius}] node {\pgfkeysvalueof{/tikz/node/text size}\pgfkeysvalueof{/tikz/node/text}};
+}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\tikznode}[1][]{\tikzset{/tikz/node/.cd,#1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% tikzELEMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pgfkeys{/tikz/element/.cd,
+x1/.initial         = 0cm,
+y1/.initial         = 0cm,
+x2/.initial         = 0cm,
+y2/.initial         = 0cm,
+color/.initial      = black,
+line width/.initial = 2pt,
+text size/.initial  = \tiny,
+text/.initial       = \Rnum{1},
+node option/.style  = {midway, below},
+draw/.code={
+\draw[line width = \pgfkeysvalueof{/tikz/element/line width}] (\pgfkeysvalueof{/tikz/element/x1},\pgfkeysvalueof{/tikz/element/y1}) -- (\pgfkeysvalueof{/tikz/element/x2},\pgfkeysvalueof{/tikz/element/y2}) node [/tikz/element/node option] {\pgfkeysvalueof{/tikz/element/text}};
+}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\tikzelement}[1][]{\tikzset{/tikz/element/.cd,#1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newcommand{\lcomposite}[2]{%
+\begin{scope}
+\def\wid{1.25}
+\begin{scope}[fill=gray!30, semithick,shading=axis,shading angle=0,line cap= round,line join=round]
+\filldraw[] (#1,#2) -- ++(50:2) -- ++(\wid,0) -- ++(-130:2) -- cycle;
+\end{scope}%
+\begin{scope}[fill=gray!10, semithick,shading=axis,shading angle=0,line cap= round,line join=round]
+\filldraw[] (#1,#2-0.2) -- ++(0,.2) -- ++(\wid,0) -- +(0,-.2) -- cycle;
+\end{scope}
+\begin{scope}[fill=gray!10, semithick,shading=axis,shading angle=0,line cap= round,line join=round]
+\filldraw[] (#1+\wid,#2-0.2) -- ++(0,.2) --  ++(50:2) -- +(0,-.2) -- cycle;
+\end{scope}
+\foreach \x in {0.1,0.2,...,1.1} 
+{\draw[very thin] (#1+.1+\x,#2+.1) -- ++(50:1.75);}
+\end{scope}
+}
+
+\newcommand{\pcomposite}[2]{%
+\begin{scope}[fill=gray!30, semithick,shading=axis,shading angle=0,line cap= round,line join=round]
+\filldraw[] (#1,#2) -- ++(50:2) -- ++(1.25,0) -- ++(-130:2) -- cycle;
+\end{scope}%
+\begin{scope}[fill=gray!10, semithick,shading=axis,shading angle=0,line cap= round,line join=round]
+\filldraw[] (#1,#2-0.2) -- ++(0,.2) -- ++(1.25,0) -- +(0,-.2) -- cycle;
+\end{scope}
+\begin{scope}[fill=gray!10, semithick,shading=axis,shading angle=0,line cap= round,line join=round]
+\filldraw[] (#1+1.25,#2-0.2) -- ++(0,.2) --  ++(50:2) -- +(0,-.2) -- cycle;
+\end{scope}
+\foreach \x in {0.1,0.2,...,1.9} 
+{\draw[very thin] (#1+.1+\x*0.65,#2+0.76*\x) -- ++(0:1.05);}
+}
+
+
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+% Composite
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+\pgfkeys{/tikz/composite/.cd,
+x1/.initial              = 0cm,
+y1/.initial              = 0cm,
+x2/.initial              = 3.5cm,
+y2/.initial              = 1.8cm,
+angle/.initial           = 50,
+thickness/.initial       = 0.2cm,
+top fill option/.style   = {fill=gray!30, line cap= round, line join=round},
+front fill option/.style = {fill=gray!10, line cap= round, line join=round},
+side fill option/.style  = {fill=gray!10, line cap= round, line join=round},
+line width/.initial      = 1pt,
+fiber step/.initial      = 0.15cm,
+fiber gap/.initial       = 0.15cm,
+fiber width/.initial     = 0.8pt,
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+draw longitudinal/.code={%
+\begingroup
+% Calculations
+\pgfmathsetlengthmacro\edgelen{(\pgfkeysvalueof{/tikz/composite/y2}-\pgfkeysvalueof{/tikz/composite/y1})/sin(\pgfkeysvalueof{/tikz/composite/angle})}
+\pgfmathsetlengthmacro\otheredgelen{(\pgfkeysvalueof{/tikz/composite/x2}-\pgfkeysvalueof{/tikz/composite/x1})-1*(\pgfkeysvalueof{/tikz/composite/y2}-\pgfkeysvalueof{/tikz/composite/y1})/tan(\pgfkeysvalueof{/tikz/composite/angle})}
+% Composite
+\filldraw[line width=\pgfkeysvalueof{/tikz/distributed/uniform/line width}, /tikz/composite/top fill option] (\pgfkeysvalueof{/tikz/composite/x1},\pgfkeysvalueof{/tikz/composite/y1}) -- ++(\pgfkeysvalueof{/tikz/composite/angle}:\edgelen) -- (\pgfkeysvalueof{/tikz/composite/x2},\pgfkeysvalueof{/tikz/composite/y2}) -- ++(-180+\pgfkeysvalueof{/tikz/composite/angle}:\edgelen) -- cycle;
+\filldraw[line width=\pgfkeysvalueof{/tikz/distributed/uniform/line width}, /tikz/composite/front fill option] (\pgfkeysvalueof{/tikz/composite/x1},\pgfkeysvalueof{/tikz/composite/y1}) rectangle  ++(\otheredgelen,-\pgfkeysvalueof{/tikz/composite/thickness}); 
+\filldraw[line width=\pgfkeysvalueof{/tikz/distributed/uniform/line width}, /tikz/composite/side fill option] (\pgfkeysvalueof{/tikz/composite/x1}+\otheredgelen,\pgfkeysvalueof{/tikz/composite/y1}) -- ++(\pgfkeysvalueof{/tikz/composite/angle}:\edgelen) -- ++(0,-\pgfkeysvalueof{/tikz/composite/thickness}) -- ++(-180+\pgfkeysvalueof{/tikz/composite/angle}:\edgelen)  -- cycle; 
+% Fibres
+\coordinate (o) at ($(\pgfkeysvalueof{/tikz/composite/x1},\pgfkeysvalueof{/tikz/composite/y1})+(\pgfkeysvalueof{/tikz/composite/angle}:\pgfkeysvalueof{/tikz/composite/fiber gap})$);
+\pgfmathsetlengthmacro\fiberlen{\edgelen-2*\pgfkeysvalueof{/tikz/composite/fiber gap}}
+\path [
+postaction= {decorate,
+             decoration={markings,
+                         mark= between positions 0 and 1 step \pgfkeysvalueof{/tikz/composite/fiber step} with {\draw[cap=round,line width=\pgfkeysvalueof{/tikz/composite/fiber width}] ++(0,0) -- (\pgfkeysvalueof{/tikz/composite/angle}:\fiberlen);}
+                        }
+            }] ($(o)+(\pgfkeysvalueof{/tikz/composite/fiber gap},0cm)$) -- +(\otheredgelen-2*\pgfkeysvalueof{/tikz/composite/fiber gap},0cm);
+\endgroup
+},
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+draw transverse/.code={%
+\begingroup
+% Calculations
+\pgfmathsetlengthmacro\edgelen{(\pgfkeysvalueof{/tikz/composite/y2}-\pgfkeysvalueof{/tikz/composite/y1})/sin(\pgfkeysvalueof{/tikz/composite/angle})}
+\pgfmathsetlengthmacro\otheredgelen{(\pgfkeysvalueof{/tikz/composite/x2}-\pgfkeysvalueof{/tikz/composite/x1})-1*(\pgfkeysvalueof{/tikz/composite/y2}-\pgfkeysvalueof{/tikz/composite/y1})/tan(\pgfkeysvalueof{/tikz/composite/angle})}
+% Composite
+\filldraw[line width=\pgfkeysvalueof{/tikz/distributed/uniform/line width}, /tikz/composite/top fill option] (\pgfkeysvalueof{/tikz/composite/x1},\pgfkeysvalueof{/tikz/composite/y1}) -- ++(\pgfkeysvalueof{/tikz/composite/angle}:\edgelen) -- (\pgfkeysvalueof{/tikz/composite/x2},\pgfkeysvalueof{/tikz/composite/y2}) -- ++(-180+\pgfkeysvalueof{/tikz/composite/angle}:\edgelen) -- cycle;
+\filldraw[line width=\pgfkeysvalueof{/tikz/distributed/uniform/line width}, /tikz/composite/front fill option] (\pgfkeysvalueof{/tikz/composite/x1},\pgfkeysvalueof{/tikz/composite/y1}) rectangle  ++(\otheredgelen,-\pgfkeysvalueof{/tikz/composite/thickness}); 
+\filldraw[line width=\pgfkeysvalueof{/tikz/distributed/uniform/line width}, /tikz/composite/side fill option] (\pgfkeysvalueof{/tikz/composite/x1}+\otheredgelen,\pgfkeysvalueof{/tikz/composite/y1}) -- ++(\pgfkeysvalueof{/tikz/composite/angle}:\edgelen) -- ++(0,-\pgfkeysvalueof{/tikz/composite/thickness}) -- ++(-180+\pgfkeysvalueof{/tikz/composite/angle}:\edgelen)  -- cycle; 
+% Fibres
+\coordinate (o) at ($(\pgfkeysvalueof{/tikz/composite/x1},\pgfkeysvalueof{/tikz/composite/y1})+(\pgfkeysvalueof{/tikz/composite/angle}:\pgfkeysvalueof{/tikz/composite/fiber gap})$);
+\pgfmathsetlengthmacro\otherfiberlen{\otheredgelen-2*\pgfkeysvalueof{/tikz/composite/fiber gap}}
+\path [
+postaction= {decorate,
+             decoration={markings,
+                         mark= between positions 0 and 1 step \pgfkeysvalueof{/tikz/composite/fiber step} with {\draw[cap=round,line width=\pgfkeysvalueof{/tikz/composite/fiber width}] (0,0) -- (-\pgfkeysvalueof{/tikz/composite/angle}:\otherfiberlen);}
+                        }
+            }] ($(o)+(\pgfkeysvalueof{/tikz/composite/fiber gap},0cm)$) -- +(\pgfkeysvalueof{/tikz/composite/angle}:\edgelen-2*\pgfkeysvalueof{/tikz/composite/fiber gap});
+\endgroup
+}
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+}
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+\newcommand{\tikzcomposite}[1][]{\tikzset{/tikz/composite/.cd,#1}}
+% ══════════════════════════════════════════════════════════════════════════════════════════════════
+

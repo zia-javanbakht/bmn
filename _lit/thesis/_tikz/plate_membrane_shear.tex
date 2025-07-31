@@ -1,0 +1,74 @@
+\begin{tikzpicture}[tdplot_main_coords,framed]
+\begin{scope}
+
+
+
+
+% side surfaces
+\path[draw, fill=gray, opacity=0.20] (\plx,0,\plt/2) -- ++(0,\ply,0) -- ++(0,0,-\plt) -- ++(0,-\ply,0) -- cycle;
+\path[draw, fill=gray, opacity=0.20] (0,\ply,\plt/2) -- ++(\plx,0,0) -- ++(0,0,-\plt) -- ++(-\ply,0,0) -- cycle;
+
+% 3 axis & bottom layer
+\draw[thick] (0,0,0) -- (0,0,\baselen) node[anchor=west] {\contour{white}{$\tena{n}$}} pic[scale=0.65] {zaxis};
+\path[draw, fill=gray, opacity=0.20] (0,0,+\plt/2) -- ++(\plx,0,0) -- ++(0,\ply,0) -- ++(-\plx,0,0) -- cycle;
+
+% line at the back of the COORDSYS
+\path[draw, fill=gray, opacity=0.20] (0,0,-\plt/2) -- ++(0,0,\plt);
+
+% mid layer
+\path[draw, fill=gray, opacity=0.5, dashed]  (0,0,0) -- ++(\plx,0,0) -- ++(0,\ply,0) -- ++(-\plx,0,0) -- cycle;
+
+% 1 and 2 directions
+\draw[thick, line cap = round] (0,0,0) -- (\baselen,0,0) node[anchor=south west] {\contour{white}{$\base_1$}} pic [] {xaxisflat};
+\draw[thick, line cap = round] (0,0,0) -- (0,\baselen,0) node[anchor=south east] {\contour{white}{$\base_2$}} pic [] {yaxisflat};
+
+% top layer
+\path[draw, fill=gray, opacity=0.20] (0,0,-\plt/2) -- ++(\plx,0,0) -- ++(0,\ply,0) -- ++(-\plx,0,0) -- cycle;
+
+
+% Forces & moments
+\begin{scope}[color=cyan!50!blue, line cap = round]
+\draw[thick] (\plx,\ply/2,0) -- ++(\forcelen,0,0) node[anchor=north west, xshift=2] {$N_{11}$} pic[] {xaxisflat};
+\draw[thick] (\plx/2,\ply,0) -- ++(0,\forcelen,0) node[anchor=north east, xshift=2] {$N_{22}$} pic[] {yaxisflat};
+
+\draw[thick] (\plx/2,\ply,0) -- ++(\forcelen,0,0) node[anchor=north west, xshift=2] {\contour{white}{\color{cyan!50!blue}$N_{21}$}} pic[] {xaxis};
+\draw[thick] (\plx,\ply/2,0) -- ++(0,\forcelen,0) node[anchor=north east, xshift=2] {\contour{white}{\color{cyan!50!blue}$N_{12}$}} pic[] {yaxis};
+\end{scope}
+
+\begin{scope}[color=purple, line cap = round]
+\draw[thick] (\plx,\ply/2,0) -- ++(0,0,+\forcelen) node[anchor=west] {\contour{white}{\color{purple}$q_1$}} pic[] {zaxis};
+\draw[thick] (\plx/2,\ply,0) -- ++(0,0,+\forcelen) node[anchor=west] {\contour{white}{\color{purple}$q_2$}} pic[] {zaxisrot};
+\end{scope}
+
+
+%\begin{scope}[color=green!80!black, line cap = round]
+%\draw[thick, line cap = round] (\plx,\ply/3,0) -- ++(\forcelen,0,0)  node[anchor=north west, xshift=\picl+8] {$M_{11}$}  pic foreach \x in {0,\picl/0.9} at ++(\x,0,0) []  {xaxisflat};
+%\draw[thick, line cap = round] (\plx/3,\ply,0) -- ++(0,\forcelen,0)  node[anchor=north east, xshift=\picl-8] {$M_{22}$}  pic foreach \x in {0,\picl/0.9} at ++(0,\x,0) []  {yaxisflat};
+%\end{scope}
+
+
+
+%% Dimensions
+%\begin{scope}[{Classical TikZ Rightarrow[length=\annotdim, width=\annotdim/2]}-{Classical TikZ Rightarrow[length=\annotdim, width=\annotdim/2]}  ]
+%
+%% height
+%\path[draw] (-0.2,\ply+.2,-\plt/2) -- ++ (0,0,+\plt/2);
+%\path[draw] (-0.2,\ply+.2,+\plt/2) -- ++ (0,0,-\plt/2) node [at end, left] {$\textstyle 2\times \frac{h}{2}$};
+%
+%% Length
+%\path[draw] (0,\ply+.2,\plt-0.1) -- ++ (\plx,0,0) node [midway, below left] {$l_1$};
+%\path[draw] (\plx+0.2,0,\plt-0.1) -- ++ (0,\ply,0) node [midway, below right] {$l_2$};
+%
+%\end{scope}
+%
+%% Annotation
+%\begin{scope}[-{Kite[fill=white, length=\annottext]}]
+% \path[draw] (\plx+1,1,-1.5) -- (\plx,1.5,0) node [pos=0.1, anchor=south west] {Middle-plane};
+%\end{scope}
+
+
+\end{scope}
+
+
+
+\end{tikzpicture}

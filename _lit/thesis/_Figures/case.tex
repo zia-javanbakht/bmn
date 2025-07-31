@@ -1,0 +1,350 @@
+%!TEX TS-program = xelatex
+%!TeX spellcheck = en_GB
+
+% Load the required package using class
+\documentclass[tikz,class=article]{standalone}
+
+%\usepackage{tikz}
+\usetikzlibrary{spy,fit,matrix,shapes.callouts,calc,trees,positioning,arrows,chains,shapes.geometric,shapes.multipart,arrows.meta,  decorations.pathreplacing,decorations.text,decorations.pathmorphing,decorations.markings,shapes,matrix,shapes.symbols,patterns,datavisualization,datavisualization.formats.functions,angles,backgrounds,3d}
+
+
+\usepackage[]{contour}                    % for outlining text
+\usepackage{tikz-3dplot}
+
+
+\usepackage{fontspec}
+
+% Add a font that is not under the system fonts
+%\fontspec [ Path            = ./_Fonts/,
+%%UprightFont = *-regular,
+%% BoldFont = *-bold
+% Extension       = .otf,
+% ]
+%{FontAwesome}
+
+                
+    
+\usepackage{fontawesome}                          % web fonts
+
+%\setmonofont[                                     % Monospace font
+%             Scale=0.8,
+%             Path = ./_Fonts/
+%            ]{DejaVuSansMono.ttf}                 
+%\setmainfont[                                     % Text font
+%             Ligatures={Common}, %Numbers={OldStyle}, Variant=01,
+%             Path = ./_Fonts/,
+%             BoldFont=LinLibertine_RB.otf,
+%             ItalicFont=LinLibertine_RI.otf,
+%             BoldItalicFont=LinLibertine_RBI.otf
+%            ]{LinLibertine_R.otf}
+
+%\setmonofont[Scale=0.9]{SFMono-Bold.otf}
+    
+    % Monospaced font
+    \setmonofont{LibertinusMono-Regular.otf}[
+                 Scale=0.8,
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                ]                
+    
+    % Main text font
+    \setmainfont{LibertinusSerif}[%
+                 Ligatures       = {Common}, %Numbers={OldStyle}, Variant=01,
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 UprightFont     = *-Regular,
+                 BoldFont        = *-Bold,
+                 ItalicFont      = *-Italic,
+                 BoldItalicFont  = *-BoldItalic,
+                ]
+    % Sanserif font
+    \setsansfont{LibertinusSans}[
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 UprightFont     = *-Regular,
+                 BoldFont        = *-Bold,
+                 ItalicFont      = *-Italic,
+                ]
+    
+
+
+
+\usepackage{mathtools}                            % extension to amsmath which loads it automatically
+\usepackage{amsthm}                               % math theorems
+\usepackage{mathrsfs}
+%\usepackage{amssymb}                             % symbols like \square  (always before unicode-math)
+\usepackage{xfrac}                                % slanted fractions 
+\usepackage{accents}
+%\usepackage[bb=mma,cal=cm,scr=esstix]{mathalfa}
+\usepackage{unicode-math}                        % Math for XeLaTeX
+\usepackage{stackrel}                             % Enhancements to the \stackrel command
+
+
+\unimathsetup{math-style=ISO, bold-style=ISO}
+
+
+
+
+    % Math font setting
+    \setmathfont{LibertinusMath-Regular}[             % General math font
+                 Path            = ./_Fonts/,
+                 Extension       = .otf
+                 ]
+    
+    % Requires lm-math package
+    \setmathfont{Latin Modern Math}[                  % Calligraphy font for linear operators
+                 range           = {cal, bfcal},
+                 ]
+    
+    % Requires tex-gyre-math package
+    \setmathfont{TeX Gyre Termes Math}[               % For proper blackboard letters
+                 range=bb
+                 ]
+    
+    \setmathfont{XITSMath-Regular}[               % For fraktur
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 range           = frak,
+                 ]
+    
+    \setmathfont{XITSMath-Bold}[               % For fraktur
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 range           = bffrak,
+                 ]
+    
+    
+    \setmathfont{LibertinusMath-Regular}[             % For upright Greek letters using \mup...
+                 Path            = ./_Fonts/,
+                 Extension       = .otf,
+                 range           = up/{greek,Greek},          
+                 math-style      = literal
+                 ]
+    
+    
+
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+
+
+
+
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+% Definition of pic
+
+% width and length of pic arrows
+\newlength{\picw}
+\newlength{\picl}
+\setlength{\picw}{0.13pt}
+\setlength{\picl}{0.25pt}
+
+\tikzset{
+ xaxis/.pic     ={\path[draw, fill,  pic actions] (0,0,0) -- ++(0,0,\picw/2) -- ++(\picl,0,-\picw/2)-- ++ (-\picl,0,-\picw/2) -- cycle;},
+ xaxisflat/.pic ={\path[draw, fill,  pic actions] (0,0,0) -- ++(0,\picw/2,0) -- ++(\picl,-\picw/2,0)-- ++ (-\picl,-\picw/2,0) -- cycle;},
+ yaxis/.pic     ={\path[draw, fill,  pic actions] (0,0,0) -- ++(0,0,\picw/2) -- ++(0,\picl,-\picw/2)-- ++ (0,-\picl,-\picw/2) -- cycle;},
+ yaxisflat/.pic ={\path[draw, fill,  pic actions] (0,0,0) -- ++(\picw/2,0,0) -- ++(-\picw/2,\picl,0)-- ++ (-\picw/2,-\picl,0) -- cycle;}, 
+ zaxis/.pic     ={\path[draw, fill,  pic actions] (0,0,0) -- ++(0,\picw/2,0) -- ++(0,-\picw/2,\picl)-- ++ (0,-\picw/2,-\picl) -- cycle;},
+ zaxisrot/.pic  ={\path[draw, fill,  pic actions] (0,0,0) -- ++(-\picw/2,0,0) -- ++(\picw/2,0,\picl)-- ++ (+\picw/2,0,-\picl) -- cycle;}
+}
+
+
+% Setting a right-handed 
+\setlength{\unitlength}{1mm}
+\tdplotsetmaincoords{235}{-40}
+
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+% using the definition from the thesis
+
+\usepackage{mdframed, amsmath, amsthm, tcolorbox,tkz-euclide}
+
+%
+%\usepackage{newtxtext}
+%\usepackage[cmintegrals,cmbraces,varbb,nosymbolsc]{newtxmath}
+
+%\input{../_style/commonmacros.tex}
+%
+
+\newcommand{\fett}[1]{\mbox{\boldmath$#1$}} % only a help for smaller commands
+\renewcommand*{\vec}[1]{\lowercase{\fett{\sf#1}}} % vectors
+\newcommand{\mat}[1]{\uppercase{\fett{\sf#1}}} % matrices
+\newcommand{\tena}[1]{\lowercase{\fett{#1}}} % tensors 1. order
+\newcommand{\tenb}[1]{\uppercase{\fett{#1}}} % tensors 2. order
+\newcommand{\tend}[1]{{\uppercase{\fett{\mathcal#1}}}} % tensors 4. Stufe
+\newcommand{\dyad}{\otimes} % dyadic product
+\newcommand{\skp}{\fett{\cdot\,}} % scalar product
+\newcommand{\dskp}{\fett{:\,}} % double scalar product
+\newcommand{\equimust}{\stackrel{\mathrm{!}}{=}}
+\usepackage{xfrac}
+
+
+% Dimensions of the plate
+\newlength{\plx}
+\newlength{\ply}
+\newlength{\plt}
+
+\setlength{\plx}{6pt}
+\setlength{\ply}{6pt}
+\setlength{\plt}{1.5pt}
+
+% Arrow dimensions
+\newlength{\annotdim}
+\setlength{\annotdim}{5.5pt}
+
+\newlength{\annottext}
+\setlength{\annottext}{10pt}
+
+% Force dimension
+\newlength{\forcelen}
+\setlength{\forcelen}{1.5pt}
+
+\newlength{\baselen}
+\setlength{\baselen}{1pt}
+
+% Right-angle annotation 
+\newlength{\ang}
+\setlength{\ang}{0pt}
+\advance \ang by \forcelen
+\divide \ang by 8
+
+
+
+
+%%%%%%%%%%%%%%%%%
+%% RANDOM fibers
+
+\newcommand{\fiber}[3]{
+\begin{scope}[scale=#2, rotate=#3]
+  \coordinate (A) at (#1);
+  \draw[thick] (A)--+(1.8,1.8);
+\end{scope}
+}
+
+\newcommand{\fiberbox}[3]{
+\begingroup
+\coordinate (A) at (#1);
+\draw [very thick,fill=black!10] ($(A)+(-#2,-#2)$) rectangle ($(A)+(#2,#2)$);
+\node [below = 1.25cm of A] {#3};
+\endgroup
+}
+
+\newcommand{\midfiberbox}[3]{
+\begingroup
+\coordinate (A) at (#1);
+\draw [very thick,fill=black!10] ($(A)+(-#2,-#2)$) rectangle ($(A)+(#2,#2)$);
+\node at (A) {#3};
+\endgroup
+}
+
+
+\newcommand{\minorfiber}[2]{
+  \foreach \x in {1,2,...,#2}{
+  \coordinate (b) at ($(#1)+(rand*0.12,rand*0.21)$);
+ \begin{scope}[scale=0.11, rotate=360*rand]
+  \draw[thick] (b) -- + (1.8,1.8);
+ \end{scope}
+   }
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\centering
+\pgfmathsetseed{10}
+\begin{tikzpicture}
+
+
+
+\fiberbox{0,0}{1}{Case 1}
+
+    
+\fiberbox{3,0}{1}{Case 2}
+\fiberbox{2.5,0.5}{0.5}{}
+\fiberbox{3.5,0.5}{0.5}{}
+\fiberbox{2.5,-0.5}{0.5}{}
+
+
+
+\fiberbox{6,0}{1}{Case 3}
+\fiberbox{5.5,0.5}{0.5}{}
+\fiberbox{6.5,0.5}{0.5}{}
+\fiberbox{5.5,-0.5}{0.5}{}
+
+
+\fiberbox{9,0}{1}{Case 4}
+\fiberbox{8.5,0.5}{0.5}{}
+\fiberbox{9.5,0.5}{0.5}{}
+\fiberbox{9.5,-0.5}{0.5}{}
+
+
+\fiberbox{12,0}{1}{Case 5}
+
+
+\minorfiber{2.4,0.5}{10}
+\minorfiber{2.6,-0.5}{10}
+\minorfiber{3.4,0.5}{10}
+\minorfiber{3.5,-0.5}{10}
+
+
+\minorfiber{5.6,0.5}{5}
+\minorfiber{5.6,-0.5}{25}
+\minorfiber{6.4,0.5}{5}
+\minorfiber{6.4,-0.5}{25}
+
+\minorfiber{8.6,0.5}{25}
+\minorfiber{8.6,-0.5}{25}
+\minorfiber{9.5,0.5}{5}
+\minorfiber{9.4,-0.5}{5}
+
+  \foreach \x in {1,2,...,40}{
+    \fiber{rand*4,rand*4}{.12}{rand*360}}
+    
+   
+
+
+\fiberbox{0,-3}{1}{$\zeta_{\text{f}}$}
+\fiberbox{3,-3}{1}{$\zeta_{\text{f}}$}
+\fiberbox{6,-3}{1}{$\zeta_{\text{f}}$}
+\fiberbox{9,-3}{1}{$\zeta_{\text{f}}$}
+\fiberbox{12,-3}{1}{$\zeta_{\text{f}}$}
+
+\midfiberbox{12,-3}{1}{$0.1$}
+
+
+\midfiberbox{0,-3}{1}{$0.1$}
+
+    
+\midfiberbox{3.5,-3.5}{0.5}{$0.1$}
+\midfiberbox{2.5,-2.5}{0.5}{$0.1$}
+\midfiberbox{3.5,-2.5}{0.5}{$0.1$}
+\midfiberbox{2.5,-3.5}{0.5}{$0.1$}
+
+
+
+
+
+\midfiberbox{6.5,-3.5}{0.5}{$0.15$}
+\midfiberbox{5.5,-2.5}{0.5}{$0.05$}
+\midfiberbox{6.5,-2.5}{0.5}{$0.05$}
+\midfiberbox{5.5,-3.5}{0.5}{$0.15$}
+
+
+\midfiberbox{8.5,-3.5}{0.5}{$0.15$}
+\midfiberbox{8.5,-2.5}{0.5}{$0.15$}
+\midfiberbox{9.5,-2.5}{0.5}{$0.05$}
+\midfiberbox{9.5,-3.5}{0.5}{$0.05$}
+
+
+% aligned case
+\foreach \x in {1,2,...,20}
+	{
+	\coordinate (b) at ($(12,0)+(rand*0.7,rand*0.7)$);
+	\begin{scope}[scale=0.12, rotate=2]
+		\draw[thick] (b) -- + (2,2);
+	\end{scope}
+	}
+
+
+\end{tikzpicture}
+
+
+\end{document}

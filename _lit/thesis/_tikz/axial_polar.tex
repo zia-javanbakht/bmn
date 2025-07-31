@@ -1,0 +1,66 @@
+\begin{tikzpicture}[framed]
+
+
+
+
+
+
+
+% the original coordinate system
+\begin{scope}[tdplot_main_coords, black, thick, line cap = round]
+ \draw[] (0,0,0) -- ++(\baselen,0,0) node[anchor=south west] {\contour{white}{$\base_1$}} pic [] {xaxisflat};
+ \draw[] (0,0,0) -- ++(0,\baselen,0) node[anchor=south east] {\contour{white}{$\base_2$}} pic [] {yaxisflat};
+ \draw[] (0,0,0) -- ++(0,0,\baselen) node[anchor=west      ] {\contour{white}{$\base_3$}} pic [] {zaxis};
+\end{scope}
+
+
+\begin{scope}[tdplot_main_coords]
+ % polar vector
+ \draw[thick, purple, thick] (5,0,0) -- +(0,0,\forcelen) pic [] {zaxis} node [black,left, xshift=-10] {$\tena{v}>0$} node [black!50,right, xshift=10]  {$\tena{v}<0$};
+
+ % axial vector
+% \draw[thick, cyan!50!blue] (5.8,0,-2) arc [start angle=-90, end angle=180, radius=0.8] pic [rotate=180] {yaxisflat} node [black,above left, xshift=5] {$\tena{\omega}>0$} node [black!50,above right, xshift=25] {$\tena{\omega}>0$};  
+ 
+ \draw [thick, cyan!50!blue, opacity=0.5, dashed] (5,0,-0.5) -- ++(0,0,-2\forcelen);
+
+ 
+ 
+ \tdplotarc[thick, cyan!50!blue]{(5,0,-2)}{0.8}{-90}{180}{}{}{pic [rotate=180] {yaxisflat} node [black,above left, xshift=5] {$\tena{\omega}>0$} node [black!50,above right, xshift=25] {$\tena{\omega}>0$}}
+ 
+ 
+\end{scope}
+
+% ──────────────────────────────────────────────────────────────────────────────────────────────────
+% define the rotated coordinate system in terms of the main coordinates (left-handed)
+\begin{scope}[tdplot_main_coords]
+ \tikzset{%
+ tdplot_rotated_coords/.style = {x={(1,0,0)},y={(0,1,0)},z={(0,0,-1)}},
+  }
+\end{scope}
+
+% change the origin of the rotated CSYS w/t respect to the screen coordinates
+\coordinate (newO) at (2,0);
+\tdplotsetrotatedcoordsorigin{(newO)}
+
+% \draw[black,dashed, tdplot_screen_coords] (0,0) -- +(6,0);
+
+
+\begin{scope}[tdplot_main_coords]
+\tikzset{%
+% set a left-handed CSYS
+tdplot_rotated_coords/.style = {x={(1,0,0)},y={(0,1,0)},z={(0,0,-1)}, shift = {(-14,-4,8)}  }
+}
+
+
+
+\begin{scope}[tdplot_rotated_coords,thick, line cap = round, black!50]
+ \draw[] (0,0,0) -- ++(\baselen,0,0) node[anchor=north east, distance = -0.2     ] {\color{black!50}\contour{white}{$\base_1$}} pic [] {xaxisflat};
+ \draw[] (0,0,0) -- ++(0,\baselen,0) node[anchor=north west, distance = -0.2     ] {\color{black!50}\contour{white}{$\base_2$}} pic [] {yaxisflat};
+ \draw[] (0,0,0) -- ++(0,0,\baselen) node[anchor=west     ] {\color{black!50}\contour{white}{$\base_3$}} pic [] {zaxis};
+\end{scope}
+%
+
+
+
+\end{scope}
+\end{tikzpicture}
